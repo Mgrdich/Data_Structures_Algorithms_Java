@@ -1,0 +1,4 @@
+create most of the searching algorithms with indexes and partial solutions , include a core sorting algorithm
+and continue on it .
+
+Add some interesting examples as well
