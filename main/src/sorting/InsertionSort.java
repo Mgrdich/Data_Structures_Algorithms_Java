@@ -7,6 +7,9 @@ package sorting;
  * 1. First element is trivially sorted <br/>
  * 2. Second element : if it is smaller than the first one swap <br/>
  * 3. Third element: swap it leftward until it is in the correct position
+ *
+ * worst case:  O(n^2)
+ * best case:  when the array is sorted O(n)
  */
 public class InsertionSort {
 
@@ -18,6 +21,7 @@ public class InsertionSort {
             int j = i;
 
             while (j > 0 && arr[j - 1] > curr) {
+                // more of a shifting than swapping much more efficient
                 arr[j] = arr[j - 1];
                 j--;
             }

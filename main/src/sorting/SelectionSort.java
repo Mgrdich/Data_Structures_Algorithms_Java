@@ -9,7 +9,7 @@ import util.Util;
  * 3. Continue in this way until the whole array is sorted <br></>
  *
  * Algorithmic Complexity and Analysis
- * O(n^2) does not depend on something
+ * best and worst case: O(n^2) does not depend on something
  * */
 public class SelectionSort {
     public static void sort(Integer[] arr) {
