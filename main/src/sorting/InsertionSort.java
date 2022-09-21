@@ -7,7 +7,7 @@ package sorting;
  * 1. First element is trivially sorted <br/>
  * 2. Second element : if it is smaller than the first one swap <br/>
  * 3. Third element: swap it leftward until it is in the correct position
- *
+ * <p>
  * worst case:  O(n^2)
  * best case:  when the array is sorted O(n)
  */
