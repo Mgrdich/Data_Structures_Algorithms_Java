@@ -1,5 +1,7 @@
 package sorting;
 
+import util.Util;
+
 /***
  * Selection sort works in the following way<br></>
  * 1. Find the smallest element , exchange it with the first element in the array <br></>
@@ -10,7 +12,17 @@ package sorting;
  * O(n^2)
  * */
 public class SelectionSort {
-    public static void sort(int[] arr){
+    public static void sort(Integer[] arr) {
+        int n = arr.length;
 
+        for (int i = 0; i < n; i++) {
+            int min = i;
+            for (int j = min + 1; j < n; j++) {
+                if (arr[j] < arr[min]) {
+                    min = j;
+                }
+            }
+            Util.swap(arr, i, min);
+        }
     }
 }
