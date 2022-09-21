@@ -9,13 +9,13 @@ import util.Util;
  * 3. Continue in this way until the whole array is sorted <br></>
  *
  * Algorithmic Complexity and Analysis
- * O(n^2)
+ * O(n^2) does not depend on something
  * */
 public class SelectionSort {
     public static void sort(Integer[] arr) {
         int n = arr.length;
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n - 1; i++) {
             int min = i;
             for (int j = min + 1; j < n; j++) {
                 if (arr[j] < arr[min]) {
