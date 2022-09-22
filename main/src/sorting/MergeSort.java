@@ -6,6 +6,8 @@ import java.util.Arrays;
 /**
  * It uses recursion, and it divides to conquer the sorting
  * its running time is O(nlog(n)) for all the cases
+ *
+ * During the execution it creates a binary tree
  * */
 public class MergeSort {
     public static void sort(Integer[] arr) {
