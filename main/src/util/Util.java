@@ -12,4 +12,28 @@ public class Util {
             System.out.print(t + " ");
         }
     }
+
+    public static int getMax(Integer[] arr) {
+        int max = arr[0];
+
+        for (int j : arr) {
+            if (j > max) {
+                max = j;
+            }
+        }
+
+        return max;
+    }
+
+    public static int getMin(Integer[] arr) {
+        int min = arr[0];
+
+        for (int j : arr) {
+            if (j < min) {
+                min = j;
+            }
+        }
+
+        return min;
+    }
 }
