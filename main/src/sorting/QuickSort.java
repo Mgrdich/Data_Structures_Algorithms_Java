@@ -1,5 +1,7 @@
 package sorting;
 
+import util.Util;
+
 import java.util.Arrays;
 
 /**
@@ -18,6 +20,16 @@ import java.util.Arrays;
  * only reveal the memory optimized one
  * <p>
  * Worst case running is where the pivot is the largest element then we will have a very unequal tree
+ * which will give you the algorithmic complexity of O(n^2)
+ * <p>
+ * <p>
+ * Quick sort in place algorithm
+ * it keeps two pointers one at the start second at the end
+ * it does the operations until they meet
+ * <p>
+ * Scan first index to the right until you find an element >= x
+ * Scan second index to the left until you find an element <= x
+ * Swap at indices for the two pointers
  **/
 public class QuickSort {
     public static void nonMemoryOptimizedSort(Integer[] arr) {
@@ -57,4 +69,35 @@ public class QuickSort {
         System.arraycopy(G, 0, arr, setGFirstIndex, n - setGFirstIndex);
     }
 
+    public static void sort(Integer[] arr) {
+        sort(arr, 0, arr.length);
+    }
+
+    private static void sort(Integer[] arr, int a, int b) {
+        if (a >= b) return;
+
+        int left = a;
+        int right = b - 1;
+        int pivot = arr[b];
+
+        while (left <= right) {
+
+            while (left <= right && arr[left] < pivot) left++;
+
+            while (left <= right && arr[right] > pivot) right--;
+
+            if (left <= right) {
+                Util.swap(arr, left, right);
+                left++;
+                right--;
+            }
+        }
+
+        // put the pivot into the right spot
+        // currently marked by the left index
+        Util.swap(arr, left, b);
+
+        sort(arr, a, left - 1);
+        sort(arr, left + 1, b);
+    }
 }
