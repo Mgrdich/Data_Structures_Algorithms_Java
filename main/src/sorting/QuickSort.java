@@ -86,6 +86,7 @@ public class QuickSort {
 
             while (left <= right && arr[right] > pivot) right--;
 
+            // separate whole loops is make this work after the pivot
             if (left <= right) {
                 // after this swap it means that
                 // <- left is less than the pivot and right -> more than
