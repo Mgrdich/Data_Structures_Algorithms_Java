@@ -45,7 +45,7 @@ public class CircularlyLinkedList<E> {
         rotate();
     }
 
-    public E removeFirst(E element) {
+    public E removeFirst() {
         if (isEmpty()) return null;
         SinglyLinkedListNode<E> head = tail.getNext();
         if (head == tail) {
@@ -58,6 +58,13 @@ public class CircularlyLinkedList<E> {
     }
 
     public void print() {
+        SinglyLinkedListNode<E> curr = tail.getNext();
 
+        while (curr != tail){
+            System.out.print(curr.getElement()+ " ");
+            curr = curr.getNext();
+        }
+        System.out.println(tail.getElement());
+        System.out.println();
     }
 }

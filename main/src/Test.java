@@ -9,5 +9,11 @@ public class Test {
         list.addFirst(3);
         list.addLast(4);
         list.print();
+
+        list.rotate();
+        list.print();
+
+        list.removeFirst();
+        list.print();
     }
 }
