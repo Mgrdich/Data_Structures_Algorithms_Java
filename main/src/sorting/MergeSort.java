@@ -15,12 +15,13 @@ public class MergeSort {
 
         if (n < 2) return;
 
+        // divide
         int mid = n / 2;
 
-        // TODO create a Util alternative Arrays copy of range
         Integer[] arr1 = Arrays.copyOfRange(arr, 0, mid);
         Integer[] arr2 = Arrays.copyOfRange(arr, mid, n);
 
+        // conquer
         sort(arr1);
         sort(arr2);
 
@@ -36,6 +37,7 @@ public class MergeSort {
         int i = 0;
 
         while (i + j < arr.length) {
+            // the equality does what is supposed to do where with this equality opposite is to put elements from j
             if (j == arr2.length || (i < arr1.length && arr1[i] < arr2[j])) {
                 arr[i + j] = arr1[i++];
             } else {
