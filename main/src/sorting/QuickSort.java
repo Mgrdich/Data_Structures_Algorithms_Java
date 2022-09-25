@@ -70,7 +70,7 @@ public class QuickSort {
     }
 
     public static void sort(Integer[] arr) {
-        sort(arr, 0, arr.length);
+        sort(arr, 0, arr.length - 1);
     }
 
     private static void sort(Integer[] arr, int a, int b) {
@@ -87,6 +87,8 @@ public class QuickSort {
             while (left <= right && arr[right] > pivot) right--;
 
             if (left <= right) {
+                // after this swap it means that
+                // <- left is less than the pivot and right -> more than
                 Util.swap(arr, left, right);
                 left++;
                 right--;
