@@ -54,7 +54,7 @@ public class QuickSort {
         // concatenate
         System.arraycopy(L, 0, arr, 0, setLLastIndex);
         System.arraycopy(E, 0, arr, setLLastIndex, setGFirstIndex - setLLastIndex);
-        System.arraycopy(G, 0, arr, setGFirstIndex, n - setLLastIndex);
+        System.arraycopy(G, 0, arr, setGFirstIndex, n - setGFirstIndex);
     }
 
 }
