@@ -28,7 +28,7 @@ public class SinglyLinkedList<E> {
     }
 
     public void addFirst(E e) {
-        head = new SinglyLinkedListNode<>(e, null);
+        head = new SinglyLinkedListNode<>(e, head);
         if (isEmpty()) {
             tail = head;
         }
@@ -57,5 +57,17 @@ public class SinglyLinkedList<E> {
         if (isEmpty()) tail = null;
 
         return returnElement;
+    }
+
+    public void print() {
+        if (isEmpty()) return;
+
+        SinglyLinkedListNode<E> curr = head;
+
+        while (curr != null) {
+            System.out.print(curr.getElement()+ " ");
+            curr = curr.getNext();
+        }
+        System.out.println();
     }
 }

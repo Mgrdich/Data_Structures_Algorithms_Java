@@ -1,13 +1,13 @@
-import sorting.BubbleSort;
-import sorting.InsertionSort;
-import sorting.QuickSort;
-import sorting.SelectionSort;
-import util.Util;
+import data_structure.CircularlyLinkedList;
+import data_structure.SinglyLinkedList;
 
 public class Test {
     public static void main(String[] args) {
-        Integer[] arr = {3, 2, 5, -1, 6, 10, 5};
-        QuickSort.sort(arr);
-        Util.arrayPrint(arr);
+        CircularlyLinkedList<Integer> list = new CircularlyLinkedList<>();
+        list.addFirst(1);
+        list.addFirst(2);
+        list.addFirst(3);
+        list.addLast(4);
+        list.print();
     }
 }
