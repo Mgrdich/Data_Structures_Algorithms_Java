@@ -5,17 +5,17 @@ public class LinkedStack<E> implements Stack<E> {
 
     @Override
     public void push(E e) {
-        linkedList.addFirst(e);
+        linkedList.addLast(e);
     }
 
     @Override
     public E pop() {
-        return linkedList.removeFirst();
+        return linkedList.removeLast();
     }
 
     @Override
     public E top() {
-        return linkedList.first();
+        return linkedList.last();
     }
 
     @Override
