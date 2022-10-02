@@ -1,5 +1,5 @@
 package data_structure;
 
-public interface Stack {
+public interface Stack<E> {
 
 }

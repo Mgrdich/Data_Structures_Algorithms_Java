@@ -1,5 +1,5 @@
 package data_structure;
 
-public interface Queue {
+public interface Queue<E> {
 
 }
