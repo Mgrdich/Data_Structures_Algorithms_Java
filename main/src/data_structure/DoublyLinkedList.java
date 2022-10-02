@@ -72,5 +72,12 @@ public class DoublyLinkedList<E> {
     }
 
     public void print() {
+        DoubleLinkedListNode<E> curr = header.getNext();
+
+        while (curr != null) {
+            System.out.print(curr.getElement());
+            curr = curr.getNext();
+        }
+        System.out.println();
     }
 }
