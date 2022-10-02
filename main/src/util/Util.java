@@ -7,6 +7,13 @@ public class Util {
         a[j] = t;
     }
 
+    /**
+     * a helper method does print all the elements in the array
+     * Algorithmic complexity is O(n) since it iterates over the array once
+     * n is the size of the array
+     *
+     * @param arr and array that you want to print
+     * */
     public static <T> void arrayPrint(T[] arr) {
         for (T t : arr) {
             System.out.print(t + " ");
