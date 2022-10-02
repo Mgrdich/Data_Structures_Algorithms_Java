@@ -2,11 +2,14 @@ package data_structure;
 
 public class DoublyLinkedList<E> {
 
-    private DoubleLinkedListNode<E> header;
-    private DoubleLinkedListNode<E> trailer;
+    private final DoubleLinkedListNode<E> header;
+    private final DoubleLinkedListNode<E> trailer;
     private int size = 0;
 
     public DoublyLinkedList() {
+        header = new DoubleLinkedListNode<>(null, null, null);
+        trailer = new DoubleLinkedListNode<>(null, header, null);
+        header.setNext(trailer);
     }
 
     public int getSize() {
@@ -30,19 +33,42 @@ public class DoublyLinkedList<E> {
     }
 
     public void addFirst(E element) {
+        addBetween(element, header, header.getNext());
     }
 
     public void addLast(E element) {
+        addBetween(element, trailer, trailer.getPrev());
     }
 
-    public void removeFirst(E element) {
+    public E removeFirst(E element) {
+        if (isEmpty()) return null;
+
+        return remove(header.getNext());
     }
 
-    public void removeLast(E element) {
+    public E removeLast(E element) {
+        if (isEmpty()) return null;
+
+        return remove(trailer.getPrev());
     }
 
-    private void addBetween(DoubleLinkedListNode<E> firstNode, DoubleLinkedListNode<E> secondNode) {
+    private void addBetween(E element, DoubleLinkedListNode<E> predecessor, DoubleLinkedListNode<E> successor) {
+        DoubleLinkedListNode<E> newNode = new DoubleLinkedListNode<>(element, predecessor, successor);
 
+        predecessor.setNext(newNode);
+        successor.setPrev(newNode);
+        size++;
+    }
+
+    private E remove(DoubleLinkedListNode<E> toBeDeletedNode) {
+        DoubleLinkedListNode<E> prevNode = toBeDeletedNode.getPrev();
+        DoubleLinkedListNode<E> nextNode = toBeDeletedNode.getNext();
+
+        prevNode.setNext(nextNode);
+        nextNode.setPrev(prevNode);
+        size--;
+
+        return toBeDeletedNode.getElement();
     }
 
     public void print() {

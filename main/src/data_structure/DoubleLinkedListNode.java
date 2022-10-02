@@ -3,7 +3,14 @@ package data_structure;
 public class DoubleLinkedListNode<E> {
     private DoubleLinkedListNode<E> next;
     private DoubleLinkedListNode<E> prev;
-    private E element;
+    private final E element;
+
+    public DoubleLinkedListNode(E e, DoubleLinkedListNode<E> p, DoubleLinkedListNode<E> n) {
+        prev = p;
+        next = n;
+        element = e;
+    }
+
 
     public E getElement() {
         return element;
