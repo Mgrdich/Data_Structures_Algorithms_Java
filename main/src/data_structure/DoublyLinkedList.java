@@ -37,16 +37,16 @@ public class DoublyLinkedList<E> {
     }
 
     public void addLast(E element) {
-        addBetween(element, trailer, trailer.getPrev());
+        addBetween(element, trailer.getPrev(), trailer);
     }
 
-    public E removeFirst(E element) {
+    public E removeFirst() {
         if (isEmpty()) return null;
 
         return remove(header.getNext());
     }
 
-    public E removeLast(E element) {
+    public E removeLast() {
         if (isEmpty()) return null;
 
         return remove(trailer.getPrev());
@@ -74,8 +74,8 @@ public class DoublyLinkedList<E> {
     public void print() {
         DoubleLinkedListNode<E> curr = header.getNext();
 
-        while (curr != null) {
-            System.out.print(curr.getElement());
+        while (curr != trailer) {
+            System.out.print(curr.getElement()+ " ");
             curr = curr.getNext();
         }
         System.out.println();
