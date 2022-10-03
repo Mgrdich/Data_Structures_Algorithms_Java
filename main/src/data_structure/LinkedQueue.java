@@ -28,6 +28,10 @@ public class LinkedQueue<E> implements Queue<E> {
         return linkedList.isEmpty();
     }
 
+    /**
+     * This print prints from the top accessible element to bottom
+     * cause that is the access structure
+     */
     public void print() {
         linkedList.print();
     }

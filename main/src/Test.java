@@ -17,10 +17,20 @@ public class Test {
 
         st.print();
         stl.print();
+
         System.out.println(st.top());
         System.out.println(stl.top());
 
         System.out.println(st.pop());
         System.out.println(stl.pop());
+
+        System.out.println(st.top());
+        System.out.println(stl.top());
+
+        System.out.println(st.pop());
+        System.out.println(stl.pop());
+
+
+
     }
 }

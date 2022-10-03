@@ -51,8 +51,12 @@ public class ArrayStack<E> implements Stack<E> {
     }
 
 
+    /**
+     * This print prints from the top accessible element to bottom
+     * cause that is the access structure
+     * */
     public void print() {
-        for (int i = 0; i <= pointer; i++) {
+        for (int i = pointer; i >= 0; i--) {
             System.out.print(stack[i]+ " ");
         }
         System.out.println();

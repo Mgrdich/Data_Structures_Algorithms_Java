@@ -12,7 +12,6 @@ public class ArrayQueue<E> implements Queue<E> {
         this(CAPACITY);
     }
 
-
     public ArrayQueue(int capacity) {
         queue = (E[]) new Object();
     }
