@@ -1,26 +1,26 @@
 package data_structure;
 
 public class LinkedStack<E> implements Stack<E> {
-    private final DoublyLinkedList<E> linkedList = new DoublyLinkedList<>();
+    private final SinglyLinkedList<E> linkedList = new SinglyLinkedList<>();
 
     @Override
     public void push(E e) {
-        linkedList.addLast(e);
+        linkedList.addFirst(e);
     }
 
     @Override
     public E pop() {
-        return linkedList.removeLast();
+        return linkedList.removeFirst();
     }
 
     @Override
     public E top() {
-        return linkedList.last();
+        return linkedList.first();
     }
 
     @Override
     public int size() {
-        return linkedList.getSize();
+        return linkedList.size();
     }
 
     @Override

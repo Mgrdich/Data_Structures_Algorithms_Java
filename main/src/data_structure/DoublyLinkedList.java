@@ -12,12 +12,12 @@ public class DoublyLinkedList<E> {
         header.setNext(trailer);
     }
 
-    public int getSize() {
+    public int size() {
         return size;
     }
 
     public boolean isEmpty() {
-        return getSize() == 0;
+        return size() == 0;
     }
 
     public E first() {

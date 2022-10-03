@@ -1,7 +1,7 @@
 package data_structure;
 
 public class ArrayStack<E> implements Stack<E> {
-    final static private int CAPACITY = 1000;
+    final static public int CAPACITY = 1000;
     private final E[] stack;
     int pointer = -1;
 
