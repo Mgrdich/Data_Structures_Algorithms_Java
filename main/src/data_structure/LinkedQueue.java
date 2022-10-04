@@ -1,5 +1,7 @@
 package data_structure;
 
+import adt.Queue;
+
 public class LinkedQueue<E> implements Queue<E> {
     SinglyLinkedList<E> linkedList = new SinglyLinkedList<>();
 

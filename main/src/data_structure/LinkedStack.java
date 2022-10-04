@@ -1,5 +1,7 @@
 package data_structure;
 
+import adt.Stack;
+
 public class LinkedStack<E> implements Stack<E> {
     private final SinglyLinkedList<E> linkedList = new SinglyLinkedList<>();
 

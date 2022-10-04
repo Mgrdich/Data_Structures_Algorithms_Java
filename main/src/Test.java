@@ -1,34 +1,31 @@
-import data_structure.ArrayStack;
-import data_structure.DoublyLinkedList;
-import data_structure.LinkedStack;
-import data_structure.Stack;
+import data_structure.*;
 
 public class Test {
     public static void main(String[] args) {
-        ArrayStack<Integer> st = new ArrayStack<>();
-        LinkedStack<Integer> stl = new LinkedStack<>();
+        ArrayQueue<Integer> st = new ArrayQueue<>();
+        LinkedQueue<Integer> stl = new LinkedQueue<>();
 
-        st.push(2);
-        stl.push(2);
-        st.push(3);
-        stl.push(3);
-        st.push(4);
-        stl.push(4);
+        st.enqueue(2);
+        stl.enqueue(2);
+        st.enqueue(3);
+        stl.enqueue(3);
+        st.enqueue(4);
+        stl.enqueue(4);
 
         st.print();
         stl.print();
 
-        System.out.println(st.top());
-        System.out.println(stl.top());
+        System.out.println(st.first());
+        System.out.println(stl.first());
 
-        System.out.println(st.pop());
-        System.out.println(stl.pop());
+        System.out.println(st.dequeue());
+        System.out.println(stl.dequeue());
 
-        System.out.println(st.top());
-        System.out.println(stl.top());
+        System.out.println(st.first());
+        System.out.println(stl.first());
 
-        System.out.println(st.pop());
-        System.out.println(stl.pop());
+        System.out.println(st.dequeue());
+        System.out.println(stl.dequeue());
 
 
 

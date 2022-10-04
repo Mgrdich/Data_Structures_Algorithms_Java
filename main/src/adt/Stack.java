@@ -1,4 +1,4 @@
-package data_structure;
+package adt;
 
 public interface Stack<E> {
     void push(E e);

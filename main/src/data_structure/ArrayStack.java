@@ -1,5 +1,7 @@
 package data_structure;
 
+import adt.Stack;
+
 public class ArrayStack<E> implements Stack<E> {
     final static public int CAPACITY = 1000;
     private final E[] stack;

@@ -1,5 +1,7 @@
 package data_structure;
 
+import adt.Queue;
+
 public class ArrayQueue<E> implements Queue<E> {
 
     final static public int CAPACITY = 1000;
@@ -53,5 +55,8 @@ public class ArrayQueue<E> implements Queue<E> {
     @Override
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    public void print() {
     }
 }
