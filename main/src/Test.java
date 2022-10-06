@@ -1,33 +1,97 @@
+import adt.Deque;
 import data_structure.*;
 
 public class Test {
     public static void main(String[] args) {
-        ArrayQueue<Integer> st = new ArrayQueue<>();
-        LinkedQueue<Integer> stl = new LinkedQueue<>();
+        Deque<Integer> dq = new ArrayDeque<>();
+        Deque<Integer> dq1 = new LinkedDeque<>();
 
-        st.enqueue(2);
-        stl.enqueue(2);
-        st.enqueue(3);
-        stl.enqueue(3);
-        st.enqueue(4);
-        stl.enqueue(4);
+//        dq.addFirst(1);
+//        dq.addLast(2);
+//        dq.addFirst(0);
+//
+//        dq1.addFirst(1);
+//        dq1.addLast(2);
+//        dq1.addFirst(0);
+//
+//        System.out.println(dq.first());
+//        System.out.println(dq1.first());
+//        System.out.println("--");
+//        System.out.println(dq.last());
+//        System.out.println(dq1.last());
+//        System.out.println("--");
+//
+//        System.out.println(dq.removeFirst());
+//        System.out.println(dq1.removeFirst());
+//        System.out.println("--");
+//
+//        System.out.println(dq.first());
+//        System.out.println(dq1.first());
+//
+//        System.out.println("--");
+//        System.out.println(dq.last());
+//        System.out.println(dq1.last());
+//        System.out.println("--");
+//
+//        System.out.println("--");
+//        System.out.println(dq.removeLast());
+//        System.out.println(dq1.removeLast());
+//        System.out.println("--");
+//        System.out.println(dq.removeLast());
+//        System.out.println(dq1.removeLast());
+//        System.out.println("--");
+//        System.out.println(dq.removeLast());
+//        System.out.println(dq1.removeLast());
+//        System.out.println("--");
+//
+//        dq.addFirst(1);
+//        dq1.addFirst(1);
+//        System.out.println(dq.first());
+//        System.out.println(dq1.first());
+//        dq.addLast(2);
+//        dq1.addLast(2);
+//        dq.addLast(2);
+//        dq1.addLast(2);
+//        System.out.println("--");
+//        System.out.println(dq.last());
+//        System.out.println(dq1.last());
 
-        st.print();
-        stl.print();
 
-        System.out.println(st.first());
-        System.out.println(stl.first());
+        dq.addLast(5);
+        dq1.addLast(5);
 
-        System.out.println(st.dequeue());
-        System.out.println(stl.dequeue());
+        dq.addFirst(3);
+        dq1.addFirst(3);
 
-        System.out.println(st.first());
-        System.out.println(stl.first());
+        dq.addFirst(7);
+        dq1.addFirst(7);
 
-        System.out.println(st.dequeue());
-        System.out.println(stl.dequeue());
+        System.out.println("--");
+        System.out.println(dq.first() + " " + dq1.first());
 
+        System.out.println("--");
+        System.out.println(dq.removeLast() + " " + dq1.removeLast());
 
+        System.out.println("--");
+        System.out.println(dq.size() + " " + dq1.size());
 
+        System.out.println("--");
+        System.out.println(dq.removeLast() + " " + dq1.removeLast());
+
+        System.out.println("--");
+        System.out.println(dq.removeFirst() + " " + dq1.removeFirst());
+
+        System.out.println("--");
+        dq.addFirst(6);
+        dq1.addFirst(6);
+        System.out.println(dq.last() + " " + dq1.last());
+
+        System.out.println("--");
+        dq.addFirst(8);
+        dq1.addFirst(8);
+        System.out.println(dq.isEmpty() + " " + dq1.isEmpty());
+
+        System.out.println("--");
+        System.out.println(dq.last() + " " + dq1.last());
     }
 }

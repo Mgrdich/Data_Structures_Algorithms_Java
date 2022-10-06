@@ -4,9 +4,8 @@ import adt.Deque;
 
 public class ArrayDeque<E> implements Deque<E> {
     public static int CAPACITY = 1000;
-    private int first = 0;
-
-    private int last = 0;
+    private int first = -1;
+    private int last = -1;
     private int size = 0;
 
     private final E[] deque;
@@ -21,49 +20,70 @@ public class ArrayDeque<E> implements Deque<E> {
 
     @Override
     public void addFirst(E element) throws IllegalStateException {
-        if (size == size()) throw new IllegalStateException("Out of memory");
+        if (deque.length == size()) throw new IllegalStateException("Out of memory");
 
-        int availableIndex = (first) % deque.length;
-        deque[availableIndex] = element;
-        last = (first + 1) % deque.length;
+        if (isEmpty()) {
+            first = 0;
+            last = 0;
+        } else {
+            first = indexCalculator(first - 1);
+        }
+
+        deque[first] = element;
         size++;
     }
 
     @Override
     public void addLast(E element) throws IllegalStateException {
-        if (size == size()) throw new IllegalStateException("Out of memory");
+        if (deque.length == size()) throw new IllegalStateException("Out of memory");
 
-        int availableIndex = (last) % deque.length;
-        deque[availableIndex] = element;
-        last = (last + 1) % deque.length;
+        if (isEmpty()) {
+            first = 0;
+            last = 0;
+        } else {
+            last = indexCalculator(last + 1);
+        }
+
+        deque[last] = element;
         size++;
     }
 
     @Override
     public E removeFirst() {
         if (isEmpty()) return null;
-
-        E element = deque[first];
-        deque[first] = null; // garbage collection
-
-        first = (first + 1) % deque.length;
         size--;
 
-        return element;
+        E temp = deque[first];
+        deque[first] = null; // garbage collection
+
+        if (isEmpty()) {
+            first = -1;
+            last = -1;
+        } else {
+            first = indexCalculator(first + 1);
+        }
+
+
+        return temp;
     }
 
     @Override
     public E removeLast() {
         if (isEmpty()) return null;
 
-        E element = deque[last];
-        deque[last] = null; // garbage collection
-
-        last = last - 1;
-        last = last == -1 ? deque.length - 1 : last % deque.length;
         size--;
 
-        return element;
+        E temp = deque[last];
+        deque[last] = null; // garbage collection
+
+        if (isEmpty()) {
+            first = -1;
+            last = -1;
+        } else {
+            last = indexCalculator(last - 1);
+        }
+
+        return temp;
     }
 
     @Override
@@ -88,5 +108,9 @@ public class ArrayDeque<E> implements Deque<E> {
     @Override
     public boolean isEmpty() {
         return size() == 0;
+    }
+
+    private int indexCalculator(int num) {
+        return num <= -1 ? deque.length - 1 : num % deque.length;
     }
 }
