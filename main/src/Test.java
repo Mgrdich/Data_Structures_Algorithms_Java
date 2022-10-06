@@ -107,5 +107,10 @@ public class Test {
         db.print();
         System.out.println(db.first());
         System.out.println(db.last());
+
+        db.removeFirst();
+        db.print();
+        db.removeLast();
+        db.print();
     }
 }

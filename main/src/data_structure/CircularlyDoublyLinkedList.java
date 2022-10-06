@@ -54,12 +54,35 @@ public class CircularlyDoublyLinkedList<E> {
         addBetween(element, sentinel.getPrev(), sentinel);
     }
 
+    public E removeFirst() {
+        if (isEmpty()) return null;
+
+        return remove(sentinel.getNext());
+    }
+
+    public E removeLast() {
+        if (isEmpty()) return null;
+
+        return remove(sentinel.getPrev());
+    }
+
     private void addBetween(E element, DoubleLinkedListNode<E> predecessor, DoubleLinkedListNode<E> successor) {
         DoubleLinkedListNode<E> newNode = new DoubleLinkedListNode<>(element, predecessor, successor);
 
         predecessor.setNext(newNode);
         successor.setPrev(newNode);
         size++;
+    }
+
+    private E remove(DoubleLinkedListNode<E> toBeDeletedNode) {
+        DoubleLinkedListNode<E> next = toBeDeletedNode.getNext();
+        DoubleLinkedListNode<E> prev = toBeDeletedNode.getPrev();
+
+        prev.setNext(next);
+        next.setPrev(prev);
+        size--;
+
+        return toBeDeletedNode.getElement();
     }
 
     public void print() {
