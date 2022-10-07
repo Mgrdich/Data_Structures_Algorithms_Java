@@ -173,14 +173,16 @@ public class Test {
 //        e.print();
 //        ReverseQueue.reverse(e);
 
-//        PrintableStack<Integer> st = new LinkedStack<>();
-//        st.push(1);
-//        st.push(2);
-//        st.push(3);
-//        st.push(4);
-//
-//        st.print();
+        PrintableStack<Integer> st = new LinkedStack<>();
+        st.push(1);
+        st.push(2);
+        st.push(3);
+        st.push(4);
+
+        st.print();
 //        ReverseStack.reverse(st);
-//        st.print();
+
+        ReverseStack.reverseMemory(st);
+        st.print();
     }
 }
