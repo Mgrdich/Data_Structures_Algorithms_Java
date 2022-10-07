@@ -26,7 +26,6 @@ public class ReverseStack {
         stack.push(tmp);
     }
 
-
     private static <E> void transfer(Stack<E> stack1, Stack<E> stack2) {
 
         while (stack1.size() != 0) {

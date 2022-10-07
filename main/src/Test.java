@@ -163,26 +163,28 @@ public class Test {
 //        ReverseADoublyLinkedList.printNodes(header);
 
 
-//        PrintableQueue<Integer> e = new LinkedQueue<>();
+        PrintableQueue<Integer> e = new LinkedQueue<>();
+
+        e.enqueue(1);
+        e.enqueue(2);
+        e.enqueue(3);
+        e.enqueue(4);
+
+        e.print();
+        PrintableQueue<Integer> qq = ReverseQueue.getReversed(e);
+        qq.print();
+
+//        PrintableStack<Integer> st = new LinkedStack<>();
+//        st.push(1);
+//        st.push(2);
+//        st.push(3);
+//        st.push(4);
 //
-//        e.enqueue(1);
-//        e.enqueue(2);
-//        e.enqueue(3);
-//        e.enqueue(4);
+//        st.print();
+////        ReverseStack.reverse(st);
 //
-//        e.print();
-//        ReverseQueue.reverse(e);
-
-        PrintableStack<Integer> st = new LinkedStack<>();
-        st.push(1);
-        st.push(2);
-        st.push(3);
-        st.push(4);
-
-        st.print();
-//        ReverseStack.reverse(st);
-
-        ReverseStack.reverseMemory(st);
-        st.print();
+//        ReverseStack.reverseMemory(st);
+//
+//        st.print();
     }
 }
