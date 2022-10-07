@@ -1,8 +1,8 @@
 package data_structure;
 
-import adt.Queue;
+import adt.PrintableQueue;
 
-public class LinkedQueue<E> implements Queue<E> {
+public class LinkedQueue<E> implements PrintableQueue<E> {
     SinglyLinkedList<E> linkedList = new SinglyLinkedList<>();
 
     @Override
