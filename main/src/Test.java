@@ -1,9 +1,7 @@
 import Problems.ReverseADoublyLinkedList;
 import Problems.ReverseQueue;
-import adt.Deque;
-import adt.PrintableQueue;
-import adt.Queue;
-import adt.Stack;
+import Problems.ReverseStack;
+import adt.*;
 import data_structure.*;
 
 public class Test {
@@ -165,15 +163,24 @@ public class Test {
 //        ReverseADoublyLinkedList.printNodes(header);
 
 
-        PrintableQueue<Integer> e = new LinkedQueue<>();
+//        PrintableQueue<Integer> e = new LinkedQueue<>();
+//
+//        e.enqueue(1);
+//        e.enqueue(2);
+//        e.enqueue(3);
+//        e.enqueue(4);
+//
+//        e.print();
+//        ReverseQueue.reverse(e);
 
-        e.enqueue(1);
-        e.enqueue(2);
-        e.enqueue(3);
-        e.enqueue(4);
-
-        e.print();
-        ReverseQueue.reverse(e);
-        e.print();
+//        PrintableStack<Integer> st = new LinkedStack<>();
+//        st.push(1);
+//        st.push(2);
+//        st.push(3);
+//        st.push(4);
+//
+//        st.print();
+//        ReverseStack.reverse(st);
+//        st.print();
     }
 }

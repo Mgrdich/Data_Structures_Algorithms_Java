@@ -1,8 +1,8 @@
 package data_structure;
 
-import adt.Stack;
+import adt.PrintableStack;
 
-public class LinkedStack<E> implements Stack<E> {
+public class LinkedStack<E> implements PrintableStack<E> {
     private final SinglyLinkedList<E> linkedList = new SinglyLinkedList<>();
 
     @Override
