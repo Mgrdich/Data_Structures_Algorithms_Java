@@ -4,7 +4,7 @@ import adt.List;
 
 public class ArrayList<E> implements List<E> {
     public static final int CAPACITY = 16;
-    private final E[] list;
+    private E[] list;
     private int size = 0;
 
     public ArrayList() {
@@ -47,6 +47,8 @@ public class ArrayList<E> implements List<E> {
     public void add(int i, E element) throws IndexOutOfBoundsException {
         sizeChecker(i, size() + 1);
 
+        if (size == list.length) resize(2 * size);
+
         for (int j = size - 1; j >= i; j--) {
             list[j + 1] = list[j];
         }
@@ -77,7 +79,11 @@ public class ArrayList<E> implements List<E> {
     }
 
     protected void resize(int capacity) {
-
+        E[] temp = (E[]) new Object[capacity];
+        for (int i = 0; i < size; i++) {
+            temp[i] = list[i];
+        }
+        list = temp;
     }
 
     public void print() {
