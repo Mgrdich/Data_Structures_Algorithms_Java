@@ -15,7 +15,7 @@ public class ArrayQueue<E> implements Queue<E> {
     }
 
     public ArrayQueue(int capacity) {
-        queue = (E[]) new Object();
+        queue = (E[]) new Object[capacity];
     }
 
     @Override
