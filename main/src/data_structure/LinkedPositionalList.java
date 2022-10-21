@@ -146,6 +146,19 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 
     @Override
     public E remove(Position<E> position) throws IllegalArgumentException {
-        return null;
+        Node<E> node = validate(position);
+        Node<E> prev = node.getPrev();
+        Node<E> next = node.getNext();
+
+        prev.setNext(next);
+        next.setPrev(prev);
+        size--;
+
+        E answer = node.getElement();
+        node.setNext(null);
+        node.setPrev(null);
+        node.setElement(null);
+
+        return answer;
     }
 }
