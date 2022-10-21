@@ -1,5 +1,8 @@
 package util;
 
+import adt.Position;
+import adt.PositionalList;
+
 public class Util {
     public static <T> void swap(T[] a, int i, int j) {
         T t = a[i];
@@ -13,10 +16,19 @@ public class Util {
      * n is the size of the array
      *
      * @param arr and array that you want to print
-     * */
+     */
     public static <T> void arrayPrint(T[] arr) {
         for (T t : arr) {
             System.out.print(t + " ");
+        }
+    }
+
+    public static <T> void printPositionalList(PositionalList<T> arr) {
+        Position<T> curr = arr.first();
+
+        while (curr != null) {
+            System.out.print(curr.getElement()+" ");
+            curr = arr.after(curr);
         }
     }
 

@@ -3,6 +3,7 @@ import Problems.ReverseQueue;
 import Problems.ReverseStack;
 import adt.*;
 import data_structure.*;
+import util.Util;
 
 public class Test {
     public static void main(String[] args) {
@@ -188,13 +189,31 @@ public class Test {
 //        st.print();
 
 
-        ArrayList<Integer> ar = new ArrayList<>();
-
-        ar.add(0,1);
-        ar.add(1,2);
-        ar.add(2,2);
-        ar.push(4);
-
-        ar.print();
+//        ArrayList<Integer> ar = new ArrayList<>();
+//
+//        ar.add(0,1);
+//        ar.add(1,2);
+//        ar.add(2,2);
+//        ar.push(4);
+//
+//        ar.print();
+//
+//        PositionalList<Integer> arr = new LinkedPositionalList<>();
+//        Position<Integer> p = arr.addLast(8);
+//        System.out.println(arr.first() == p);
+//        Position<Integer> q = arr.addAfter(p, 5);
+//        System.out.println(arr.before(q) == p);
+//        Position<Integer> r = arr.addBefore(q, 3);
+//        System.out.println(r.getElement());
+//        System.out.println(arr.after(p) == r);
+//        System.out.println(arr.before(p) == null);
+//        Position<Integer> s = arr.addFirst(9);
+//        System.out.println(arr.remove(arr.last()));
+//
+//        System.out.println(arr.set(p, 7));
+//        Util.printPositionalList(arr);
+//        System.out.println();
+//        arr.remove(q);
+//        Util.printPositionalList(arr);
     }
 }
