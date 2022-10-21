@@ -1,5 +1,7 @@
 package sorting;
 
+import adt.Position;
+import adt.PositionalList;
 import util.Util;
 
 /***
@@ -24,5 +26,34 @@ public class SelectionSort {
             }
             Util.swap(arr, i, min);
         }
+    }
+
+
+    public static void sort(PositionalList<Integer> arr) {
+        int n = arr.size();
+
+        Position<Integer> upperCursor = arr.first();
+        while (n != 0) {
+            Position<Integer> min = upperCursor;
+
+            Position<Integer> embeddedCursor = arr.after(min);
+            while (embeddedCursor != null) {
+                if (min.getElement() > embeddedCursor.getElement()) {
+                    min = embeddedCursor;
+                }
+                embeddedCursor = arr.after(embeddedCursor);
+            }
+
+            if (min == upperCursor) {
+                upperCursor = arr.after(upperCursor);
+            } else {
+                // insert logic here
+                arr.addBefore(upperCursor, min.getElement());
+                arr.remove(min);
+            }
+
+            n--;
+        }
+
     }
 }

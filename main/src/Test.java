@@ -3,6 +3,8 @@ import Problems.ReverseQueue;
 import Problems.ReverseStack;
 import adt.*;
 import data_structure.*;
+import sorting.BubbleSort;
+import sorting.SelectionSort;
 import util.Util;
 
 public class Test {
@@ -215,5 +217,36 @@ public class Test {
 //        System.out.println();
 //        arr.remove(q);
 //        Util.printPositionalList(arr);
+
+
+
+        PositionalList<Integer> arr = new LinkedPositionalList<>();
+
+
+        arr.addFirst(4);
+        arr.addFirst(2);
+        arr.addFirst(5);
+        arr.addFirst(11);
+        arr.addFirst(22);
+        arr.addFirst(1);
+        arr.addFirst(32);
+        Util.printPositionalList(arr);
+
+
+        BubbleSort.sort(arr);
+        System.out.println();
+        Util.printPositionalList(arr);
+        System.out.println();
+
+
+
+        PositionalList<Integer> arr1 = new LinkedPositionalList<>();
+        arr1.addLast(1);
+        arr1.addLast(2);
+        arr1.addLast(3);
+        Util.printPositionalList(arr1);
+        System.out.println();
+        BubbleSort.sort(arr1);
+        Util.printPositionalList(arr1);
     }
 }

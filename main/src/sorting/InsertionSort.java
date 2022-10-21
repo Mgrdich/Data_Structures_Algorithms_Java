@@ -1,5 +1,7 @@
 package sorting;
 
+import adt.PositionalList;
+
 /**
  * The insertion sort proceed by considering one element at a time
  * and putting it in the right order with respect those that are before it <br/>
@@ -27,5 +29,11 @@ public class InsertionSort {
             }
             arr[j] = curr;
         }
+    }
+
+    public static void sort(PositionalList<Integer> arr) {
+        int n = arr.size();
+
+
     }
 }

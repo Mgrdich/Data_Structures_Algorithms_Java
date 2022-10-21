@@ -1,5 +1,7 @@
 package sorting;
 
+import adt.Position;
+import adt.PositionalList;
 import util.Util;
 
 /**
@@ -32,7 +34,36 @@ public class BubbleSort {
     }
 
 
-    public static void sort() {
+    public static void sort(PositionalList<Integer> arr) {
+        int n = arr.size();
 
+        Position<Integer> upperCursor = arr.last(); // host the biggest element position
+
+        while (n != 0) {
+            boolean changed = false;
+            Position<Integer> biggest = upperCursor;
+            Position<Integer> embedded = arr.first();
+
+            while (embedded != upperCursor) {
+                if(embedded.getElement() > biggest.getElement()) {
+                    biggest = embedded;
+                    changed = true;
+                }
+                embedded = arr.after(embedded);
+            }
+
+            if(biggest == upperCursor){
+                upperCursor = arr.before(upperCursor);
+            } else {
+                // insert the biggest at the end
+                arr.addAfter(upperCursor, biggest.getElement());
+                arr.remove(biggest);
+            }
+
+
+            if (!changed) break; // sorted
+
+            n--;
+        }
     }
 }
