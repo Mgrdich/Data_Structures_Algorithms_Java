@@ -4,6 +4,7 @@ import Problems.ReverseStack;
 import adt.*;
 import data_structure.*;
 import sorting.BubbleSort;
+import sorting.InsertionSort;
 import sorting.SelectionSort;
 import util.Util;
 
@@ -233,7 +234,7 @@ public class Test {
         Util.printPositionalList(arr);
 
 
-        BubbleSort.sort(arr);
+        InsertionSort.sort(arr);
         System.out.println();
         Util.printPositionalList(arr);
         System.out.println();
@@ -246,7 +247,7 @@ public class Test {
         arr1.addLast(3);
         Util.printPositionalList(arr1);
         System.out.println();
-        BubbleSort.sort(arr1);
+        InsertionSort.sort(arr1);
         Util.printPositionalList(arr1);
     }
 }

@@ -1,5 +1,6 @@
 package sorting;
 
+import adt.Position;
 import adt.PositionalList;
 
 /**
@@ -32,10 +33,26 @@ public class InsertionSort {
     }
 
     public static void sort(PositionalList<Integer> arr) {
-        int n = arr.size();
 
-        while (n != 0) {
-            n--;
+        Position<Integer> upperCursor = arr.after(arr.first());
+        while (upperCursor != null) {
+            Position<Integer> embeddedCursor = upperCursor;
+            boolean swapped = false;
+
+            while (embeddedCursor != arr.first() && arr.before(embeddedCursor).getElement() > upperCursor.getElement()) {
+                embeddedCursor = arr.before(embeddedCursor);
+                swapped = true;
+            }
+
+            if (swapped) {
+                arr.addBefore(embeddedCursor, upperCursor.getElement());
+                Position<Integer> deleted = upperCursor;
+                upperCursor = arr.after(upperCursor);
+                arr.remove(deleted);
+            } else {
+                upperCursor = arr.after(upperCursor);
+            }
+
         }
     }
 }
