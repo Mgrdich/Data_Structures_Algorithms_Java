@@ -52,6 +52,7 @@ public class BubbleSort {
                 embedded = arr.after(embedded);
             }
 
+            // important step
             if(biggest == upperCursor){
                 upperCursor = arr.before(upperCursor);
             } else {

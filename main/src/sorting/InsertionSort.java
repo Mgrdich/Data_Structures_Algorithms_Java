@@ -34,6 +34,8 @@ public class InsertionSort {
     public static void sort(PositionalList<Integer> arr) {
         int n = arr.size();
 
-
+        while (n != 0) {
+            n--;
+        }
     }
 }

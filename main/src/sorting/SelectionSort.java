@@ -44,7 +44,8 @@ public class SelectionSort {
                 embeddedCursor = arr.after(embeddedCursor);
             }
 
-            if (min == upperCursor) {
+            // important step
+            if (upperCursor == min) {
                 upperCursor = arr.after(upperCursor);
             } else {
                 // insert logic here
