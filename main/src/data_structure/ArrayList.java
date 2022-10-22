@@ -2,6 +2,9 @@ package data_structure;
 
 import adt.List;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class ArrayList<E> implements List<E> {
     public static final int CAPACITY = 16;
     private E[] list;
@@ -15,7 +18,6 @@ public class ArrayList<E> implements List<E> {
     public ArrayList(int capacity) {
         list = (E[]) new Object[capacity];
     }
-
 
     @Override
     public boolean isEmpty() {
@@ -50,9 +52,7 @@ public class ArrayList<E> implements List<E> {
 
         if (size == list.length) resize(2 * size);
 
-        for (int j = size - 1; j >= i; j--) {
-            list[j + 1] = list[j];
-        }
+        if (size - i >= 0) System.arraycopy(list, i, list, i + 1, size - i);
         list[i] = element;
         size++;
     }
@@ -67,9 +67,7 @@ public class ArrayList<E> implements List<E> {
 
         E temp = list[i];
 
-        for (int j = i; j >= i; j--) {
-            list[j] = list[j + 1];
-        }
+        System.arraycopy(list, i + 1, list, i, i + 1 - i);
         size--;
         return temp;
     }
@@ -82,15 +80,29 @@ public class ArrayList<E> implements List<E> {
     @SuppressWarnings("unchecked")
     protected void resize(int capacity) {
         E[] temp = (E[]) new Object[capacity];
-        for (int i = 0; i < size; i++) {
-            temp[i] = list[i];
-        }
+        if (size >= 0) System.arraycopy(list, 0, temp, 0, size);
         list = temp;
     }
 
     public void print() {
         for (int i = 0; i < size(); i++) {
             System.out.print(list[i] + " ");
+        }
+    }
+
+    private class ArrayIterator implements Iterator<E> {
+        private int j = 0;
+
+        @Override
+        public boolean hasNext() {
+            return j < size;
+        }
+
+        @Override
+        public E next() throws NoSuchElementException {
+            if (j == size) throw new NoSuchElementException("No next element");
+            boolean removable = true;
+            return list[j++];
         }
     }
 }
