@@ -71,6 +71,22 @@ public class DoublyLinkedList<E> {
         return toBeDeletedNode.getElement();
     }
 
+    public String toString() {
+        StringBuilder str = new StringBuilder("(");
+        DoubleLinkedListNode<E> curr = header.getNext();
+
+        while (curr != trailer) {
+            str.append(curr.getElement());
+            if (curr != trailer.getPrev()) {
+                str.append(", ");
+            }
+            curr = curr.getNext();
+        }
+        str.append(")");
+
+        return str.toString();
+    }
+
     public void print() {
         DoubleLinkedListNode<E> curr = header.getNext();
 
