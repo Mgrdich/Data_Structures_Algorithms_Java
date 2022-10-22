@@ -11,6 +11,7 @@ public class ArrayList<E> implements List<E> {
         this(CAPACITY);
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
         list = (E[]) new Object[capacity];
     }
@@ -78,6 +79,7 @@ public class ArrayList<E> implements List<E> {
         if (i < 0 || i >= n) throw new IndexOutOfBoundsException("Out of bounds");
     }
 
+    @SuppressWarnings("unchecked")
     protected void resize(int capacity) {
         E[] temp = (E[]) new Object[capacity];
         for (int i = 0; i < size; i++) {

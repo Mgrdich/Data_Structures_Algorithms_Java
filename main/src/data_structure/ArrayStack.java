@@ -10,7 +10,7 @@ public class ArrayStack<E> implements Stack<E> {
     public ArrayStack() {
         this(CAPACITY);
     }
-
+    @SuppressWarnings("unchecked")
     public ArrayStack(int capacity) {
         stack = (E[]) new Object[capacity];
     }

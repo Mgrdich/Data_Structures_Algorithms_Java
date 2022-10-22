@@ -14,6 +14,7 @@ public class ArrayDeque<E> implements Deque<E> {
         this(CAPACITY);
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayDeque(int capacity) {
         deque = (E[]) new Object[capacity];
     }
