@@ -90,9 +90,13 @@ public class ArrayList<E> implements List<E> {
         }
     }
 
+    public Iterator<E> iterator() {
+        return new ArrayIterator();
+    }
+
     private class ArrayIterator implements Iterator<E> {
         private int j = 0;
-
+        private boolean removable = false;
         @Override
         public boolean hasNext() {
             return j < size;
@@ -101,8 +105,15 @@ public class ArrayList<E> implements List<E> {
         @Override
         public E next() throws NoSuchElementException {
             if (j == size) throw new NoSuchElementException("No next element");
-            boolean removable = true;
+            removable = true;
             return list[j++];
+        }
+
+        public void remove() throws IllegalStateException {
+            if (!removable) throw new IllegalStateException("nothing to remove");
+            ArrayList.this.remove(j - 1);
+            j--;
+            removable = false;
         }
     }
 }
