@@ -3,6 +3,10 @@ package data_structure;
 import adt.Position;
 import adt.PositionalList;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class ArrayPositionalListOfIntegers implements PositionalList<Integer> {
     private static class IndexedPosition implements Position<Integer> {
         private int index;
@@ -175,10 +179,14 @@ public class ArrayPositionalListOfIntegers implements PositionalList<Integer> {
         int index = positionNode.getIndex();
         Integer element = position.getElement();
 
-        for (int i = index; i < size; i++) {
+        for (int i = index; i < size - 1; i++) {
             list[i] = list[i + 1];
             list[i].setIndex(i);
         }
+        if (index == size - 1) {
+            list[index] = null; // garbage collector
+        }
+
         size--;
 
         positionNode.setElement(null); // garbage collector
@@ -200,5 +208,108 @@ public class ArrayPositionalListOfIntegers implements PositionalList<Integer> {
         stringBuilder.append(")");
 
         return stringBuilder.toString();
+    }
+
+
+    private static void swap(IndexedPosition[] arr, int left, int right) {
+        Integer posTemp = arr[left].getElement(); // be-aware not to store the reference here s
+        arr[left].setElement(arr[right].getElement());
+        arr[right].setElement(posTemp);
+    }
+
+    public void sort() {
+        sort(list, size);
+    }
+
+    /**
+     * Custom sort for IndexPosition that uses
+     **/
+    public static void sort(IndexedPosition[] arr, int size) {
+        sort(arr, 0, size - 1);
+    }
+
+    /**
+     * quick sort adaptation taken from the lecture only the swap is replaced with a functionality util
+     */
+    private static void sort(IndexedPosition[] arr, int a, int b) {
+        if (a >= b) return;
+
+        int left = a;
+        int right = b - 1;
+        int pivot = arr[b].getElement();
+
+        while (left <= right) {
+
+            while (left <= right && arr[left].getElement() < pivot) left++;
+
+            while (left <= right && arr[right].getElement() > pivot) right--;
+
+            // separate whole loops is make this work after the pivot
+            if (left <= right) {
+                // after this swap it means that
+                // <- left is less than the pivot and right -> more than
+                swap(arr, left, right);
+                left++;
+                right--;
+            }
+        }
+
+        // put the pivot into the right spot
+        // currently marked by the left index
+        swap(arr, left, b);
+
+        sort(arr, a, left - 1);
+        sort(arr, left + 1, b);
+    }
+
+    private class PositionIndexIterator implements Iterator<Position<Integer>> {
+        private int j = 0;
+        private final IndexedPosition[] snapshot;
+
+        public PositionIndexIterator() {
+            snapshot = Arrays.copyOfRange(list, 0, size);
+            sort(snapshot, size); //sorted O(n * log(n))
+        }
+
+        @Override
+        public boolean hasNext() {
+            return j < size();
+        }
+
+        @Override
+        public Position<Integer> next() throws NoSuchElementException {
+            if (j == size) throw new NoSuchElementException("No next element");
+            return snapshot[j++];
+        }
+    }
+
+    private class PositionIndexIterable implements Iterable<Position<Integer>> {
+        @Override
+        public Iterator<Position<Integer>> iterator() {
+            return new PositionIndexIterator();
+        }
+    }
+
+    private class ElementIterator implements Iterator<Integer> {
+        Iterator<Position<Integer>> positionIterator = new PositionIndexIterator();
+
+        @Override
+        public boolean hasNext() {
+            return positionIterator.hasNext();
+        }
+
+        @Override
+        public Integer next() {
+            return positionIterator.next().getElement();
+        }
+    }
+
+    @Override
+    public Iterator<Integer> iterator() {
+        return new ElementIterator();
+    }
+
+    public Iterable<Position<Integer>> positions() {
+        return new PositionIndexIterable();
     }
 }

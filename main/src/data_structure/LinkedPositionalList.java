@@ -6,7 +6,7 @@ import adt.PositionalList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedPositionalList<E> implements PositionalList<E>, Iterable<E> {
+public class LinkedPositionalList<E> implements PositionalList<E> {
 
     private static class Node<E> implements Position<E> {
         private Node<E> next;

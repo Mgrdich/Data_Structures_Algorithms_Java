@@ -5,7 +5,7 @@ import adt.List;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayList<E> implements List<E>, Iterable<E> {
+public class ArrayList<E> implements List<E> {
     public static final int CAPACITY = 16;
     private E[] list;
     private int size = 0;

@@ -1,6 +1,6 @@
 package adt;
 
-public interface List<E> {
+public interface List<E> extends Iterable<E> {
     boolean isEmpty();
 
     int size();

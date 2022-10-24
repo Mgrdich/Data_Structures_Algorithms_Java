@@ -1,6 +1,6 @@
 package adt;
 
-public interface PositionalList<E> {
+public interface PositionalList<E> extends Iterable<E> {
     int size();
     boolean isEmpty();
 
