@@ -128,13 +128,13 @@ public class LinkedPositionalList<E> implements PositionalList<E>, Iterable<E> {
     }
 
     @Override
-    public Position<E> addBefore(Position<E> position, E element) {
+    public Position<E> addBefore(Position<E> position, E element) throws IllegalArgumentException{
         Node<E> node = validate(position);
         return addBetween(element, node.getPrev(), node);
     }
 
     @Override
-    public Position<E> addAfter(Position<E> position, E element) {
+    public Position<E> addAfter(Position<E> position, E element) throws IllegalArgumentException {
         Node<E> node = validate(position);
         return addBetween(element, node, node.getNext());
     }
