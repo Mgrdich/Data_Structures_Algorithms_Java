@@ -263,7 +263,7 @@ public class ArrayPositionalListOfIntegers implements PositionalList<Integer> {
     }
 
     private class PositionIndexIterator implements Iterator<Position<Integer>> {
-        private int j = 0;
+        private int j = size - 1;
         private final IndexedPosition[] snapshot;
 
         public PositionIndexIterator() {
@@ -273,13 +273,13 @@ public class ArrayPositionalListOfIntegers implements PositionalList<Integer> {
 
         @Override
         public boolean hasNext() {
-            return j < size();
+            return j >= 0;
         }
 
         @Override
         public Position<Integer> next() throws NoSuchElementException {
-            if (j == size) throw new NoSuchElementException("No next element");
-            return snapshot[j++];
+            if (j < 0) throw new NoSuchElementException("No next element");
+            return snapshot[j--];
         }
     }
 
