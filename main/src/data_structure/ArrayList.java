@@ -84,10 +84,18 @@ public class ArrayList<E> implements List<E> {
         list = temp;
     }
 
-    public void print() {
-        for (int i = 0; i < size(); i++) {
-            System.out.print(list[i] + " ");
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("(");
+        for (int i = 0; i < size; i++) {
+            stringBuilder.append(list[i]);
+            if(i != size -1) {
+                stringBuilder.append(", ");
+            }
         }
+        stringBuilder.append(")");
+
+        return stringBuilder.toString();
     }
 
     public Iterator<E> iterator() {
