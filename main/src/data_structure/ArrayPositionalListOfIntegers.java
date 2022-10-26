@@ -54,7 +54,7 @@ public class ArrayPositionalListOfIntegers implements PositionalList<Integer> {
         if (!(position instanceof IndexedPosition positionNode))
             throw new IllegalArgumentException("An invalid Argument");
 
-        if (positionNode.getElement() == -1) throw new IllegalArgumentException("is no longer valid position");
+        if (positionNode.getIndex() == -1) throw new IllegalArgumentException("is no longer valid position");
 
         return positionNode;
     }
