@@ -128,12 +128,12 @@ public class DoublyLinkedListExtended<E> implements Iterable<E> {
     /**
      * to get the illusion that the cursor is between element let the prev be the cursor element
      * and the next element will be called with the getNext call hence that is why hasPrevious
-     * */
+     */
     private class DoublyLinkedListIterator implements ListIterator<E> {
         DoubleLinkedListNode<E> curr = header;
         boolean removable = false;
-        boolean hasBeenPrev = false;
-        int j = -1;
+        boolean hasBeenPrev = false; // whether last iteration was a previous
+        int j = 0;
 
         @Override
         public boolean hasNext() {
@@ -173,32 +173,44 @@ public class DoublyLinkedListExtended<E> implements Iterable<E> {
 
         @Override
         public int nextIndex() {
+            if (j >= size) return j;
+
             return j + 1;
         }
 
         @Override
         public int previousIndex() {
-            if (j == -1) return -1;
-
             return j - 1;
         }
 
         @Override
         public void remove() throws IllegalStateException {
             if (!removable) throw new IllegalStateException("nothing to remove");
+
+            DoubleLinkedListNode<E> toBeDeleted;
+
+            if (hasBeenPrev) {
+                toBeDeleted = curr.getNext();
+            } else {
+                toBeDeleted = curr;
+            }
+
+            DoublyLinkedListExtended.this.remove(toBeDeleted);
             removable = false;
-            DoubleLinkedListNode<E> prev = curr.getPrev();
-            DoublyLinkedListExtended.this.remove(curr);
-            curr = prev;
+            hasBeenPrev = false;
             j--;
         }
 
         @Override
         public void set(E e) throws IllegalStateException {
-            DoubleLinkedListNode<E> cursor = curr;
-            if(hasBeenPrev) {
-                cursor  = curr.getNext();
+            DoubleLinkedListNode<E> cursor;
+
+            if (hasBeenPrev) {
+                cursor = curr.getNext();
+            } else {
+                cursor = curr;
             }
+
             if (cursor == header) throw new IllegalStateException("Nothing to set");
             cursor.setElement(e);
         }
@@ -211,6 +223,7 @@ public class DoublyLinkedListExtended<E> implements Iterable<E> {
             prev.setNext(curr);
             next.setPrev(curr);
             removable = true; // you can remove added element on the spot for some reason
+            hasBeenPrev = false; // not specified in the document
             j++;
         }
     }
