@@ -273,35 +273,39 @@ public class Test {
         it.add(67);
         System.out.println(list);
         System.out.println(it.previous()); // the added element
+        it.set(69);
+        System.out.println(list);
         System.out.println(it.previous());
 
-        System.out.println(it.next()); // the added element
-        System.out.println(it.next()); // the added element
-        it.remove();
-        System.out.println(list);
-        try {
-            it.remove();
-        } catch (IllegalStateException err) {
-            System.out.println("neither next nor previous is called");
-        }
-        System.out.println(it.next());
-        System.out.println(it.next());
-
-        try {
-            it.next();
-        } catch (NoSuchElementException err) {
-            System.out.println("No Such element");
-        }
-        System.out.println(it.hasNext());
-
-
-        System.out.println(list);
-        ListIterator<Integer> it2 = list.iterator();
-        while (it2.hasNext()) {
-            System.out.print(it2.next() + " ");
-        }
-        while (it2.hasPrevious()) {
-            System.out.print(it2.previous() + " ");
-        }
+//        System.out.println(it.next()); // the added element
+//        System.out.println(it.next()); // the added element
+//        it.remove();
+//        System.out.println(list);
+//        try {
+//            it.remove();
+//        } catch (IllegalStateException err) {
+//            System.out.println("neither next nor previous is called");
+//        }
+//        System.out.println(it.next());
+//        System.out.println(it.next());
+//
+//        try {
+//            it.next();
+//        } catch (NoSuchElementException err) {
+//            System.out.println("No Such element");
+//        }
+//        System.out.println(it.hasNext());
+//
+//
+//        System.out.println(list);
+//        ListIterator<Integer> it2 = list.iterator();
+//        while (it2.hasNext()) {
+//            System.out.print(it2.next() + " ");
+//        }
+//
+//        System.out.println();
+//        while (it2.hasPrevious()) {
+//            System.out.print(it2.previous() + " ");
+//        }
     }
 }

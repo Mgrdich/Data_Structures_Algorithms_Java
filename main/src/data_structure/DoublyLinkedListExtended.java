@@ -15,7 +15,6 @@ public class DoublyLinkedListExtended<E> implements Iterable<E> {
             element = e;
         }
 
-
         public E getElement() {
             return element;
         }
@@ -126,16 +125,19 @@ public class DoublyLinkedListExtended<E> implements Iterable<E> {
         return str.toString();
     }
 
+    /**
+     * to get the illusion that the cursor is between element let the prev be the cursor element
+     * and the next element will be called with the getNext call hence that is why hasPrevious
+     * */
     private class DoublyLinkedListIterator implements ListIterator<E> {
         DoubleLinkedListNode<E> curr = header;
         boolean removable = false;
-        boolean added = false;
+        boolean hasBeenPrev = false;
         int j = -1;
 
         @Override
         public boolean hasNext() {
-            DoubleLinkedListNode<E> next = curr.getNext();
-            return next != null && next != trailer; // null for the initial case
+            return curr.getNext() != trailer;
         }
 
         @Override
@@ -144,32 +146,29 @@ public class DoublyLinkedListExtended<E> implements Iterable<E> {
             if (next == trailer) throw new NoSuchElementException("no such element");
             curr = next;
             removable = true;
-            added = false;
+            hasBeenPrev = false;
             j++;
             return next.getElement();
         }
 
         @Override
         public boolean hasPrevious() {
-            DoubleLinkedListNode<E> prev = curr.getPrev();
-            return prev != null && prev != header; // null for the initial case
+            return curr != header; // null for the initial case
         }
 
         @Override
         public E previous() throws NoSuchElementException {
-            DoubleLinkedListNode<E> prev = curr.getPrev();
-            if (prev == header) throw new NoSuchElementException("no such element");
+            if (curr == header) throw new NoSuchElementException("no such element");
             j--;
 
-            if (added) {
-                added = false;
-                return curr.getElement();
-            }
 
-            curr = prev;
+            DoubleLinkedListNode<E> temp = curr;
+
+            curr = curr.getPrev();
+            hasBeenPrev = true;
             removable = true;
 
-            return prev.getElement();
+            return temp.getElement();
         }
 
         @Override
@@ -196,8 +195,12 @@ public class DoublyLinkedListExtended<E> implements Iterable<E> {
 
         @Override
         public void set(E e) throws IllegalStateException {
-            if (curr == header) throw new IllegalStateException("Nothing to set");
-            curr.setElement(e);
+            DoubleLinkedListNode<E> cursor = curr;
+            if(hasBeenPrev) {
+                cursor  = curr.getNext();
+            }
+            if (cursor == header) throw new IllegalStateException("Nothing to set");
+            cursor.setElement(e);
         }
 
         @Override
@@ -207,7 +210,7 @@ public class DoublyLinkedListExtended<E> implements Iterable<E> {
             curr = new DoubleLinkedListNode<>(e, prev, next); // so that pointer will be specified on it
             prev.setNext(curr);
             next.setPrev(curr);
-            added = true; // flag to keep the right position
+            removable = true; // you can remove added element on the spot for some reason
             j++;
         }
     }
