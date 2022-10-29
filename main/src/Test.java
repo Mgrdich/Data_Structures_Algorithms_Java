@@ -254,76 +254,75 @@ public class Test {
 //        Util.printPositionalList(arr1);
 
 
-        DoublyLinkedListExtended<Integer> list = new DoublyLinkedListExtended<>();
-        list.addLast(1);
-        list.addLast(2);
-        list.addLast(3);
-        list.addLast(4);
-        list.addLast(5);
-        System.out.println(list);
-
-        ListIterator<Integer> it = list.iterator();
-
-        System.out.println("index=" + it.previousIndex());
-        System.out.println(it.hasPrevious());
-        System.out.println(it.next());
-        System.out.println(it.next());
-        System.out.println("index=" + it.nextIndex());
-        System.out.println("index=" + it.previousIndex());
-        it.set(66);
-        System.out.println(list); // shows 66 override 2
-        System.out.println(it.previous());
-        it.add(67);
-        System.out.println(list);
-        System.out.println(it.previous()); // the added element
-        it.set(69);
-        System.out.println(list);
-        System.out.println(it.previous());
-        System.out.println(it.hasPrevious());
+//        DoublyLinkedListExtended<Integer> list = new DoublyLinkedListExtended<>();
+//        list.addLast(1);
+//        list.addLast(2);
+//        list.addLast(3);
+//        list.addLast(4);
+//        list.addLast(5);
+//        System.out.println(list);
 //
-        System.out.println(it.next());
-        System.out.println(it.next());
-        it.remove();
-        System.out.println(list);
-
-        try {
-            it.remove();
-        } catch (IllegalStateException err) {
-            System.out.println("neither next nor previous is called");
-        }
-        System.out.println(it.next());
-        System.out.println(it.next());
-        System.out.println(it.next());
-        System.out.println(it.next());
-
-        System.out.println(it.hasNext());
-        System.out.println("next index=" + it.nextIndex());
-
-        try {
-            it.next();
-        } catch (NoSuchElementException err) {
-            System.out.println("no such elements");
-        }
-
-        System.out.println(it.previous());
-        it.set(666);
-        System.out.println(list);
-        it.remove();
-        System.out.println(list);
-        it.add(6666);
-        System.out.println(list);
-
-        System.out.println(list);
-        ListIterator<Integer> it2 = list.iterator();
-        while (it2.hasNext()) {
-            System.out.print(it2.next() + " ");
-        }
-
-        System.out.println();
-        while (it2.hasPrevious()) {
-            System.out.print(it2.previous() + " ");
-        }
-
+//        ListIterator<Integer> it = list.iterator();
+//
+//        System.out.println("index=" + it.previousIndex());
+//        System.out.println(it.hasPrevious());
+//        System.out.println(it.next());
+//        System.out.println(it.next());
+//        System.out.println("index=" + it.nextIndex());
+//        System.out.println("index=" + it.previousIndex());
+//        it.set(66);
+//        System.out.println(list); // shows 66 override 2
+//        System.out.println(it.previous());
+//        it.add(67);
+//        System.out.println(list);
+//        System.out.println(it.previous()); // the added element
+//        it.set(69);
+//        System.out.println(list);
+//        System.out.println(it.previous());
+//        System.out.println(it.hasPrevious());
+////
+//        System.out.println(it.next());
+//        System.out.println(it.next());
+//        it.remove();
+//        System.out.println(list);
+//
+//        try {
+//            it.remove();
+//        } catch (IllegalStateException err) {
+//            System.out.println("neither next nor previous is called");
+//        }
+//        System.out.println(it.next());
+//        System.out.println(it.next());
+//        System.out.println(it.next());
+//        System.out.println(it.next());
+//
+//        System.out.println(it.hasNext());
+//        System.out.println("next index=" + it.nextIndex());
+//
+//        try {
+//            it.next();
+//        } catch (NoSuchElementException err) {
+//            System.out.println("no such elements");
+//        }
+//
+//        System.out.println(it.previous());
+//        it.set(666);
+//        System.out.println(list);
+//        it.remove();
+//        System.out.println(list);
+//        it.add(6666);
+//        System.out.println(list);
+//
+//        System.out.println(list);
+//        ListIterator<Integer> it2 = list.iterator();
+//        while (it2.hasNext()) {
+//            System.out.print(it2.next() + " ");
+//        }
+//
+//        System.out.println();
+//        while (it2.hasPrevious()) {
+//            System.out.print(it2.previous() + " ");
+//        }
 
     }
 }
