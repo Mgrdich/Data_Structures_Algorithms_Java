@@ -57,7 +57,8 @@ public class ArrayList<E> implements List<E> {
         size++;
     }
 
-    public void push(E element) {
+    @Override
+    public void add(E element) {
         add(size(), element);
     }
 
@@ -72,6 +73,10 @@ public class ArrayList<E> implements List<E> {
         return temp;
     }
 
+    @Override
+    public E remove() throws IndexOutOfBoundsException {
+        return remove(size() - 1);
+    }
 
     private void sizeChecker(int i, int n) throws IndexOutOfBoundsException {
         if (i < 0 || i >= n) throw new IndexOutOfBoundsException("Out of bounds");
@@ -89,7 +94,7 @@ public class ArrayList<E> implements List<E> {
         StringBuilder stringBuilder = new StringBuilder("(");
         for (int i = 0; i < size; i++) {
             stringBuilder.append(list[i]);
-            if(i != size -1) {
+            if (i != size - 1) {
                 stringBuilder.append(", ");
             }
         }
@@ -105,6 +110,7 @@ public class ArrayList<E> implements List<E> {
     private class ArrayIterator implements Iterator<E> {
         private int j = 0;
         private boolean removable = false;
+
         @Override
         public boolean hasNext() {
             return j < size;

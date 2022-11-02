@@ -11,5 +11,9 @@ public interface List<E> extends Iterable<E> {
 
     void add(int i, E element) throws IndexOutOfBoundsException;
 
+    void add(E element);
+
     E remove(int i) throws IndexOutOfBoundsException;
+
+    E remove() throws IndexOutOfBoundsException;
 }
