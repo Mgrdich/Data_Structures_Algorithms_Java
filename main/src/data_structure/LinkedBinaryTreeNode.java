@@ -4,11 +4,11 @@ import adt.Position;
 
 public class LinkedBinaryTreeNode<E> implements Position<E> {
     private E element;
-    private LinkedBinaryTree<E> right;
-    private LinkedBinaryTree<E> left;
-    private LinkedBinaryTree<E> parent;
+    private LinkedBinaryTreeNode<E> right;
+    private LinkedBinaryTreeNode<E> left;
+    private LinkedBinaryTreeNode<E> parent;
 
-    public LinkedBinaryTreeNode(E element, LinkedBinaryTree<E> parent, LinkedBinaryTree<E> left, LinkedBinaryTree<E> right) {
+    public LinkedBinaryTreeNode(E element, LinkedBinaryTreeNode<E> parent, LinkedBinaryTreeNode<E> left, LinkedBinaryTreeNode<E> right) {
         this.element = element;
         this.parent = parent;
         this.left = left;
@@ -20,15 +20,15 @@ public class LinkedBinaryTreeNode<E> implements Position<E> {
         return null;
     }
 
-    public LinkedBinaryTree<E> getLeft() {
+    public LinkedBinaryTreeNode<E> getLeft() {
         return left;
     }
 
-    public LinkedBinaryTree<E> getRight() {
+    public LinkedBinaryTreeNode<E> getRight() {
         return right;
     }
 
-    public LinkedBinaryTree<E> getParent() {
+    public LinkedBinaryTreeNode<E> getParent() {
         return parent;
     }
 
@@ -36,15 +36,15 @@ public class LinkedBinaryTreeNode<E> implements Position<E> {
         this.element = element;
     }
 
-    public void setLeft(LinkedBinaryTree<E> left) {
+    public void setLeft(LinkedBinaryTreeNode<E> left) {
         this.left = left;
     }
 
-    public void setRight(LinkedBinaryTree<E> right) {
+    public void setRight(LinkedBinaryTreeNode<E> right) {
         this.right = right;
     }
 
-    public void setParent(LinkedBinaryTree<E> parent) {
+    public void setParent(LinkedBinaryTreeNode<E> parent) {
         this.parent = parent;
     }
 }
