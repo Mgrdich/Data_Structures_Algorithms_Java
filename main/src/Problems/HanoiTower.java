@@ -1,18 +1,18 @@
 package Problems;
 
 public class HanoiTower {
-    static void show(int n, String from_rod, String to_rod, String aux_rod) {
+    public static void show(int n, String from_rod, String to_rod, String aux_rod) {
         if (n == 0) {
             return;
         }
         show(n - 1, from_rod, aux_rod, to_rod);
         System.out.print(from_rod);
         System.out.print(to_rod);
-//        System.out.print('-');
+        System.out.print('-');
         show(n - 1, aux_rod, to_rod, from_rod);
     }
 
-    static String printNthMove(int n, String from_rod, String to_rod, String aux_rod, int goal) {
+    public static String printNthMove(int n, String from_rod, String to_rod, String aux_rod, int goal) {
         double num = Math.pow(2, n) - 1;
 
         int halvedValue = (int) (num / 2);

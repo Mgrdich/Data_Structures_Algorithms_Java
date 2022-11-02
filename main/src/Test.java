@@ -1,3 +1,4 @@
+import Problems.HanoiTower;
 import Problems.ReverseADoublyLinkedList;
 import Problems.ReverseQueue;
 import Problems.ReverseStack;
@@ -324,5 +325,8 @@ public class Test {
 //            System.out.print(it2.previous() + " ");
 //        }
 
+        HanoiTower.show(4,"0","1","2");
+        System.out.println();
+        System.out.println(HanoiTower.printNthMove(4,"0","1","2",4));
     }
 }
