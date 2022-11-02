@@ -23,4 +23,20 @@ public abstract class AbstractTree<E> implements Tree<E> {
     public boolean isInternal(Position<E> node) throws IllegalArgumentException {
         return numChildren(node) > 0;
     }
+
+    int depth(Position<E> node) {
+        if (isRoot(node)) {
+            return 0;
+        }
+
+        return 1 + depth(node);
+    }
+
+    int height(Position<E> node) {
+        int h = 0;
+        for (Position<E> child : children(node)) {
+            h = Math.max(h, 1 + height(node));
+        }
+        return h;
+    }
 }
