@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 
-    private LinkedBinaryTree<E> root;
+    private LinkedBinaryTreeNode<E> root;
     private int size = 0;
 
     protected LinkedBinaryTreeNode<E> createNode(E element, LinkedBinaryTreeNode<E> parent, LinkedBinaryTreeNode<E> left, LinkedBinaryTreeNode<E> right) {
@@ -25,29 +25,33 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
     }
 
     @Override
-    public Position<E> left(Position<E> node) throws IllegalArgumentException {
-        return null;
-    }
-
-    @Override
-    public Position<E> right(Position<E> node) throws IllegalArgumentException {
-        return null;
+    public int size() {
+        return size;
     }
 
     @Override
     public Position<E> root() {
-        return null;
+        return root;
     }
 
     @Override
-    public Position<E> parent(Position<E> child) throws IllegalArgumentException {
-        return null;
+    public Position<E> left(Position<E> position) throws IllegalArgumentException {
+        LinkedBinaryTreeNode<E> node = validate(position);
+        return node.getLeft();
     }
 
     @Override
-    public int size() {
-        return size;
+    public Position<E> right(Position<E> position) throws IllegalArgumentException {
+        LinkedBinaryTreeNode<E> node = validate(position);
+        return node.getRight();
     }
+
+    @Override
+    public Position<E> parent(Position<E> position) throws IllegalArgumentException {
+        LinkedBinaryTreeNode<E> node = validate(position);
+        return node.getParent();
+    }
+
 
     @Override
     public Iterable<Position<E>> positions() {
