@@ -35,15 +35,17 @@ public class StackPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
         return insert(stack, new PQEntry<>(key, value));
     }
 
-    private Entry<K, V> insert(Stack<Entry<K, V>> stack, Entry<K, V> entry) {
-        Entry<K, V> top = stack.pop();
+    private Entry<K, V> insert(Stack<Entry<K, V>> st, Entry<K, V> entry) {
+        Entry<K, V> top = st.top();
+
         if (isEmpty() || compare(top, entry) > 0) {
-            stack.push(entry);
+            st.push(entry);
             return entry;
         }
 
-        Entry<K,V> res = insert(stack, entry);
-        stack.push(top);
+        Entry<K, V> temp = st.pop();
+        Entry<K,V> res = insert(st, entry);
+        st.push(temp);
 
         return res;
     }

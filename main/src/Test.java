@@ -338,5 +338,14 @@ public class Test {
         pqueue.insert(3, 3);
         pqueue.insert(1, 1);
 
+        System.out.println(pqueue.size());
+        System.out.println(pqueue.min().getKey());
+        System.out.println(pqueue.removeMin().getKey());
+        System.out.println(pqueue.removeMin().getKey());
+        System.out.println(pqueue.removeMin().getKey());
+        System.out.println(pqueue.removeMin().getKey());
+        System.out.println(pqueue.min().getKey());
+        System.out.println(pqueue.removeMin().getKey());
+        System.out.println(pqueue.isEmpty());
     }
 }
