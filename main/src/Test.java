@@ -325,8 +325,18 @@ public class Test {
 //            System.out.print(it2.previous() + " ");
 //        }
 
-        HanoiTower.show(4,"0","1","2");
-        System.out.println();
-        System.out.println(HanoiTower.printNthMove(4,"0","1","2",4));
+//        HanoiTower.show(4,"0","1","2");
+//        System.out.println();
+//        System.out.println(HanoiTower.printNthMove(4,"0","1","2",4));
+
+
+        StackPriorityQueue<Integer, Integer> pqueue = new StackPriorityQueue<>();
+
+        pqueue.insert(0, 0);
+        pqueue.insert(2, 2);
+        pqueue.insert(-1, -1);
+        pqueue.insert(3, 3);
+        pqueue.insert(1, 1);
+
     }
 }
