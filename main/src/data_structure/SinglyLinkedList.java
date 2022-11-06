@@ -59,15 +59,18 @@ public class SinglyLinkedList<E> {
         return returnElement;
     }
 
-    public void print() {
-        if (isEmpty()) return;
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("[ ");
 
         SinglyLinkedListNode<E> curr = head;
 
         while (curr != null) {
-            System.out.print(curr.getElement()+ " ");
+            stringBuilder.append(curr.getElement()).append(" ");
             curr = curr.getNext();
         }
-        System.out.println();
+        stringBuilder.append("]");
+
+        return stringBuilder.toString();
     }
 }

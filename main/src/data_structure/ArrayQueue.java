@@ -58,6 +58,4 @@ public class ArrayQueue<E> implements Queue<E> {
         return size == 0;
     }
 
-    public void print() {
-    }
 }

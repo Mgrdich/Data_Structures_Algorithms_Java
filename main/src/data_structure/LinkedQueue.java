@@ -1,8 +1,8 @@
 package data_structure;
 
-import adt.PrintableQueue;
+import adt.Queue;
 
-public class LinkedQueue<E> implements PrintableQueue<E> {
+public class LinkedQueue<E> implements Queue<E> {
     SinglyLinkedList<E> linkedList = new SinglyLinkedList<>();
 
     @Override
@@ -30,11 +30,8 @@ public class LinkedQueue<E> implements PrintableQueue<E> {
         return linkedList.isEmpty();
     }
 
-    /**
-     * This print prints from the top accessible element to bottom
-     * cause that is the access structure
-     */
-    public void print() {
-        linkedList.print();
+    @Override
+    public String toString() {
+        return linkedList.toString();
     }
 }

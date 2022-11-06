@@ -10,6 +10,7 @@ public class ArrayStack<E> implements Stack<E> {
     public ArrayStack() {
         this(CAPACITY);
     }
+
     @SuppressWarnings("unchecked")
     public ArrayStack(int capacity) {
         stack = (E[]) new Object[capacity];
@@ -52,15 +53,16 @@ public class ArrayStack<E> implements Stack<E> {
         return pointer == -1;
     }
 
-
-    /**
-     * This print prints from the top accessible element to bottom
-     * cause that is the access structure
-     * */
-    public void print() {
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("[");
         for (int i = pointer; i >= 0; i--) {
-            System.out.print(stack[i]+ " ");
+            stringBuilder.append(stack[i]);
+            if (i != 0) {
+                stringBuilder.append(", ");
+            }
         }
-        System.out.println();
+        stringBuilder.append("]");
+        return stringBuilder.toString();
     }
 }

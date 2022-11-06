@@ -1,8 +1,8 @@
 package data_structure;
 
-import adt.PrintableStack;
+import adt.Stack;
 
-public class LinkedStack<E> implements PrintableStack<E> {
+public class LinkedStack<E> implements Stack<E> {
     private final SinglyLinkedList<E> linkedList = new SinglyLinkedList<>();
 
     @Override
@@ -30,7 +30,8 @@ public class LinkedStack<E> implements PrintableStack<E> {
         return linkedList.isEmpty();
     }
 
-    public void print() {
-        linkedList.print();
+    @Override
+    public String toString() {
+        return linkedList.toString();
     }
 }

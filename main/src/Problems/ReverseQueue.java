@@ -1,6 +1,5 @@
 package Problems;
 
-import adt.PrintableQueue;
 import adt.Queue;
 import data_structure.LinkedQueue;
 
@@ -16,9 +15,9 @@ public class ReverseQueue {
     }
 
 
-    public static <E> PrintableQueue<E> getReversed(PrintableQueue<E> queue) {
-        PrintableQueue<E> interQueue = new LinkedQueue<>();
-        PrintableQueue<E> finalQueue = new LinkedQueue<>();
+    public static <E> Queue<E> getReversed(Queue<E> queue) {
+        Queue<E> interQueue = new LinkedQueue<>();
+        Queue<E> finalQueue = new LinkedQueue<>();
 
         while (queue.size() > 0) {
 
@@ -30,7 +29,7 @@ public class ReverseQueue {
 
             finalQueue.enqueue(queue.dequeue());
 
-            PrintableQueue<E> temp = queue;
+            Queue<E> temp = queue;
             queue = interQueue;
             interQueue = temp;
         }

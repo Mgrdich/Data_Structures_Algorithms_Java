@@ -23,15 +23,6 @@ public class Util {
         }
     }
 
-    public static <T> void printPositionalList(PositionalList<T> arr) {
-        Position<T> curr = arr.first();
-
-        while (curr != null) {
-            System.out.print(curr.getElement()+" ");
-            curr = arr.after(curr);
-        }
-    }
-
     public static int getMax(Integer[] arr) {
         int max = arr[0];
 
