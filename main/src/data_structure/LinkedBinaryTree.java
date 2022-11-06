@@ -1,6 +1,8 @@
 package data_structure;
 
+import adt.List;
 import adt.Position;
+import adt.Queue;
 
 import java.util.Iterator;
 
@@ -14,10 +16,9 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
     }
 
     protected LinkedBinaryTreeNode<E> validate(Position<E> position) throws IllegalArgumentException {
-        if (!(position instanceof LinkedBinaryTreeNode<E>))
+        if (!(position instanceof LinkedBinaryTreeNode<E> node))
             throw new IllegalArgumentException("Not a valid position type");
 
-        LinkedBinaryTreeNode<E> node = (LinkedBinaryTreeNode<E>) position;
         if (node.getParent() == node)
             throw new IllegalArgumentException("position is no longer valid in the tree");
 
@@ -142,13 +143,93 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
         return temp;
     }
 
-    @Override
-    public Iterable<Position<E>> positions() {
-        return null;
+    private class ElementIterator implements Iterator<E> {
+        Iterator<Position<E>> positionIterator = positions().iterator();
+
+        @Override
+        public boolean hasNext() {
+            return positionIterator.hasNext();
+        }
+
+        @Override
+        public E next() {
+            return positionIterator.next().getElement();
+        }
+
+        @Override
+        public void remove() {
+            positionIterator.remove();
+        }
     }
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new ElementIterator();
+    }
+
+    @Override
+    public Iterable<Position<E>> positions() {
+        return inOrder();
+    }
+
+    private void preOrderSubTree(Position<E> position, List<Position<E>> snapshot) {
+        snapshot.add(position);
+        for (Position<E> childPosition : children(position)) {
+            preOrderSubTree(childPosition, snapshot);
+        }
+    }
+
+    public Iterable<Position<E>> preOrder() {
+        List<Position<E>> list = new ArrayList<>();
+        if (!isEmpty())
+            preOrderSubTree(root(), list);
+        return list;
+    }
+
+    private void postOrderSubTree(Position<E> position, List<Position<E>> snapshot) {
+        for (Position<E> childPosition : children(position)) {
+            preOrderSubTree(childPosition, snapshot);
+        }
+        snapshot.add(position);
+    }
+
+    public Iterable<Position<E>> postOrder() {
+        List<Position<E>> list = new ArrayList<>();
+        if (!isEmpty())
+            postOrderSubTree(root(), list);
+        return list;
+    }
+
+    private void inOrderSubTree(Position<E> position, List<Position<E>> snapshot) {
+        if (left(position) != null)
+            inOrderSubTree(left(position), snapshot);
+
+        snapshot.add(position);
+
+        if (right(position) != null)
+            inOrderSubTree(right(position), snapshot);
+    }
+
+    public Iterable<Position<E>> inOrder() {
+        List<Position<E>> list = new ArrayList<>();
+        if (!isEmpty())
+            inOrderSubTree(root(), list);
+        return list;
+    }
+
+    public Iterable<Position<E>> breadthFirst() {
+        List<Position<E>> list = new ArrayList<>();
+        if (isEmpty())
+            return list;
+        Queue<Position<E>> fringe = new LinkedQueue<>();
+        fringe.enqueue(root());
+        while (!fringe.isEmpty()) {
+            Position<E> p = fringe.dequeue();
+            list.add(p);
+            for (Position<E> c : children(p)) {
+                fringe.enqueue(c);
+            }
+        }
+        return list;
     }
 }
