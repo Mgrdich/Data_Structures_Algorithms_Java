@@ -334,9 +334,11 @@ public class Test {
 
         pqueue.insert(0, 0);
         pqueue.insert(2, 2);
-        pqueue.insert(-1, -1);
+        Entry<Integer,Integer> ss1 = pqueue.insert(-1, -1);
+        System.out.println(ss1.getKey());
         pqueue.insert(3, 3);
-        pqueue.insert(1, 1);
+        Entry<Integer,Integer> ss = pqueue.insert(1, 1);
+        System.out.println(ss.getKey());
 
         System.out.println(pqueue.size());
         System.out.println(pqueue.min().getKey());
