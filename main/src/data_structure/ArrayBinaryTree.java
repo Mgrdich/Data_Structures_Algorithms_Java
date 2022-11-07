@@ -2,10 +2,8 @@ package data_structure;
 
 import adt.Position;
 
-import java.util.Iterator;
-
 public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
-    private class ArrayBinaryTreeNode implements Position<E> {
+    private static class ArrayBinaryTreeNode<E> implements Position<E> {
         private int index;
         private E element;
 
@@ -19,41 +17,24 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
         }
 
         private int getLeftIndex() {
-            return 2 * index + 1;
+            return (2 * index) + 1;
         }
 
         private int getRightIndex() {
-            return 2 * index + 2;
+            return (2 * index) + 2;
         }
 
         private int getParentIndex() {
             return (index - 1) / 2;
         }
 
+        public int getIndex() {
+            return index;
+        }
+
         @Override
         public E getElement() throws IllegalStateException {
             return element;
-        }
-
-        public ArrayBinaryTreeNode getLeft() {
-            int index = getLeftIndex();
-            if (index > size())
-                return null;
-            return data[index];
-        }
-
-        public ArrayBinaryTreeNode getRight() {
-            int index = getRightIndex();
-            if (index > size())
-                return null;
-            return data[index];
-        }
-
-        public ArrayBinaryTreeNode getParent() {
-            int index = getParentIndex();
-            if (index < 0)
-                return null;
-            return data[index];
         }
 
         public void setElement(E element) {
@@ -65,10 +46,10 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
         }
     }
 
-    private ArrayBinaryTreeNode[] data;
+    private ArrayBinaryTreeNode<E>[] data;
     private int size = 0;
 
-    public static final int CAPACITY = 16;
+    public static final int CAPACITY = 100;
 
 
     public ArrayBinaryTree() {
@@ -77,23 +58,45 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
 
     @SuppressWarnings("all")
     public ArrayBinaryTree(int capacity) {
-        data = (ArrayBinaryTreeNode[]) new Object[capacity];
+        data = new ArrayBinaryTreeNode[capacity];
     }
 
-    private ArrayBinaryTreeNode validate(Position<E> p) throws IllegalArgumentException {
-        if (!(p instanceof ArrayBinaryTreeNode node))
-            throw new IllegalArgumentException("not valid position type!");
-        if (node == parent(node))
-            throw new IllegalArgumentException("p is no longer in the tree!");
+    private ArrayBinaryTreeNode<E> validate(Position<E> p) throws IllegalArgumentException {
+        if (!(p instanceof ArrayBinaryTreeNode<E> node)) throw new IllegalArgumentException("not valid position type!");
+        if (node.getIndex() == -1) throw new IllegalArgumentException("p is no longer in the tree!");
         return node;
     }
 
     @SuppressWarnings("all")
     protected void resize(int capacity) {
-        ArrayBinaryTreeNode[] temp = (ArrayBinaryTreeNode[]) new Object[capacity];
+        ArrayBinaryTreeNode<E>[] temp = new ArrayBinaryTreeNode[capacity];
         for (int k = 0; k < size; k++)
             temp[k] = data[k];
         data = temp; // start using the new array
+    }
+
+    private ArrayBinaryTreeNode<E> getLeft(ArrayBinaryTreeNode<E> node) {
+        int index = node.getLeftIndex();
+        if (index > size()) return null;
+        return data[index];
+    }
+
+    private ArrayBinaryTreeNode<E> getRight(ArrayBinaryTreeNode<E> node) {
+        int index = node.getRightIndex();
+        if (index > size()) return null;
+        return data[index];
+    }
+
+    private ArrayBinaryTreeNode<E> getParent(ArrayBinaryTreeNode<E> node) {
+        int index = node.getParentIndex();
+        if (index < 0) return null;
+        return data[index];
+    }
+
+    private ArrayBinaryTreeNode<E> addElement(ArrayBinaryTreeNode<E> node) {
+        data[node.getIndex()] = node;
+        size++;
+        return node;
     }
 
     @Override
@@ -110,69 +113,67 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
 
     @Override
     public Position<E> parent(Position<E> position) throws IllegalArgumentException {
-        ArrayBinaryTreeNode node = validate(position);
-        return node.getParent();
+        ArrayBinaryTreeNode<E> node = validate(position);
+        return getParent(node);
     }
 
     @Override
     public Position<E> left(Position<E> position) throws IllegalArgumentException {
-        ArrayBinaryTreeNode node = validate(position);
-        return node.getLeft();
+        ArrayBinaryTreeNode<E> node = validate(position);
+        return getLeft(node);
     }
 
     @Override
     public Position<E> right(Position<E> position) throws IllegalArgumentException {
-        ArrayBinaryTreeNode node = validate(position);
-        return node.getRight();
+        ArrayBinaryTreeNode<E> node = validate(position);
+        return getRight(node);
     }
 
 
     public Position<E> addRoot(E element) throws IllegalStateException, IllegalArgumentException {
         if (!isEmpty()) throw new IllegalStateException("Tree is not empty");
-        ArrayBinaryTreeNode root = new ArrayBinaryTreeNode(element, 0);
-        size = 1;
-        return root;
+        ArrayBinaryTreeNode<E> root = new ArrayBinaryTreeNode<>(element, 0);
+
+        return addElement(root);
     }
 
     public Position<E> addLeft(Position<E> position, E element) throws IllegalStateException, IllegalArgumentException {
-        ArrayBinaryTreeNode parent = validate(position);
+        ArrayBinaryTreeNode<E> parent = validate(position);
 
-        if (parent.getLeft() != null) throw new IllegalStateException("Node already has a left child");
+        if (getLeft(parent) != null) throw new IllegalStateException("Node already has a left child");
 
-        if (parent.getLeftIndex() >= data.length)
-            resize(parent.getLeftIndex() + 1);
+        if (parent.getLeftIndex() >= data.length) resize(parent.getLeftIndex() + 1);
 
-        ArrayBinaryTreeNode child = new ArrayBinaryTreeNode(element, parent.getLeftIndex());
-        size++;
-        return child;
+        ArrayBinaryTreeNode<E> child = new ArrayBinaryTreeNode<>(element, parent.getLeftIndex());
+
+        return addElement(child);
     }
 
     public Position<E> addRight(Position<E> position, E element) throws IllegalStateException {
-        ArrayBinaryTreeNode parent = validate(position);
+        ArrayBinaryTreeNode<E> parent = validate(position);
 
-        if (parent.getRight() != null) throw new IllegalStateException("Node already has a right child");
+        if (getRight(parent) != null) throw new IllegalStateException("Node already has a right child");
 
-        if (parent.getRightIndex() >= data.length)
-            resize(parent.getRightIndex() + 1);
+        if (parent.getRightIndex() >= data.length) resize(parent.getRightIndex() + 1);
 
-        ArrayBinaryTreeNode child = new ArrayBinaryTreeNode(element, parent.getRightIndex());
-        size++;
-        return child;
+        ArrayBinaryTreeNode<E> child = new ArrayBinaryTreeNode<>(element, parent.getRightIndex());
+
+        return addElement(child);
     }
 
     public E set(Position<E> position, E element) throws IllegalArgumentException {
-        ArrayBinaryTreeNode node = validate(position);
+        ArrayBinaryTreeNode<E> node = validate(position);
         E temp = node.getElement();
         node.setElement(element);
         return temp;
     }
 
     public E remove(Position<E> position) throws IllegalArgumentException {
-        ArrayBinaryTreeNode node = validate(position);
+        ArrayBinaryTreeNode<E> node = validate(position);
 
         if (numChildren(node) == 2) throw new IllegalArgumentException("Node has two children");
 
-        ArrayBinaryTreeNode child = node.getLeft() != null ? node.getLeft() : node.getRight();
+        ArrayBinaryTreeNode<E> child = getLeft(node) != null ? getLeft(node) : getRight(node);
 
         return position.getElement();
     }

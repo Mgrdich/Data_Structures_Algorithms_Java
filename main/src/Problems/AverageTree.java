@@ -3,12 +3,13 @@ package Problems;
 import adt.Position;
 import adt.Queue;
 import adt.Tree;
+import data_structure.ArrayBinaryTree;
 import data_structure.LinkedBinaryTree;
 import data_structure.LinkedQueue;
 
 public class AverageTree {
     public static void main(String[] args) {
-        LinkedBinaryTree<Double> tree = new LinkedBinaryTree<>();
+        ArrayBinaryTree<Double> tree = new ArrayBinaryTree<>();
 
         Position<Double> root = tree.addRoot(1.0);
 
