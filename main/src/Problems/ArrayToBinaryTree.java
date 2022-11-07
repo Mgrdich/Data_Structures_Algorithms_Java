@@ -11,6 +11,7 @@ public class ArrayToBinaryTree {
         }
     }
 
+    @SuppressWarnings("all")
     public static <T> LinkedBinaryTree<T> createTree(T[] arr) {
         LinkedBinaryTree<T> tree = new LinkedBinaryTree<>();
         Position<T>[] positions = new Position[arr.length];
