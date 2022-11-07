@@ -1,12 +1,14 @@
 package Problems;
-
 import adt.Position;
 import data_structure.LinkedBinaryTree;
 
 public class ArrayToBinaryTree {
     public static void main(String[] args) {
         Character[] arr = {'/', '*', '+', '+', '4', '-', '2', '3', '1', null, null, '9', '5', null, null};
-        createTree(arr);
+        LinkedBinaryTree<Character> tree = createTree(arr);
+        for (Position<Character> c : tree.breadthFirst()) {
+            System.out.print(c.getElement()+" ");
+        }
     }
 
     public static <T> LinkedBinaryTree<T> createTree(T[] arr) {
@@ -19,7 +21,7 @@ public class ArrayToBinaryTree {
 
             int parentIndex = (i - 1) / 2;
 
-            if (arr[parentIndex] == null)
+            if (arr[i] == null)
                 continue;
 
             if (i % 2 == 0) {
