@@ -17,7 +17,7 @@ public class LinkedBinaryTreeNode<E> implements Position<E> {
 
     @Override
     public E getElement() throws IllegalStateException {
-        return null;
+        return element;
     }
 
     public LinkedBinaryTreeNode<E> getLeft() {

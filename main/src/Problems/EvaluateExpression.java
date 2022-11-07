@@ -25,7 +25,9 @@ public class EvaluateExpression {
         Position<Double> c2_2_1 = tree.addLeft(c2_2, 10.0);
         Position<Double> c2_2_2 = tree.addRight(c2_2, 11.0);
 
-        System.out.println(tree.preOrder());
+        for (Position<Double> c: tree.preOrder()) {
+            System.out.println(c.getElement());
+        }
     }
 
     public Double evaluate(LinkedBinaryTree<Double> bTree) {
