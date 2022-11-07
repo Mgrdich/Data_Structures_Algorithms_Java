@@ -6,52 +6,52 @@ import data_structure.LinkedBinaryTree;
 
 public class EvaluateExpression {
     public static void main(String[] args) {
-        LinkedBinaryTree<Double> tree = new LinkedBinaryTree<>();
+        LinkedBinaryTree<Character> tree = new LinkedBinaryTree<>();
 
-        Position<Double> root = tree.addRoot(-1.0);
+        Position<Character> root = tree.addRoot('+');
 
-        Position<Double> c1 = tree.addLeft(root, -1.0);
-        Position<Double> c2 = tree.addRight(root, -1.0);
-
-
-        Position<Double> c1_1 = tree.addLeft(c1, -1.0);
-        Position<Double> c1_2 = tree.addRight(c1, 5.0);
-
-        Position<Double> c1_1_1 = tree.addLeft(c1_1, 5.0);
-        Position<Double> c1_1_2 = tree.addRight(c1_1, 5.0);
-
-        Position<Double> c2_1 = tree.addLeft(c2, 10.0);
-        Position<Double> c2_2 = tree.addRight(c2, -1.0);
+        Position<Character> c1 = tree.addLeft(root, '+');
+        Position<Character> c2 = tree.addRight(root, '+');
 
 
-        Position<Double> c2_2_1 = tree.addLeft(c2_2, 10.0);
-        Position<Double> c2_2_2 = tree.addRight(c2_2, 11.0);
+        Position<Character> c1_1 = tree.addLeft(c1, '+');
+        Position<Character> c1_2 = tree.addRight(c1, 'A');
+
+        Position<Character> c1_1_1 = tree.addLeft(c1_1, 'A');
+        Position<Character> c1_1_2 = tree.addRight(c1_1, 'A');
+
+        Position<Character> c2_1 = tree.addLeft(c2, 'A');
+        Position<Character> c2_2 = tree.addRight(c2, '+');
+
+
+        Position<Character> c2_2_1 = tree.addLeft(c2_2, 'A');
+        Position<Character> c2_2_2 = tree.addRight(c2_2, 'A');
 
         System.out.println(evaluateWithValidation(tree));
     }
 
-    public static Double evaluate(LinkedBinaryTree<Double> bTree) {
+    public static Double evaluate(LinkedBinaryTree<Character> bTree) {
         if (bTree.root() == null)
             return 0.0;
 
         return evaluate(bTree, bTree.root());
     }
 
-    private static Double evaluate(LinkedBinaryTree<Double> bTree, Position<Double> node) {
-        Position<Double> leftPart = bTree.left(node);
-        Position<Double> rightPart = bTree.right(node);
+    private static Double evaluate(LinkedBinaryTree<Character> bTree, Position<Character> node) {
+        Position<Character> leftPart = bTree.left(node);
+        Position<Character> rightPart = bTree.right(node);
 
         boolean isLeftExternal = bTree.isExternal(leftPart);
         boolean isRightExternal = bTree.isExternal(rightPart);
 
         // base case is embedded in this expression
-        Double leftValue = isLeftExternal ? leftPart.getElement() : evaluate(bTree, leftPart);
-        Double rightValue = isRightExternal ? rightPart.getElement() : evaluate(bTree, rightPart);
+        double leftValue = isLeftExternal ? leftPart.getElement() : evaluate(bTree, leftPart);
+        double rightValue = isRightExternal ? rightPart.getElement() : evaluate(bTree, rightPart);
 
-        return evaluateTheOperation('+', leftValue, rightValue);
+        return evaluateTheOperation(node.getElement(), leftValue, rightValue);
     }
 
-    public static Double evaluateWithValidation(LinkedBinaryTree<Double> bTree) throws IllegalArgumentException {
+    public static Double evaluateWithValidation(LinkedBinaryTree<Character> bTree) throws IllegalArgumentException {
         if (bTree.root() == null)
             return 0.0;
         validate(bTree);
@@ -70,7 +70,7 @@ public class EvaluateExpression {
         Position<T> rightPart = bTree.right(node);
 
 
-        if (bTree.isInternal(node) && !validOperationSymbol((Double) node.getElement())) {
+        if (bTree.isInternal(node) && !validOperationSymbol((Character) node.getElement())) {
             throw new IllegalArgumentException("Not a Valid Expression tree");
         }
 
@@ -84,11 +84,11 @@ public class EvaluateExpression {
         }
     }
 
-    private static boolean validOperationSymbol(Double symbol) {
-        return symbol == -1;
+    private static boolean validOperationSymbol(Character symbol) {
+        return symbol == '+' || symbol == '*' || symbol == '/' || symbol == '-';
     }
 
-    private static Double evaluateTheOperation(Character operation, Double leftExpression, Double rightExpression) {
+    private static Double evaluateTheOperation(Character operation, double leftExpression, double rightExpression) {
         switch (operation) {
             case '*':
                 return leftExpression * rightExpression;
