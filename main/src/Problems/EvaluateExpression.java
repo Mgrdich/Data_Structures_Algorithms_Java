@@ -8,20 +8,17 @@ public class EvaluateExpression {
     public static void main(String[] args) {
         LinkedBinaryTree<Character> tree = new LinkedBinaryTree<>();
 
-        Position<Character> root = tree.addRoot('+');
+        Position<Character> root = tree.addRoot('*');
 
-        Position<Character> c1 = tree.addLeft(root, '+');
+        Position<Character> c1 = tree.addLeft(root, '/');
         Position<Character> c2 = tree.addRight(root, '+');
 
 
-        Position<Character> c1_1 = tree.addLeft(c1, '+');
+        Position<Character> c1_1 = tree.addLeft(c1, 'A');
         Position<Character> c1_2 = tree.addRight(c1, 'A');
 
-        Position<Character> c1_1_1 = tree.addLeft(c1_1, 'A');
-        Position<Character> c1_1_2 = tree.addRight(c1_1, 'A');
-
         Position<Character> c2_1 = tree.addLeft(c2, 'A');
-        Position<Character> c2_2 = tree.addRight(c2, '+');
+        Position<Character> c2_2 = tree.addRight(c2, '-');
 
 
         Position<Character> c2_2_1 = tree.addLeft(c2_2, 'A');
