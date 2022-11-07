@@ -11,8 +11,9 @@ public class ArrayToBinaryTree {
         }
     }
 
+    // TODO do the valdiation
     @SuppressWarnings("all")
-    public static <T> LinkedBinaryTree<T> createTree(T[] arr) {
+    public static <T> LinkedBinaryTree<T> createTree(T[] arr) throws IllegalArgumentException {
         LinkedBinaryTree<T> tree = new LinkedBinaryTree<>();
         Position<T>[] positions = new Position[arr.length];
         positions[0] = tree.addRoot(arr[0]);
