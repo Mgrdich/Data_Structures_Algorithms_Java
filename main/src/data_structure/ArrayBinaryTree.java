@@ -41,8 +41,8 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
             this.element = element;
         }
 
-        private int setIndex(int index) {
-            return this.index = index;
+        private void setIndex(int index) {
+            this.index = index;
         }
     }
 
@@ -149,7 +149,7 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
         return addElement(child);
     }
 
-    public Position<E> addRight(Position<E> position, E element) throws IllegalStateException {
+    public Position<E> addRight(Position<E> position, E element) throws IllegalStateException, IllegalArgumentException {
         ArrayBinaryTreeNode<E> parent = validate(position);
 
         if (right(parent) != null) throw new IllegalStateException("Node already has a right child");
@@ -175,6 +175,43 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
 
         ArrayBinaryTreeNode<E> child = getLeft(node) != null ? getLeft(node) : getRight(node);
 
-        return position.getElement();
+        E temp = node.getElement();
+
+        if (child == null) {
+            // leaf
+            data[node.getIndex()] = null;
+        } else {
+            child.setIndex(node.getIndex());
+            data[child.getIndex()] = child;
+            // update the indices
+            updateInd(child);
+        }
+
+        size--;
+        return temp;
+    }
+
+    private void updateInd(Position<E> position) {
+        ArrayBinaryTreeNode<E> node = validate(position);
+
+        if (node == null) {
+            return;
+        }
+
+        for (Position<E> child : children(position)) {
+            ArrayBinaryTreeNode<E> childNode = validate(child);
+
+            if (childNode == left(node)) {
+                childNode.setIndex(2 * node.getIndex() + 1);
+                data[childNode.getIndex()] = childNode;
+                updateInd(childNode);
+            }
+
+            if (childNode == right(node)) {
+                childNode.setIndex(2 * node.getIndex() + 2);
+                data[childNode.getIndex()] = childNode;
+                updateInd(childNode);
+            }
+        }
     }
 }
