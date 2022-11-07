@@ -330,24 +330,27 @@ public class Test {
 //        System.out.println(HanoiTower.printNthMove(4,"0","1","2",4));
 
 
-        StackPriorityQueue<Integer, Integer> pqueue = new StackPriorityQueue<>();
+//        StackPriorityQueue<Integer, Integer> pqueue = new StackPriorityQueue<>();
+//
+//        pqueue.insert(0, 0);
+//        pqueue.insert(2, 2);
+//        Entry<Integer,Integer> ss1 = pqueue.insert(-1, -1);
+//        System.out.println(ss1.getKey());
+//        pqueue.insert(3, 3);
+//        Entry<Integer,Integer> ss = pqueue.insert(1, 1);
+//        System.out.println(ss.getKey());
+//
+//        System.out.println(pqueue.size());
+//        System.out.println(pqueue.min().getKey());
+//        System.out.println(pqueue.removeMin().getKey());
+//        System.out.println(pqueue.removeMin().getKey());
+//        System.out.println(pqueue.removeMin().getKey());
+//        System.out.println(pqueue.removeMin().getKey());
+//        System.out.println(pqueue.min().getKey());
+//        System.out.println(pqueue.removeMin().getKey());
+//        System.out.println(pqueue.isEmpty());
 
-        pqueue.insert(0, 0);
-        pqueue.insert(2, 2);
-        Entry<Integer,Integer> ss1 = pqueue.insert(-1, -1);
-        System.out.println(ss1.getKey());
-        pqueue.insert(3, 3);
-        Entry<Integer,Integer> ss = pqueue.insert(1, 1);
-        System.out.println(ss.getKey());
 
-        System.out.println(pqueue.size());
-        System.out.println(pqueue.min().getKey());
-        System.out.println(pqueue.removeMin().getKey());
-        System.out.println(pqueue.removeMin().getKey());
-        System.out.println(pqueue.removeMin().getKey());
-        System.out.println(pqueue.removeMin().getKey());
-        System.out.println(pqueue.min().getKey());
-        System.out.println(pqueue.removeMin().getKey());
-        System.out.println(pqueue.isEmpty());
+
     }
 }

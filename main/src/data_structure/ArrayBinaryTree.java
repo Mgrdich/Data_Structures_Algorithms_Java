@@ -88,6 +88,14 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
         return node;
     }
 
+    @SuppressWarnings("all")
+    protected void resize(int capacity) {
+        ArrayBinaryTreeNode[] temp = (ArrayBinaryTreeNode[]) new Object[capacity];
+        for (int k = 0; k < size; k++)
+            temp[k] = data[k];
+        data = temp; // start using the new array
+    }
+
     @Override
     public Position<E> root() {
         if (isEmpty()) return null;
@@ -131,6 +139,9 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
 
         if (parent.getLeft() != null) throw new IllegalStateException("Node already has a left child");
 
+        if (parent.getLeftIndex() >= data.length)
+            resize(parent.getLeftIndex() + 1);
+
         ArrayBinaryTreeNode child = new ArrayBinaryTreeNode(element, parent.getLeftIndex());
         size++;
         return child;
@@ -140,6 +151,9 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
         ArrayBinaryTreeNode parent = validate(position);
 
         if (parent.getRight() != null) throw new IllegalStateException("Node already has a right child");
+
+        if (parent.getRightIndex() >= data.length)
+            resize(parent.getRightIndex() + 1);
 
         ArrayBinaryTreeNode child = new ArrayBinaryTreeNode(element, parent.getRightIndex());
         size++;
@@ -161,15 +175,5 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
         ArrayBinaryTreeNode child = node.getLeft() != null ? node.getLeft() : node.getRight();
 
         return position.getElement();
-    }
-
-    @Override
-    public Iterable<Position<E>> positions() {
-        return null;
-    }
-
-    @Override
-    public Iterator<E> iterator() {
-        return null;
     }
 }
