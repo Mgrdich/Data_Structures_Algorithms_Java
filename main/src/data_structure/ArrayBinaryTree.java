@@ -49,7 +49,7 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
     private ArrayBinaryTreeNode<E>[] data;
     private int size = 0;
 
-    public static final int CAPACITY = 100;
+    public static final int CAPACITY = 100; //it increases frequently
 
 
     public ArrayBinaryTree() {
@@ -70,20 +70,20 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
     @SuppressWarnings("all")
     protected void resize(int capacity) {
         ArrayBinaryTreeNode<E>[] temp = new ArrayBinaryTreeNode[capacity];
-        for (int k = 0; k < size; k++)
-            temp[k] = data[k];
+        for (int i = 0; i < data.length; i++)
+            temp[i] = data[i];
         data = temp; // start using the new array
     }
 
     private ArrayBinaryTreeNode<E> getLeft(ArrayBinaryTreeNode<E> node) {
         int index = node.getLeftIndex();
-        if (index > size()) return null;
+        if (index >= data.length) return null;
         return data[index];
     }
 
     private ArrayBinaryTreeNode<E> getRight(ArrayBinaryTreeNode<E> node) {
         int index = node.getRightIndex();
-        if (index > size()) return null;
+        if (index >= data.length) return null;
         return data[index];
     }
 
@@ -140,7 +140,7 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
     public Position<E> addLeft(Position<E> position, E element) throws IllegalStateException, IllegalArgumentException {
         ArrayBinaryTreeNode<E> parent = validate(position);
 
-        if (getLeft(parent) != null) throw new IllegalStateException("Node already has a left child");
+        if (left(parent) != null) throw new IllegalStateException("Node already has a left child");
 
         if (parent.getLeftIndex() >= data.length) resize(parent.getLeftIndex() + 1);
 
@@ -152,7 +152,7 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
     public Position<E> addRight(Position<E> position, E element) throws IllegalStateException {
         ArrayBinaryTreeNode<E> parent = validate(position);
 
-        if (getRight(parent) != null) throw new IllegalStateException("Node already has a right child");
+        if (right(parent) != null) throw new IllegalStateException("Node already has a right child");
 
         if (parent.getRightIndex() >= data.length) resize(parent.getRightIndex() + 1);
 
