@@ -1,0 +1,34 @@
+package Problems;
+
+import adt.Position;
+import data_structure.LinkedBinaryTree;
+
+public class ArrayToBinaryTree {
+    public static void main(String[] args) {
+        Character[] arr = {'/', '*', '+', '+', '4', '-', '2', '3', '1', null, null, '9', '5', null, null};
+        createTree(arr);
+    }
+
+    public static <T> LinkedBinaryTree<T> createTree(T[] arr) {
+        LinkedBinaryTree<T> tree = new LinkedBinaryTree<>();
+        Position<T>[] positions = new Position[arr.length];
+        positions[0] = tree.addRoot(arr[0]);
+
+
+        for (int i = 1; i < arr.length; i++) {
+
+            int parentIndex = (i - 1) / 2;
+
+            if (arr[parentIndex] == null)
+                continue;
+
+            if (i % 2 == 0) {
+                positions[i] = tree.addRight(positions[parentIndex], arr[i]);
+            } else {
+                positions[i] = tree.addLeft(positions[parentIndex], arr[i]);
+            }
+
+        }
+        return tree;
+    }
+}
