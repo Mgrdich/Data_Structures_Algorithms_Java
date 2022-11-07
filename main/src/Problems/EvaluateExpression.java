@@ -1,10 +1,7 @@
 package Problems;
 
-import adt.BinaryTree;
 import adt.Position;
 import data_structure.LinkedBinaryTree;
-
-import java.util.function.DoubleBinaryOperator;
 
 
 public class EvaluateExpression {
@@ -30,10 +27,13 @@ public class EvaluateExpression {
         Position<Double> c2_2_1 = tree.addLeft(c2_2, 10.0);
         Position<Double> c2_2_2 = tree.addRight(c2_2, 11.0);
 
-        System.out.println(evaluate(tree));
+        System.out.println(evaluateWithValidation(tree));
     }
 
     public static Double evaluate(LinkedBinaryTree<Double> bTree) {
+        if (bTree.root() == null)
+            return 0.0;
+
         return evaluate(bTree, bTree.root());
     }
 
@@ -48,16 +48,40 @@ public class EvaluateExpression {
         Double leftValue = isLeftExternal ? leftPart.getElement() : evaluate(bTree, leftPart);
         Double rightValue = isRightExternal ? rightPart.getElement() : evaluate(bTree, rightPart);
 
-        return evaluateTheOperation('*', leftValue, rightValue);
+        return evaluateTheOperation('+', leftValue, rightValue);
     }
 
     public static Double evaluateWithValidation(LinkedBinaryTree<Double> bTree) throws IllegalArgumentException {
+        if (bTree.root() == null)
+            return 0.0;
         validate(bTree);
         return evaluate(bTree);
     }
 
     private static <T> void validate(LinkedBinaryTree<T> bTree) throws IllegalArgumentException {
+        if (bTree.root() == null) {
+            return;
+        }
+        validate(bTree, bTree.root());
+    }
 
+    private static <T> void validate(LinkedBinaryTree<T> bTree, Position<T> node) throws IllegalArgumentException {
+        Position<T> leftPart = bTree.left(node);
+        Position<T> rightPart = bTree.right(node);
+
+
+        if (bTree.isInternal(node) && !validOperationSymbol((Double) node.getElement())) {
+            throw new IllegalArgumentException("Not a Valid Expression tree");
+        }
+
+
+        if (leftPart != null) {
+            validate(bTree, leftPart);
+        }
+
+        if (rightPart != null) {
+            validate(bTree, rightPart);
+        }
     }
 
     private static boolean validOperationSymbol(Double symbol) {
