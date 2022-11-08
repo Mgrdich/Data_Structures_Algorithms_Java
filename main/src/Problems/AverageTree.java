@@ -3,13 +3,12 @@ package Problems;
 import adt.Position;
 import adt.Queue;
 import adt.Tree;
-import data_structure.ArrayBinaryTree;
 import data_structure.LinkedBinaryTree;
 import data_structure.LinkedQueue;
 
 public class AverageTree {
     public static void main(String[] args) {
-        ArrayBinaryTree<Double> tree = new ArrayBinaryTree<>();
+        LinkedBinaryTree<Double> tree = new LinkedBinaryTree<>();
 
         Position<Double> root = tree.addRoot(1.0);
 
@@ -57,7 +56,7 @@ public class AverageTree {
         return sum / tree.size();
     }
 
-    public static Double averagePreOrder(Tree<Double> tree, Position<Double> node) {
+    private static Double averagePreOrder(Tree<Double> tree, Position<Double> node) {
         Double sum = node.getElement(); // visit
         for (Position<Double> childPosition : tree.children(node)) {
             sum += averagePreOrder(tree, childPosition);
@@ -68,9 +67,5 @@ public class AverageTree {
         }
 
         return sum;
-    }
-
-    public static Double averageBreadthFirstTraversal(Tree<Double> tree, Position<Double> Node) {
-        return 0.0;
     }
 }
