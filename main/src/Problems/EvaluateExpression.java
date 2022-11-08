@@ -2,13 +2,12 @@ package Problems;
 
 import adt.BinaryTree;
 import adt.Position;
-import data_structure.ArrayBinaryTree;
 import data_structure.LinkedBinaryTree;
 
 
 public class EvaluateExpression {
     public static void main(String[] args) {
-        ArrayBinaryTree<Character> tree = new ArrayBinaryTree<>();
+        LinkedBinaryTree<Character> tree = new LinkedBinaryTree<>();
 
         Position<Character> root = tree.addRoot('*');
 
@@ -96,17 +95,12 @@ public class EvaluateExpression {
     }
 
     private static Double evaluateTheOperation(Character operation, double leftExpression, double rightExpression) {
-        switch (operation) {
-            case '*':
-                return leftExpression * rightExpression;
-            case '+':
-                return leftExpression + rightExpression;
-            case '/':
-                return leftExpression / rightExpression;
-            case '-':
-                return leftExpression - rightExpression;
-            default:
-                throw new IllegalArgumentException("Something went wrong");
-        }
+        return switch (operation) {
+            case '*' -> leftExpression * rightExpression;
+            case '+' -> leftExpression + rightExpression;
+            case '/' -> leftExpression / rightExpression;
+            case '-' -> leftExpression - rightExpression;
+            default -> throw new IllegalArgumentException("Something went wrong");
+        };
     }
 }
