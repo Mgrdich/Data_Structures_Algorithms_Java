@@ -1,6 +1,9 @@
 package data_structure;
 
+import adt.List;
 import adt.Position;
+
+import java.util.Iterator;
 
 public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
     private static class ArrayBinaryTreeNode<E> implements Position<E> {
@@ -213,5 +216,19 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
                 updateInd(childNode);
             }
         }
+    }
+
+    public Position<E> inOrderBefore(Position<E> position) {
+        Position<E> lastNextValue = null;
+        Position<E> nextElement = null;
+        Iterator<Position<E>> it = inOrder().iterator();
+
+        while (it.hasNext()) {
+            lastNextValue = nextElement;
+            nextElement = it.next();
+            if(nextElement == position) break;
+        }
+
+        return lastNextValue;
     }
 }

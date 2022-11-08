@@ -1,12 +1,14 @@
 package Problems;
 
+import adt.BinaryTree;
 import adt.Position;
+import data_structure.ArrayBinaryTree;
 import data_structure.LinkedBinaryTree;
 
 
 public class EvaluateExpression {
     public static void main(String[] args) {
-        LinkedBinaryTree<Character> tree = new LinkedBinaryTree<>();
+        ArrayBinaryTree<Character> tree = new ArrayBinaryTree<>();
 
         Position<Character> root = tree.addRoot('*');
 
@@ -15,7 +17,7 @@ public class EvaluateExpression {
 
 
         Position<Character> c1_1 = tree.addLeft(c1, 'A');
-        Position<Character> c1_2 = tree.addRight(c1, 'A');
+        Position<Character> c1_2 = tree.addRight(c1, 'C');
 
         Position<Character> c2_1 = tree.addLeft(c2, 'A');
         Position<Character> c2_2 = tree.addRight(c2, '-');
@@ -25,16 +27,24 @@ public class EvaluateExpression {
         Position<Character> c2_2_2 = tree.addRight(c2_2, 'A');
 
         System.out.println(evaluateWithValidation(tree));
+        System.out.println(evaluate(tree));
+
+//        for (Position<Character> pos: tree.inOrder()) {
+//            System.out.print(pos.getElement()+" ");
+//        }
+//        System.out.println();
+//
+//        System.out.println(tree.inOrderBefore(root).getElement());
     }
 
-    public static Double evaluate(LinkedBinaryTree<Character> bTree) {
+    public static Double evaluate(BinaryTree<Character> bTree) {
         if (bTree.root() == null)
             return 0.0;
 
         return evaluate(bTree, bTree.root());
     }
 
-    private static Double evaluate(LinkedBinaryTree<Character> bTree, Position<Character> node) {
+    private static Double evaluate(BinaryTree<Character> bTree, Position<Character> node) {
         Position<Character> leftPart = bTree.left(node);
         Position<Character> rightPart = bTree.right(node);
 
@@ -48,21 +58,21 @@ public class EvaluateExpression {
         return evaluateTheOperation(node.getElement(), leftValue, rightValue);
     }
 
-    public static Double evaluateWithValidation(LinkedBinaryTree<Character> bTree) throws IllegalArgumentException {
+    public static Double evaluateWithValidation(BinaryTree<Character> bTree) throws IllegalArgumentException {
         if (bTree.root() == null)
             return 0.0;
         validate(bTree);
         return evaluate(bTree);
     }
 
-    private static <T> void validate(LinkedBinaryTree<T> bTree) throws IllegalArgumentException {
+    private static <T> void validate(BinaryTree<T> bTree) throws IllegalArgumentException {
         if (bTree.root() == null) {
             return;
         }
         validate(bTree, bTree.root());
     }
 
-    private static <T> void validate(LinkedBinaryTree<T> bTree, Position<T> node) throws IllegalArgumentException {
+    private static <T> void validate(BinaryTree<T> bTree, Position<T> node) throws IllegalArgumentException {
         Position<T> leftPart = bTree.left(node);
         Position<T> rightPart = bTree.right(node);
 
