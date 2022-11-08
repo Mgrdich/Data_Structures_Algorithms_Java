@@ -10,6 +10,31 @@ public class ArrayToBinaryTree {
         for (Position<Character> c : tree.breadthFirst()) {
             System.out.print(c.getElement() + " ");
         }
+        System.out.println();
+
+        Character[] invalid = {null, '*', '+', '+', '4', '-', '2', '3', '1', null, null, '9', '5', null, null};
+        try {
+            LinkedBinaryTree<Character> invalidTree = createTree(invalid);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid Tree");
+        }
+
+        Character[] invalid2 = {'/', null, '+', '+', '4', '-', '2', '3', '1', null, null, '9', '5', null, null};
+        try {
+            LinkedBinaryTree<Character> invalidTree = createTree(invalid2);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid Tree another");
+        }
+
+
+        Character[] valid = {null, null, null};
+        LinkedBinaryTree<Character> validEmpty = createTree(valid);
+        System.out.println(validEmpty.size());
+
+
+        Character[] valid2 = {};
+        LinkedBinaryTree<Character> validEmpty2 = createTree(valid2);
+        System.out.println(validEmpty2.size());
     }
 
     @SuppressWarnings("all")
@@ -17,14 +42,18 @@ public class ArrayToBinaryTree {
         validate(arr);
 
         LinkedBinaryTree<T> tree = new LinkedBinaryTree<>();
+        if (arr.length == 0) return tree;
+
+        T root = arr[0];
+        if (root == null) return tree;
+
         Position<T>[] positions = new Position[arr.length];
-        positions[0] = tree.addRoot(arr[0]);
+        positions[0] = tree.addRoot(root);
 
         for (int i = 1; i < arr.length; i++) {
             int parentIndex = (i - 1) / 2;
 
-            if (arr[i] == null)
-                continue;
+            if (arr[i] == null) continue;
 
             if (i % 2 == 0) {
                 positions[i] = tree.addRight(positions[parentIndex], arr[i]);
@@ -37,14 +66,26 @@ public class ArrayToBinaryTree {
     }
 
 
+    /**
+     * space-complexity O(1)
+     * time-complexity O(n): cause at worst it will iterate all the array
+     * The philosophy if there exit an element in the array which does not have a valid parent
+     */
     private static <T> void validate(T[] arr) throws IllegalArgumentException {
-        int count = 0;
-        int lastNonNullIndex = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] != null) {
-                count++;
-                lastNonNullIndex = i;
+        if (arr.length == 0)
+            return;
+
+        T root = arr[0]; // all the element should be null
+
+        for (int i = 1; i < arr.length; i++) {
+            if (root == null) {
+                if (arr[i] != null) throw new IllegalArgumentException("not a valid Array");
+                continue;
             }
+
+
+            int parentIndex = (i - 1) / 2;
+            if (arr[parentIndex] == null) throw new IllegalArgumentException("not a valid Array");
         }
     }
 }
