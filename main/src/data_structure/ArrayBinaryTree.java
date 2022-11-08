@@ -183,11 +183,13 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
         if (child == null) {
             // leaf
             data[node.getIndex()] = null;
+            node.setIndex(-1);
         } else {
             child.setIndex(node.getIndex());
             data[child.getIndex()] = child;
             // update the indices
             updateInd(child);
+            node.setIndex(-1);
         }
 
         size--;
