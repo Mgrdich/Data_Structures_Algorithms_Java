@@ -221,12 +221,11 @@ public class ArrayBinaryTree<E> extends AbstractBinaryTree<E> {
     public Position<E> inOrderBefore(Position<E> position) {
         Position<E> lastNextValue = null;
         Position<E> nextElement = null;
-        Iterator<Position<E>> it = inOrder().iterator();
 
-        while (it.hasNext()) {
+        for (Position<E> ePosition : inOrder()) {
             lastNextValue = nextElement;
-            nextElement = it.next();
-            if(nextElement == position) break;
+            nextElement = ePosition;
+            if (nextElement == position) break;
         }
 
         return lastNextValue;
