@@ -24,15 +24,15 @@ public abstract class AbstractTree<E> implements Tree<E> {
         return numChildren(node) > 0;
     }
 
-    int depth(Position<E> node) {
+    public int depth(Position<E> node) {
         if (isRoot(node)) {
             return 0;
         }
 
-        return 1 + depth(node);
+        return 1 + depth(parent(node));
     }
 
-    int height(Position<E> node) {
+    public int height(Position<E> node) {
         int h = 0;
         for (Position<E> child : children(node)) {
             h = Math.max(h, 1 + height(node));
