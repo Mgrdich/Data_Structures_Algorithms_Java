@@ -57,14 +57,18 @@ public class CircularlyLinkedList<E> {
         return head.getElement();
     }
 
-    public void print() {
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("[");
         SinglyLinkedListNode<E> curr = tail.getNext();
 
-        while (curr != tail){
-            System.out.print(curr.getElement()+ " ");
+        while (curr != tail) {
+            stringBuilder.append(curr.getElement());
             curr = curr.getNext();
+            stringBuilder.append(", ");
         }
-        System.out.println(tail.getElement());
-        System.out.println();
+        stringBuilder.append(tail.getElement());
+        stringBuilder.append("]");
+        return stringBuilder.toString();
     }
 }
