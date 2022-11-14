@@ -58,4 +58,22 @@ public class ArrayQueue<E> implements Queue<E> {
         return size == 0;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("[");
+
+        int i = first;
+        int count = 0;
+        while (count < size) {
+            stringBuilder.append(queue[i]);
+            if (count != size - 1) {
+                stringBuilder.append(", ");
+            }
+            i = (i + 1) % queue.length;
+            count++;
+        }
+
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
 }
