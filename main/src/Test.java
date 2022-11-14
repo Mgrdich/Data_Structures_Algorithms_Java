@@ -351,7 +351,7 @@ public class Test {
 //        System.out.println(pqueue.isEmpty());
 
 
-        Queue<Integer> q = new ArrayQueue<>(5);
+        Queue<Integer> q = new LinkedQueue<>();
         q.enqueue(1);
         q.enqueue(2);
         q.enqueue(3);

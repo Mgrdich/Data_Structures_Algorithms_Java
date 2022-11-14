@@ -61,13 +61,16 @@ public class SinglyLinkedList<E> {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("[ ");
+        StringBuilder stringBuilder = new StringBuilder("[");
 
         SinglyLinkedListNode<E> curr = head;
 
         while (curr != null) {
-            stringBuilder.append(curr.getElement()).append(" ");
+            stringBuilder.append(curr.getElement());
             curr = curr.getNext();
+            if(curr!=null){
+                stringBuilder.append(", ");
+            }
         }
         stringBuilder.append("]");
 
