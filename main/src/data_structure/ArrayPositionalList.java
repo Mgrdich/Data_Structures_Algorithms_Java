@@ -44,6 +44,7 @@ public class ArrayPositionalList<E> implements PositionalList<E> {
         this(CAPACITY);
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayPositionalList(int capacity) {
         list = new IndexedPosition[capacity];
     }
@@ -72,6 +73,7 @@ public class ArrayPositionalList<E> implements PositionalList<E> {
         return list[positionNode.getIndex()];
     }
 
+    @SuppressWarnings("unchecked")
     private void resizeIfNecessary() {
         if (size != list.length) return;
 
@@ -86,7 +88,6 @@ public class ArrayPositionalList<E> implements PositionalList<E> {
             list[i + 1] = list[i];
             list[i + 1].setIndex(i + 1); // update the reference index
         }
-
     }
 
     @Override
