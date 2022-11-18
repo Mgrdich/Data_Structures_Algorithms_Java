@@ -41,4 +41,20 @@ public class InvertBinaryTree {
         parent.setLeft(anotherNode);
         parent.setRight(node);
     }
+
+    public static <E> LinkedBinaryTreeNode<E> invertTreeV2(LinkedBinaryTreeNode<E> root) {
+        // Base case: if the tree is empty...
+        if (root == null) {
+            return null;
+        }
+        // Call the function recursively for the left subtree...
+        invertTreeV2(root.getLeft());
+        // Call the function recursively for the right subtree...
+        invertTreeV2(root.getRight());
+        // Swapping process...
+        LinkedBinaryTreeNode<E> curr = root.getLeft();
+        root.setLeft(root.getRight());
+        root.setRight(curr);
+        return root;        // Return the root...
+    }
 }
