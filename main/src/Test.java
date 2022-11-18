@@ -351,17 +351,23 @@ public class Test {
 //        System.out.println(pqueue.isEmpty());
 
 
-        Queue<Integer> q = new LinkedQueue<>();
-        q.enqueue(1);
-        q.enqueue(2);
-        q.enqueue(3);
-        q.enqueue(4);
-        q.enqueue(5);
-        q.dequeue();
-        q.enqueue(6);
-        q.dequeue();
-        q.enqueue(7);
+//        Queue<Integer> q = new LinkedQueue<>();
+//        q.enqueue(1);
+//        q.enqueue(2);
+//        q.enqueue(3);
+//        q.enqueue(4);
+//        q.enqueue(5);
+//        q.dequeue();
+//        q.enqueue(6);
+//        q.dequeue();
+//        q.enqueue(7);
+//
+//        System.out.println(q);
 
-        System.out.println(q);
+//        int[] arr = {-1,0,3,5,9,12};
+//        int[] arr1 = {2};
+//        System.out.println(Util.binarySearch(arr1,1));
+
+
     }
 }

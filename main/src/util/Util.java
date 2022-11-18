@@ -46,4 +46,24 @@ public class Util {
 
         return min;
     }
+
+    public static int binarySearch(int[] arr, int target) {
+        int min = 0;
+        int max = arr.length - 1;
+
+
+        while (min <= max) {
+            int mid = min + (max - min) / 2;
+            int diff = arr[mid] - target;
+
+            if (diff == 0) return mid;
+
+            if (diff > 0) {
+                max = mid - 1;
+            } else {
+                min = mid + 1;
+            }
+        }
+        return -1;
+    }
 }

@@ -65,12 +65,6 @@ public class ArrayToBinaryTree {
         return tree;
     }
 
-
-    /**
-     * space-complexity O(1)
-     * time-complexity O(n): cause at worst it will iterate all the array
-     * The philosophy if there exit an element in the array which does not have a valid parent
-     */
     private static <T> void validate(T[] arr) throws IllegalArgumentException {
         if (arr.length == 0)
             return;
