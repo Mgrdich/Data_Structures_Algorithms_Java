@@ -8,14 +8,12 @@ public class HeapSort {
         Integer[] arr2 = {3, 7, 2, 1, 4};
         Integer[] arr3 = {16, 4, 7, 1, 12, 19};
 
-
-        System.out.println();
-        sort(arr2);
-        Util.arrayPrint(arr2);
+        sort(arr);
+        Util.arrayPrint(arr);
     }
 
     public static void sort(Integer[] arr) {
-        makeHeap(arr);
+        bottomUpHeap(arr);
         int heapEndIndex = arr.length - 1;
         while (heapEndIndex > 0) {
             Util.swap(arr, 0, heapEndIndex);
@@ -24,11 +22,18 @@ public class HeapSort {
         }
     }
 
-    public static void makeHeap(Integer[] arr) {
+    public static void makeTopDownHeap(Integer[] arr) {
         int cursor = 1;
         while (cursor != arr.length) {
             upHeapForMaxHeap(arr, cursor);
             cursor++;
+        }
+    }
+
+    public static void bottomUpHeap(Integer[] arr) {
+        int parentIndex = parent(arr.length - 1);
+        for (int i = parentIndex; i >= 0; i--) {
+            downHeapForMaxHeap(arr, i, arr.length);
         }
     }
 

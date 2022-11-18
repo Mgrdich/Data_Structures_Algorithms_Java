@@ -16,6 +16,22 @@ public class HeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
         super(comparator);
     }
 
+    public HeapPriorityQueue(K[] keys, V[] values) {
+        super();
+
+        for (int i = 0; i < Math.min(values.length, keys.length); i++) {
+            heap.add(new PQEntry<>(keys[i], values[i]));
+        }
+        heapify();
+    }
+
+    protected void heapify() {
+        int startIndex = parent(size() - 1);
+        for (int i = startIndex; i > 0; i--) {
+            downHeap(i);
+        }
+    }
+
     protected int parent(int j) {
         return (j - 1) / 2;
     }
