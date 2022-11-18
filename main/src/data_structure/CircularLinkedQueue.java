@@ -34,12 +34,4 @@ public class CircularLinkedQueue<E> implements CircularQueue<E> {
     public void rotate() {
         linkedList.rotate();
     }
-
-    /**
-     * This print prints from the top accessible element to bottom
-     * cause that is the access structure
-     */
-    public void print() {
-        linkedList.print();
-    }
 }
