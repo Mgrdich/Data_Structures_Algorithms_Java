@@ -1,6 +1,7 @@
 package data_structure;
 
 import adt.Entry;
+import adt.Queue;
 
 public class LinkedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
 
@@ -25,18 +26,24 @@ public class LinkedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
     }
 
     private LinkedBinaryTreeNode<Entry<K, V>> findLastNode(LinkedBinaryTreeNode<Entry<K, V>> node) {
-        if (node.getLeft() == null || node.getRight() == null) {
-            return node;
+
+        Queue<LinkedBinaryTreeNode<Entry<K, V>>> fringe = new LinkedQueue<>();
+        fringe.enqueue(node);
+        while (!fringe.isEmpty()) {
+            LinkedBinaryTreeNode<Entry<K, V>> p = fringe.dequeue();
+
+            if (p.getLeft() != null)
+                fringe.enqueue(p.getLeft());
+
+            if (p.getRight() != null)
+                fringe.enqueue(p.getRight());
+
+
+            if (p.getRight() == null && p.getLeft() == null && fringe.size() == 1) {
+                return fringe.dequeue();
+            }
         }
-
-        LinkedBinaryTreeNode<Entry<K, V>> nodeLeft = findLastNode(node.getLeft());
-        LinkedBinaryTreeNode<Entry<K, V>> nodeRight = findLastNode(node.getRight());
-
-        if (nodeRight != null) {
-            return nodeRight;
-        }
-
-        return nodeLeft;
+        return node;
     }
 
     private Entry<K, V> entrify(LinkedBinaryTreeNode<Entry<K, V>> node) {
