@@ -47,6 +47,8 @@ public class UnsortedPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
     @Override
     public Entry<K, V> insert(K key, V value) throws IllegalArgumentException {
         checkKey(key);
-        return new PQEntry<>(key, value);
+        Entry<K, V> newEntry = new PQEntry<>(key, value);
+        list.addLast(newEntry);
+        return newEntry;
     }
 }

@@ -117,4 +117,9 @@ public class HeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
         upHeap(heap.size() - 1);
         return newEntry;
     }
+
+    @Override
+    public String toString() {
+        return heap.toString();
+    }
 }

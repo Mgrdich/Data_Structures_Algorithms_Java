@@ -1,7 +1,6 @@
 package util;
 
-import adt.Position;
-import adt.PositionalList;
+import data_structure.LinkedBinaryTreeNode;
 
 public class Util {
     public static <T> void swap(T[] a, int i, int j) {
@@ -65,5 +64,43 @@ public class Util {
             }
         }
         return -1;
+    }
+
+    public static <E> void swapLinkedBinaryNodes(LinkedBinaryTreeNode<E> node, LinkedBinaryTreeNode<E> anotherNode) {
+        LinkedBinaryTreeNode<E> nodeParent = node.getParent();
+        LinkedBinaryTreeNode<E> tempAnotherNodeParent = anotherNode.getParent();
+
+        // root case
+        if (nodeParent != null) {
+            if (nodeParent.getLeft() ==  node) {
+                nodeParent.setLeft(anotherNode);
+            } else {
+                nodeParent.setRight(anotherNode);
+            }
+        }
+
+        // root case
+        if (tempAnotherNodeParent != null) {
+            if (tempAnotherNodeParent.getLeft() ==  anotherNode) {
+                anotherNode.setLeft(node);
+            } else {
+                anotherNode.setRight(node);
+            }
+        }
+
+        LinkedBinaryTreeNode<E> tempLeft = node.getLeft();
+        LinkedBinaryTreeNode<E> tempRight = node.getRight();
+        E tempElement = node.getElement();
+
+        node.setLeft(anotherNode.getLeft());
+        node.setRight(anotherNode.getRight());
+        node.setParent(tempAnotherNodeParent);
+        node.setElement(anotherNode.getElement());
+
+
+        anotherNode.setLeft(tempLeft);
+        anotherNode.setRight(tempRight);
+        anotherNode.setParent(nodeParent);
+        anotherNode.setElement(tempElement);
     }
 }

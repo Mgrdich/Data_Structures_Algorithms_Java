@@ -33,7 +33,7 @@ public class BalancedBinaryTree {
         return (Math.max(leftSubTreeHeight, rightSubTreeHeight) + 1);
     }
 
-    public static boolean isBalanced(LinkedBinaryTree<Integer> tree, Position<Integer> root) {
+    public static boolean isBalanced(LinkedBinaryTree<Integer> tree) {
         return balancedHeight(tree, tree.root()) != -1;
     }
 
@@ -48,7 +48,7 @@ public class BalancedBinaryTree {
         int rightSubTreeHeight = balancedHeight(tree, tree.right(root));
         if (rightSubTreeHeight == -1) return -1;
 
-        // checking the difference of left and right subtree for current node
+
         if (Math.abs(leftSubTreeHeight - rightSubTreeHeight) > 1) {
             return -1;
         }
