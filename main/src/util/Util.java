@@ -1,6 +1,8 @@
 package util;
-
+import adt.Queue;
+import data_structure.ArrayList;
 import data_structure.LinkedBinaryTreeNode;
+import data_structure.LinkedQueue;
 
 public class Util {
     public static <T> void swap(T[] a, int i, int j) {
@@ -72,7 +74,7 @@ public class Util {
 
         // root case
         if (nodeParent != null) {
-            if (nodeParent.getLeft() ==  node) {
+            if (nodeParent.getLeft() == node) {
                 nodeParent.setLeft(anotherNode);
             } else {
                 nodeParent.setRight(anotherNode);
@@ -81,10 +83,10 @@ public class Util {
 
         // root case
         if (tempAnotherNodeParent != null) {
-            if (tempAnotherNodeParent.getLeft() ==  anotherNode) {
-                anotherNode.setLeft(node);
+            if (tempAnotherNodeParent.getLeft() == anotherNode) {
+                tempAnotherNodeParent.setLeft(node);
             } else {
-                anotherNode.setRight(node);
+                tempAnotherNodeParent.setRight(node);
             }
         }
 
@@ -102,5 +104,24 @@ public class Util {
         anotherNode.setRight(tempRight);
         anotherNode.setParent(nodeParent);
         anotherNode.setElement(tempElement);
+    }
+
+    public static <E> Iterable<E> breadthFirstTraversal(LinkedBinaryTreeNode<E> node) {
+        ArrayList<E> list = new ArrayList<>();
+
+        Queue<LinkedBinaryTreeNode<E>> fringe = new LinkedQueue<>();
+        fringe.enqueue(node);
+        while (!fringe.isEmpty()) {
+            LinkedBinaryTreeNode<E> p = fringe.dequeue();
+            list.add(p.getElement());
+
+            if (p.getLeft() != null)
+                fringe.enqueue(p.getLeft());
+
+            if (p.getRight() != null)
+                fringe.enqueue(p.getRight());
+        }
+
+        return list;
     }
 }

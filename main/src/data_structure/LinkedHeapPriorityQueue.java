@@ -1,7 +1,6 @@
 package data_structure;
 
 import adt.Entry;
-import util.Util;
 
 public class LinkedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
 
@@ -37,7 +36,15 @@ public class LinkedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
         LinkedBinaryTreeNode<Entry<K, V>> p = node.getParent();
         if (compare(node.getElement(), p.getElement()) >= 0) return;
 
+        swapValues(node, p);
 
+        upHeap(p);
+    }
+
+    private void swapValues(LinkedBinaryTreeNode<Entry<K, V>> node, LinkedBinaryTreeNode<Entry<K, V>> anotherNode) {
+        Entry<K, V> temp = node.getElement();
+        node.setElement(anotherNode.getElement());
+        anotherNode.setElement(temp);
     }
 
     @Override
