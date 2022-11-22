@@ -369,5 +369,13 @@ public class Test {
 //        System.out.println(Util.binarySearch(arr1,1));
 
 
+        LinkedHeapPriorityQueue<Integer, Integer> heap = new LinkedHeapPriorityQueue<>();
+        heap.insert(1, 1);
+        heap.insert(0, 0);
+        heap.insert(-1, -1);
+        heap.insert(2, 2);
+        System.out.println(heap.min());
+        System.out.println(heap.removeMin());
+        System.out.println(heap.size());
     }
 }

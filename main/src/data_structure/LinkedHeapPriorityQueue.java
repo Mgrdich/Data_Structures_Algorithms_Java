@@ -9,23 +9,39 @@ public class LinkedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
 
     private LinkedBinaryTreeNode<Entry<K, V>> root;
 
-    private void findAndInsertNode(LinkedBinaryTreeNode<Entry<K, V>> node, LinkedBinaryTreeNode<Entry<K, V>> entry) {
-        if (node.getLeft() == null) {
-            // insert and stop
-            node.setLeft(entry);
-            return;
-        }
-        if (node.getRight() == null) {
-            // insert and stop
-            node.setRight(entry);
-            return;
-        }
-
-        findAndInsertNode(node.getLeft(), entry);
-        findAndInsertNode(node.getRight(), entry);
+    private void addSentinels(LinkedBinaryTreeNode<Entry<K, V>> node) {
+        LinkedBinaryTreeNode<Entry<K, V>> sentinelLeft = new LinkedBinaryTreeNode<>(null, node, null, null);
+        LinkedBinaryTreeNode<Entry<K, V>> sentinelRight = new LinkedBinaryTreeNode<>(null, node, null, null);
+        node.setLeft(sentinelLeft);
+        node.setRight(sentinelRight);
     }
 
     private LinkedBinaryTreeNode<Entry<K, V>> findLastNode(LinkedBinaryTreeNode<Entry<K, V>> node) {
+
+        Queue<LinkedBinaryTreeNode<Entry<K, V>>> fringe = new LinkedQueue<>();
+        fringe.enqueue(node);
+        LinkedBinaryTreeNode<Entry<K, V>> lastNoneNull = node;
+
+        while (!fringe.isEmpty()) {
+            LinkedBinaryTreeNode<Entry<K, V>> p = fringe.dequeue();
+
+            if (p.getLeft() != null)
+                fringe.enqueue(p.getLeft());
+
+            if (p.getRight() != null)
+                fringe.enqueue(p.getRight());
+
+            if (p.getElement() == null) {
+                return lastNoneNull;
+            } else {
+                lastNoneNull = p;
+            }
+        }
+
+        return lastNoneNull;
+    }
+
+    private LinkedBinaryTreeNode<Entry<K, V>> findMinHeapNode(LinkedBinaryTreeNode<Entry<K, V>> node) {
 
         Queue<LinkedBinaryTreeNode<Entry<K, V>>> fringe = new LinkedQueue<>();
         fringe.enqueue(node);
@@ -39,23 +55,25 @@ public class LinkedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
                 fringe.enqueue(p.getRight());
 
 
-            if (p.getRight() == null && p.getLeft() == null && fringe.size() == 1) {
-                return fringe.dequeue();
+            if (p.getElement() == null) {
+                // first sentinel
+                return p;
             }
         }
         return node;
     }
 
     private Entry<K, V> entrify(LinkedBinaryTreeNode<Entry<K, V>> node) {
-        if (node == null) return null;
+        if (node == null || node.getElement() == null) return null;
 
         return node.getElement();
     }
 
     private void upHeap(LinkedBinaryTreeNode<Entry<K, V>> node) {
-        if (node == null) return;
+        if (node == null || node.getElement() == null) return;
 
         LinkedBinaryTreeNode<Entry<K, V>> p = node.getParent();
+        if (p == null) return;
         if (compare(node.getElement(), p.getElement()) >= 0) return;
 
         swapValues(node, p);
@@ -64,9 +82,12 @@ public class LinkedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
     }
 
     private void downHeap(LinkedBinaryTreeNode<Entry<K, V>> node) {
-        if (node.getLeft() == null) return;
+        if (node.getElement() == null || node.getLeft() == null) return;
 
         LinkedBinaryTreeNode<Entry<K, V>> leftElement = node.getLeft();
+
+        if (leftElement.getElement() == null) return; //sentinel
+
         LinkedBinaryTreeNode<Entry<K, V>> smallestNode = leftElement;
 
         if (node.getRight() != null) {
@@ -110,7 +131,8 @@ public class LinkedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
         if (isEmpty()) return null;
 
         LinkedBinaryTreeNode<Entry<K, V>> lastHeapNode = findLastNode(root);
-        Entry<K, V> temp = lastHeapNode.getElement();
+        Entry<K, V> temp = root.getElement();
+
         swapValues(root, lastHeapNode);
 
         remove(lastHeapNode); // now it has the root element
@@ -128,16 +150,19 @@ public class LinkedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
     @Override
     public Entry<K, V> insert(K key, V value) throws IllegalArgumentException {
         Entry<K, V> newEntry = new PQEntry<>(key, value);
-        size++;
         if (isEmpty()) {
             root = new LinkedBinaryTreeNode<>(newEntry, null, null, null);
+            addSentinels(root);
+            size++;
             return newEntry;
         }
 
 
-        LinkedBinaryTreeNode<Entry<K, V>> node = new LinkedBinaryTreeNode<>(newEntry, null, null, null);
-        findAndInsertNode(root, node);
+        LinkedBinaryTreeNode<Entry<K, V>> node = findMinHeapNode(root);
+        node.setElement(newEntry);
+        addSentinels(node);
         upHeap(node);
+        size++;
         return newEntry;
     }
 
