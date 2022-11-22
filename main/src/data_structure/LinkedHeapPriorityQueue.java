@@ -116,7 +116,11 @@ public class LinkedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
         remove(lastHeapNode); // now it has the root element
         size--;
 
-        downHeap(root);
+        if (size > 1) {
+            downHeap(root);
+        } else {
+            root = null;
+        }
 
         return temp;
     }
