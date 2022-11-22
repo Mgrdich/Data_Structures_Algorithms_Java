@@ -374,7 +374,16 @@ public class Test {
         heap.insert(0, 0);
         heap.insert(-1, -1);
         heap.insert(2, 2);
+        heap.insert(-2, -2);
+        heap.insert(66, 66);
+        heap.insert(5, 5);
         System.out.println(heap.min());
+        System.out.println(heap.removeMin());
+        System.out.println(heap.removeMin());
+        System.out.println(heap.removeMin());
+        System.out.println(heap.removeMin());
+        System.out.println(heap.removeMin());
+        System.out.println(heap.removeMin());
         System.out.println(heap.removeMin());
         System.out.println(heap.size());
     }

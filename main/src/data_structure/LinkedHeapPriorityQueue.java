@@ -90,8 +90,8 @@ public class LinkedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
 
         LinkedBinaryTreeNode<Entry<K, V>> smallestNode = leftElement;
 
-        if (node.getRight() != null) {
-            LinkedBinaryTreeNode<Entry<K, V>> rightElement = node.getRight();
+        LinkedBinaryTreeNode<Entry<K, V>> rightElement = node.getRight();
+        if (rightElement != null && rightElement.getElement() != null) {
             if (compare(leftElement.getElement(), rightElement.getElement()) > 0) {
                 smallestNode = rightElement;
             }
@@ -132,18 +132,16 @@ public class LinkedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
 
         LinkedBinaryTreeNode<Entry<K, V>> lastHeapNode = findLastNode(root);
         Entry<K, V> temp = root.getElement();
-
-        swapValues(root, lastHeapNode);
-
-        remove(lastHeapNode); // now it has the root element
         size--;
 
-        if (size > 1) {
-            downHeap(root);
-        } else {
+        if (size == 0) {
             root = null;
+            return temp;
         }
 
+        swapValues(root, lastHeapNode);
+        remove(lastHeapNode); // now it has the root element
+        downHeap(root);
         return temp;
     }
 
