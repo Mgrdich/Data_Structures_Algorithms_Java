@@ -203,7 +203,7 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
     }
 
     private class ElementIterator implements Iterator<E> {
-        Iterator<Position<E>> positionIterator = new PositionIterator();
+        private final Iterator<Position<E>> positionIterator = new PositionIterator();
 
         @Override
         public boolean hasNext() {
