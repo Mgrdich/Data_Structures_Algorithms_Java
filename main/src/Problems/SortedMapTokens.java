@@ -9,7 +9,27 @@ import java.util.StringTokenizer;
 
 public class SortedMapTokens {
     public static void main(String[] args) {
-        printTokens("Lab002 mgos boghos", new SortedPriorityQueue<>());
+        String[] input = {"Lab002", "mgos", "boghos"};
+        printTokens(input, new SortedPriorityQueue<>());
+    }
+
+
+    public static void printTokens(String[] arr, PriorityQueue<Integer, String> priorityQueue) {
+        HashMap<Integer, String> map = new HashMap<>();
+
+        for (String curr : arr) {
+            int length = countLatinLetters(curr);
+
+            if (map.containsKey(length)) continue;
+
+            map.put(length, curr);
+            priorityQueue.insert(length, curr);
+        }
+
+        while (!priorityQueue.isEmpty()) {
+            Entry<Integer, String> word = priorityQueue.removeMin();
+            System.out.println("Word: " + word.getValue() + " letter:" + word.getKey());
+        }
     }
 
     public static void printTokens(String str, PriorityQueue<Integer, String> priorityQueue) {
@@ -32,5 +52,16 @@ public class SortedMapTokens {
             Entry<Integer, String> word = priorityQueue.removeMin();
             System.out.println("Word: " + word.getValue() + " letter:" + word.getKey());
         }
+    }
+
+
+    private static int countLatinLetters(String str) {
+        int i = 0;
+        int n = str.length();
+        for (int j = 0; j < n; j++) {
+            char c = str.charAt(i);
+            if (c >= 'A' && c <= 'z') i++;
+        }
+        return i;
     }
 }

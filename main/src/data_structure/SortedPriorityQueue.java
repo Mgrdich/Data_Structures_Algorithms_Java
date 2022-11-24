@@ -38,7 +38,7 @@ public class SortedPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
     public Entry<K, V> insert(K key, V value) throws IllegalArgumentException {
         checkKey(key);
         PQEntry<K, V> pqEntry = new PQEntry<>(key, value);
-        Position<Entry<K, V>> walk = list.first();
+        Position<Entry<K, V>> walk = list.last();
 
         while (walk != null && compare(pqEntry, walk.getElement()) < 0) {
             walk = list.before(walk);
