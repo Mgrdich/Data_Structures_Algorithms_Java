@@ -2,8 +2,6 @@ package data_structure;
 
 import adt.Entry;
 
-import java.util.Iterator;
-
 public class SortedTableMap<K, V> extends AbstractSortedMap<K, V> {
     ArrayList<MapEntry<K, V>> table = new ArrayList<>();
 
@@ -59,64 +57,63 @@ public class SortedTableMap<K, V> extends AbstractSortedMap<K, V> {
 
     @Override
     public Iterable<Entry<K, V>> entrySet() {
-        return new EntriesIterable();
+        return snapshot(0, null);
     }
 
-    private class EntriesIterator implements Iterator<Entry<K, V>> {
-
-        private final Iterator<MapEntry<K, V>> it = table.iterator();
-
-        @Override
-        public boolean hasNext() {
-            return it.hasNext();
+    private Iterable<Entry<K, V>> snapshot(int index, K key) {
+        ArrayList<Entry<K, V>> buffer = new ArrayList<>();
+        int j = index;
+        while (j < table.size() && (key == null || compare(key, table.get(j)) > 0)) {
+            buffer.add(table.get(j++));
         }
-
-        @Override
-        public Entry<K, V> next() {
-            return it.next();
-        }
+        return buffer;
     }
 
-    private class EntriesIterable implements Iterable<Entry<K, V>> {
-
-        @Override
-        public Iterator<Entry<K, V>> iterator() {
-            return new EntriesIterator();
-        }
+    private Entry<K, V> safeEntry(int j) {
+        if (j < 0 || j >= table.size()) return null;
+        return table.get(j);
     }
 
     @Override
     public Entry<K, V> firstEntry() {
-        return null;
+        return safeEntry(0);
     }
 
     @Override
     public Entry<K, V> lastEntry() {
-        return null;
+        return safeEntry(table.size() - 1);
     }
 
     @Override
     public Entry<K, V> ceilingEntry(K key) {
-        return null;
+        return safeEntry(findIndex(key));
     }
 
     @Override
     public Entry<K, V> floorEntry(K key) {
-        return null;
+        int j = findIndex(key);
+
+        if (j == size() || !key.equals(table.get(j).getKey())) j--;
+
+        return safeEntry(j);
     }
 
     @Override
     public Entry<K, V> lowerEntry(K key) {
-        return null;
+        return safeEntry(findIndex(key) - 1);
     }
 
     @Override
     public Entry<K, V> higherEntry(K key) {
-        return null;
+        int j = findIndex(key);
+
+        if (j == size() || !key.equals(table.get(j).getKey())) j++;
+
+        return safeEntry(j);
     }
 
     @Override
     public Iterable<Entry<K, V>> subMap(K key, K anotherKey) {
-        return null;
+        return snapshot(findIndex(key), anotherKey);
     }
 }
