@@ -2,15 +2,21 @@ package Problems;
 
 import adt.Entry;
 import adt.PriorityQueue;
+import data_structure.HeapPriorityQueue;
 import data_structure.SortedPriorityQueue;
+import data_structure.UnsortedPriorityQueue;
 
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class SortedMapTokens {
     public static void main(String[] args) {
-        String[] input = {"Lab002", "mgos", "boghos"};
+        String[] input = {"Lab002", "mgos", "boghos", "kskww%%%00000"};
         printTokens(input, new SortedPriorityQueue<>());
+        System.out.println();
+        printTokens(input, new UnsortedPriorityQueue<>());
+        System.out.println();
+        printTokens(input, new HeapPriorityQueue<>());
     }
 
 
@@ -28,7 +34,7 @@ public class SortedMapTokens {
 
         while (!priorityQueue.isEmpty()) {
             Entry<Integer, String> word = priorityQueue.removeMin();
-            System.out.println("Word: " + word.getValue() + " letter:" + word.getKey());
+            System.out.println(word.getValue() + " ( " + word.getKey() + " letters )");
         }
     }
 
@@ -60,7 +66,7 @@ public class SortedMapTokens {
         int n = str.length();
         for (int j = 0; j < n; j++) {
             char c = str.charAt(i);
-            if (c >= 'A' && c <= 'z') i++;
+            if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) i++;
         }
         return i;
     }
