@@ -40,7 +40,7 @@ public class SortedPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
         PQEntry<K, V> pqEntry = new PQEntry<>(key, value);
         Position<Entry<K, V>> walk = list.first();
 
-        while (walk != null && compare(walk.getElement(), pqEntry) < 0) {
+        while (walk != null && compare(pqEntry, walk.getElement()) < 0) {
             walk = list.before(walk);
         }
 
