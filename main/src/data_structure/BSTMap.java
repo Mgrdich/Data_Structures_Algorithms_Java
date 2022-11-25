@@ -28,6 +28,18 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
         return tree.isExternal(position);
     }
 
+    private boolean isInternal(Position<Entry<K, V>> position) {
+        return tree.isInternal(position);
+    }
+
+    private Position<Entry<K, V>> right(Position<Entry<K, V>> position) {
+        return tree.right(position);
+    }
+
+    private Position<Entry<K, V>> left(Position<Entry<K, V>> position) {
+        return tree.left(position);
+    }
+
     private Position<Entry<K, V>> root() {
         return tree.root();
     }
@@ -45,13 +57,21 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
 
         int compare = compare(key, position.getElement());
 
-        if (compare == 0)
-            return position;
+        if (compare == 0) return position;
 
-        if (compare < 0)
-            return treeSearch(tree.left(position), key);
+        if (compare < 0) return treeSearch(tree.left(position), key);
 
         return treeSearch(tree.right(position), key);
+    }
+
+    private Position<Entry<K, V>> inOrderBefore(Position<Entry<K, V>> position) {
+        Position<Entry<K, V>> currentPosition = left(position);
+
+        while (isInternal(currentPosition)) {
+            currentPosition = right(currentPosition);
+        }
+
+        return tree.parent(currentPosition); // because we need a number here not a sentinel
     }
 
 
@@ -86,7 +106,33 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
 
     @Override
     public V remove(K key) {
-        return null;
+        checkKey(key);
+        Position<Entry<K, V>> position = treeSearch(root(), key);
+
+        if (isExternal(position)) { // not found
+            return null;
+        }
+
+        V oldValue = position.getElement().getValue();
+
+        Position<Entry<K, V>> leftPosition = left(position);
+        Position<Entry<K, V>> rightPosition = right(position);
+
+
+        if (isInternal(leftPosition) && isInternal(rightPosition)) {
+            Position<Entry<K, V>> replacement = inOrderBefore(position);
+            tree.set(position, replacement.getElement());
+            position = replacement; // since replacement is has always external node by in orderBefore definition
+        }
+
+        // it has at-least one leaf
+        Position<Entry<K, V>> leaf = isExternal(leftPosition) ? leftPosition : rightPosition;
+
+        //order here is important
+        tree.remove(leaf);
+        tree.remove(position);
+
+        return oldValue;
     }
 
     @Override
@@ -96,11 +142,13 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
 
     @Override
     public Entry<K, V> firstEntry() {
+        if (isEmpty()) return null;
         return null;
     }
 
     @Override
     public Entry<K, V> lastEntry() {
+        if (isEmpty()) return null;
         return null;
     }
 
