@@ -376,10 +376,12 @@ public class Test {
         map.put(6, 6);
         map.put(9, 9);
         map.put(2, 2);
+        map.put(4, 4);
         map.put(1, 1);
         map.put(8, 8);
         map.put(5, 5);
         System.out.println(map);
-        map.remove(5);
+        map.remove(4);
+        System.out.println(map);
     }
 }

@@ -147,6 +147,7 @@ public class LinkedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
 
     @Override
     public Entry<K, V> insert(K key, V value) throws IllegalArgumentException {
+        checkKey(key);
         Entry<K, V> newEntry = new PQEntry<>(key, value);
         if (isEmpty()) {
             root = new LinkedBinaryTreeNode<>(newEntry, null, null, null);

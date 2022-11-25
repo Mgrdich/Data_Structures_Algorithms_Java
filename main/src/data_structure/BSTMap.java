@@ -40,9 +40,20 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
         return tree.left(position);
     }
 
+    private Position<Entry<K, V>> parent(Position<Entry<K, V>> position) {
+        return tree.parent(position);
+    }
+
     private Position<Entry<K, V>> root() {
         return tree.root();
     }
+
+    private Entry<K, V> entry(Position<Entry<K, V>> position) {
+        if (isExternal(position)) return null;
+
+        return position.getElement();
+    }
+
 
     private V value(Position<Entry<K, V>> position) {
         if (isExternal(position)) return null;
@@ -71,7 +82,7 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
             currentPosition = right(currentPosition);
         }
 
-        return tree.parent(currentPosition); // because we need a number here not a sentinel
+        return parent(currentPosition); // because we need a number here not a sentinel
     }
 
 
@@ -137,43 +148,59 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
 
     @Override
     public Iterable<Entry<K, V>> entrySet() {
-        return null;
+        ArrayList<Entry<K, V>> buffer = new ArrayList<>();
+        for (Position<Entry<K, V>> position : tree.inOrder()) {
+            buffer.add(position.getElement());
+        }
+        return buffer;
     }
 
     @Override
     public Entry<K, V> firstEntry() {
         if (isEmpty()) return null;
-        return null;
+        return entry(root());
     }
 
     @Override
     public Entry<K, V> lastEntry() {
         if (isEmpty()) return null;
-        return null;
+        // corresponding biggest element in array
+        Position<Entry<K, V>> position = root();
+        while (isInternal(position)) {
+            position = right(position);
+        }
+
+        return parent(position).getElement();
     }
 
     @Override
     public Entry<K, V> ceilingEntry(K key) {
+        checkKey(key);
         return null;
     }
 
     @Override
     public Entry<K, V> floorEntry(K key) {
+        checkKey(key);
         return null;
     }
 
     @Override
     public Entry<K, V> lowerEntry(K key) {
+        checkKey(key);
         return null;
     }
 
     @Override
     public Entry<K, V> higherEntry(K key) {
+        checkKey(key);
         return null;
     }
 
     @Override
     public Iterable<Entry<K, V>> subMap(K key, K anotherKey) {
+        checkKey(key);
+        checkKey(anotherKey);
         return null;
     }
 
