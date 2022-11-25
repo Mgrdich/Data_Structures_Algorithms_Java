@@ -39,6 +39,11 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
             this.value = value;
             return temp;
         }
+
+        @Override
+        public String toString() {
+            return "{" + key + "->" + value + "}";
+        }
     }
 
     private class KeyIterator implements Iterator<K> {

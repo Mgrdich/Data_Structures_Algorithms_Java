@@ -176,4 +176,16 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
     public Iterable<Entry<K, V>> subMap(K key, K anotherKey) {
         return null;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder("( ");
+        for (Position<Entry<K, V>> p : tree.inOrder()) {
+            if (isInternal(p)) {
+                str.append(p.getElement()).append(" ");
+            }
+        }
+        str.append(")");
+        return str.toString();
+    }
 }

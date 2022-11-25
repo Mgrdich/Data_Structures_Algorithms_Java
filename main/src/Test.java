@@ -369,22 +369,17 @@ public class Test {
 //        System.out.println(Util.binarySearch(arr1,1));
 
 
-        LinkedHeapPriorityQueue<Integer, Integer> heap = new LinkedHeapPriorityQueue<>();
-        heap.insert(1, 1);
-        heap.insert(0, 0);
-        heap.insert(-1, -1);
-        heap.insert(2, 2);
-        heap.insert(-2, -2);
-        heap.insert(66, 66);
-        heap.insert(5, 5);
-        System.out.println(heap.min());
-        System.out.println(heap.removeMin());
-        System.out.println(heap.removeMin());
-        System.out.println(heap.removeMin());
-        System.out.println(heap.removeMin());
-        System.out.println(heap.removeMin());
-        System.out.println(heap.removeMin());
-        System.out.println(heap.removeMin());
-        System.out.println(heap.size());
+//
+
+        BSTMap<Integer, Integer> map = new BSTMap<>();
+
+        map.put(6, 6);
+        map.put(9, 9);
+        map.put(2, 2);
+        map.put(1, 1);
+        map.put(8, 8);
+        map.put(5, 5);
+        System.out.println(map);
+        map.remove(5);
     }
 }
