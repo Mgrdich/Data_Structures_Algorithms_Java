@@ -1,6 +1,7 @@
 package data_structure;
 
 import adt.Entry;
+import adt.List;
 import adt.Position;
 
 import java.util.Comparator;
@@ -48,7 +49,7 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
         return tree.root();
     }
 
-    private Entry<K, V> entry(Position<Entry<K, V>> position) {
+    private Entry<K, V> safeEntry(Position<Entry<K, V>> position) {
         if (isExternal(position)) return null;
 
         return position.getElement();
@@ -155,10 +156,11 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
         return buffer;
     }
 
+
     @Override
     public Entry<K, V> firstEntry() {
         if (isEmpty()) return null;
-        return entry(root());
+        return safeEntry(root());
     }
 
     @Override
@@ -170,12 +172,17 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
             position = right(position);
         }
 
-        return parent(position).getElement();
+        return safeEntry(parent(position));
     }
 
     @Override
     public Entry<K, V> ceilingEntry(K key) {
         checkKey(key);
+        Position<Entry<K, V>> position = treeSearch(root(), key);
+
+        if (isInternal(position)) return safeEntry(position);
+
+
         return null;
     }
 
@@ -201,7 +208,26 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
     public Iterable<Entry<K, V>> subMap(K key, K anotherKey) {
         checkKey(key);
         checkKey(anotherKey);
-        return null;
+        List<Entry<K, V>> buffer = new ArrayList<>();
+        if (compare(key, anotherKey) < 0) {
+            subMapRecurse(key, anotherKey, root(), buffer);
+        }
+        return buffer;
+    }
+
+    private void subMapRecurse(K fromKey, K toKey, Position<Entry<K, V>> p, List<Entry<K, V>> buffer) {
+        if (isExternal(p)) return;
+
+        if (compare(p.getElement(), fromKey) < 0) {
+            subMapRecurse(fromKey, toKey, right(p), buffer);
+            return;
+        }
+
+        subMapRecurse(fromKey, toKey, left(p), buffer);
+        if (compare(p.getElement(), toKey) < 0) { // in range
+            buffer.add(p.getElement());
+            subMapRecurse(fromKey, toKey, right(p), buffer); // right subtree as well
+        }
     }
 
     @Override
