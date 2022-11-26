@@ -65,7 +65,7 @@ public class SortedMapTokens {
         int i = 0;
         int n = str.length();
         for (int j = 0; j < n; j++) {
-            char c = str.charAt(i);
+            char c = str.charAt(j);
             if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) i++;
         }
         return i;
