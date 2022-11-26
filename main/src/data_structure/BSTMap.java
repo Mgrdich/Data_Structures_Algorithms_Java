@@ -98,6 +98,11 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
         return max(currentPosition);
     }
 
+    private Position<Entry<K, V>> inOrderAfter(Position<Entry<K, V>> position) {
+        Position<Entry<K, V>> currentPosition = right(position);
+
+        return min(currentPosition);
+    }
 
     @Override
     public int size() {
@@ -209,10 +214,10 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
         checkKey(key);
         Position<Entry<K, V>> position = treeSearch(root(), key);
 
-        if (isInternal(position)) return safeEntry(position);
+        if (isInternal(position)) return safeEntry(position); // found
 
 
-       return safeEntry(higherCeilingFinder(position));
+        return safeEntry(higherCeilingFinder(position)); // find it again
     }
 
     @Override
@@ -220,9 +225,9 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
         checkKey(key);
         Position<Entry<K, V>> position = treeSearch(root(), key);
 
-        if (isInternal(position)) return safeEntry(position);
+        if (isInternal(position)) return safeEntry(position); // found
 
-        return safeEntry(lowerFlowerFinder(position));
+        return safeEntry(lowerFlowerFinder(position)); // find it again
     }
 
     @Override
@@ -233,7 +238,7 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
         Position<Entry<K, V>> positionLeft = left(position);
 
         if (isInternal(position) && isInternal(positionLeft))
-            return max(positionLeft).getElement();
+            return safeEntry(inOrderBefore(position));
 
         return safeEntry(lowerFlowerFinder(position));
     }
@@ -247,7 +252,7 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
         Position<Entry<K, V>> positionRight = right(position);
 
         if (isInternal(position) && isInternal(positionRight))
-            return max(positionRight).getElement();
+            return safeEntry(inOrderAfter(position));
 
         return safeEntry(higherCeilingFinder(position));
     }
