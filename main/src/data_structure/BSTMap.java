@@ -234,9 +234,7 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
         checkKey(key);
         Position<Entry<K, V>> position = treeSearch(root(), key);
 
-        Position<Entry<K, V>> positionLeft = left(position);
-
-        if (isInternal(position) && isInternal(positionLeft))
+        if (isInternal(position) && isInternal(left(position)))
             return safeEntry(inOrderBefore(position));
 
         return safeEntry(lowerFlowerFinder(position));
@@ -247,10 +245,7 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
         checkKey(key);
         Position<Entry<K, V>> position = treeSearch(root(), key);
 
-
-        Position<Entry<K, V>> positionRight = right(position);
-
-        if (isInternal(position) && isInternal(positionRight))
+        if (isInternal(position) && isInternal(right(position)))
             return safeEntry(inOrderAfter(position));
 
         return safeEntry(higherCeilingFinder(position));
