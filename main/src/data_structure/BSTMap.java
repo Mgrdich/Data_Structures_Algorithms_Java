@@ -76,14 +76,26 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
         return treeSearch(tree.right(position), key);
     }
 
+    private Position<Entry<K, V>> min(Position<Entry<K, V>> position) {
+        while (isInternal(position)) {
+            position = left(position);
+        }
+
+        return parent(position); // because we need a number here not a sentinel
+    }
+
+    private Position<Entry<K, V>> max(Position<Entry<K, V>> position) {
+        while (isInternal(position)) {
+            position = right(position);
+        }
+
+        return parent(position); // because we need a number here not a sentinel
+    }
+
     private Position<Entry<K, V>> inOrderBefore(Position<Entry<K, V>> position) {
         Position<Entry<K, V>> currentPosition = left(position);
 
-        while (isInternal(currentPosition)) {
-            currentPosition = right(currentPosition);
-        }
-
-        return parent(currentPosition); // because we need a number here not a sentinel
+        return max(currentPosition);
     }
 
 
@@ -160,19 +172,36 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
     @Override
     public Entry<K, V> firstEntry() {
         if (isEmpty()) return null;
-        return safeEntry(root());
+        return safeEntry(min(root()));
     }
 
     @Override
     public Entry<K, V> lastEntry() {
         if (isEmpty()) return null;
-        // corresponding biggest element in array
-        Position<Entry<K, V>> position = root();
-        while (isInternal(position)) {
-            position = right(position);
+
+        return safeEntry(max(root()));
+    }
+
+    private Position<Entry<K, V>> lowerFlowerFinder(Position<Entry<K, V>> position) {
+        while (!tree.isRoot(position)) {
+            if (position == right(parent(position)))
+                return parent(position);
+            else
+                position = parent(position);
         }
 
-        return safeEntry(parent(position));
+        return null;
+    }
+
+    private Position<Entry<K, V>> higherCeilingFinder(Position<Entry<K, V>> position) {
+        while (!tree.isRoot(position)) {
+            if (position == left(parent(position)))
+                return parent(position);
+            else
+                position = parent(position);
+        }
+
+        return null;
     }
 
     @Override
@@ -183,50 +212,69 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
         if (isInternal(position)) return safeEntry(position);
 
 
-        return null;
+       return safeEntry(higherCeilingFinder(position));
     }
 
     @Override
     public Entry<K, V> floorEntry(K key) {
         checkKey(key);
-        return null;
+        Position<Entry<K, V>> position = treeSearch(root(), key);
+
+        if (isInternal(position)) return safeEntry(position);
+
+        return safeEntry(lowerFlowerFinder(position));
     }
 
     @Override
     public Entry<K, V> lowerEntry(K key) {
         checkKey(key);
-        return null;
+        Position<Entry<K, V>> position = treeSearch(root(), key);
+
+        Position<Entry<K, V>> positionLeft = left(position);
+
+        if (isInternal(position) && isInternal(positionLeft))
+            return max(positionLeft).getElement();
+
+        return safeEntry(lowerFlowerFinder(position));
     }
 
     @Override
     public Entry<K, V> higherEntry(K key) {
         checkKey(key);
-        return null;
+        Position<Entry<K, V>> position = treeSearch(root(), key);
+
+
+        Position<Entry<K, V>> positionRight = right(position);
+
+        if (isInternal(position) && isInternal(positionRight))
+            return max(positionRight).getElement();
+
+        return safeEntry(higherCeilingFinder(position));
     }
 
     @Override
     public Iterable<Entry<K, V>> subMap(K key, K anotherKey) {
         checkKey(key);
         checkKey(anotherKey);
-        List<Entry<K, V>> buffer = new ArrayList<>();
+        List<Entry<K, V>> list = new ArrayList<>();
         if (compare(key, anotherKey) < 0) {
-            subMapRecurse(key, anotherKey, root(), buffer);
+            subMapRecursive(key, anotherKey, root(), list);
         }
-        return buffer;
+        return list;
     }
 
-    private void subMapRecurse(K fromKey, K toKey, Position<Entry<K, V>> p, List<Entry<K, V>> buffer) {
+    private void subMapRecursive(K fromKey, K toKey, Position<Entry<K, V>> p, List<Entry<K, V>> list) {
         if (isExternal(p)) return;
 
         if (compare(p.getElement(), fromKey) < 0) {
-            subMapRecurse(fromKey, toKey, right(p), buffer);
+            subMapRecursive(fromKey, toKey, right(p), list);
             return;
         }
 
-        subMapRecurse(fromKey, toKey, left(p), buffer);
+        subMapRecursive(fromKey, toKey, left(p), list);
         if (compare(p.getElement(), toKey) < 0) { // in range
-            buffer.add(p.getElement());
-            subMapRecurse(fromKey, toKey, right(p), buffer); // right subtree as well
+            list.add(p.getElement());
+            subMapRecursive(fromKey, toKey, right(p), list); // right subtree as well
         }
     }
 
