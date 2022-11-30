@@ -383,5 +383,19 @@ public class Test {
         System.out.println(map);
         map.remove(4);
         System.out.println(map);
+
+
+
+        BSTWithNode<Integer,Integer> map2 = new BSTWithNode<>();
+        map2.insert(6, 6);
+        map2.insert(9, 9);
+        map2.insert(2, 2);
+        map2.insert(4, 4);
+        map2.insert(1, 1);
+        map2.insert(8, 8);
+        map2.insert(5, 5);
+        System.out.println(map2);
+        map2.remove(4);
+        System.out.println(map2);
     }
 }
