@@ -38,7 +38,7 @@ public class BalancedBinaryTree {
     }
 
     private static int balancedHeight(LinkedBinaryTree<Integer> tree, Position<Integer> root) {
-        if (root.getElement() == null) {
+        if (root == null || root.getElement() == null) {
             return 0;
         }
 
