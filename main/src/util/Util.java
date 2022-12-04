@@ -1,4 +1,7 @@
 package util;
+
+import adt.List;
+import adt.Position;
 import adt.Queue;
 import data_structure.ArrayList;
 import data_structure.LinkedBinaryTreeNode;
@@ -123,5 +126,22 @@ public class Util {
         }
 
         return list;
+    }
+
+    public static <E> Iterable<LinkedBinaryTreeNode<E>> inOrder(LinkedBinaryTreeNode<E> root) {
+        ArrayList<LinkedBinaryTreeNode<E>> list = new ArrayList<>();
+        if (root != null)
+            inOrderSubTree(root, list);
+        return list;
+    }
+
+    private static <E> void inOrderSubTree(LinkedBinaryTreeNode<E> node, ArrayList<LinkedBinaryTreeNode<E>> snapshot) {
+        if (node.getLeft() != null)
+            inOrderSubTree(node.getLeft(), snapshot);
+
+        snapshot.add(node);
+
+        if (node.getRight() != null)
+            inOrderSubTree(node.getRight(), snapshot);
     }
 }
