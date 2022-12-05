@@ -127,22 +127,22 @@ public class AVLMedian {
      * hence the complexity log(n) * complexity(size(x))
      */
     private static <E> LinkedBinaryTreeNode<E> findNodeWithIndex(LinkedBinaryTreeNode<E> root, SizeAble<E> sizeable, int index) {
-        LinkedBinaryTreeNode<E> current = root;
+        LinkedBinaryTreeNode<E> cursor = root;
 
         while (true) {
-            int leftSize = sizeable.size((current.getLeft()));
+            int leftSize = sizeable.size((cursor.getLeft()));
 
             // the check
             if (index == leftSize) {
-                return current;
+                return cursor;
             }
 
             // chose the place to make it as a root and search there
             if (index <= leftSize) {
-                current = current.getLeft();
+                cursor = cursor.getLeft();
             } else {
                 index -= (leftSize + 1); // add root
-                current = current.getRight();
+                cursor = cursor.getRight();
             }
         }
     }
