@@ -34,7 +34,6 @@ public class AVLMedian {
         }
 
         System.out.println();
-//        System.out.println(left_left.getElement() + " " + inOrderAfter(left_left).getElement());
 
         System.out.println(getMedianMemory(root));
     }
@@ -77,7 +76,7 @@ public class AVLMedian {
     /**
      * space O(log(n))
      * time O(log(n))
-     * */
+     */
     public static int getMedianMemory(LinkedBinaryTreeNode<Integer> root) {
         SizeAble<Integer> sizeAble = new MemorySize<>();
 
