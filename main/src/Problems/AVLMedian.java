@@ -49,7 +49,7 @@ public class AVLMedian {
          * <p>
          * O(log(n)) space
          * O(log(n)) time
-         *
+         * <p>
          * because the height of AVL is at most log(n)
          */
         @Override
@@ -64,7 +64,7 @@ public class AVLMedian {
         /**
          * In the case of an AVLTree it will take
          * <p>
-         * O(1) space lets assume
+         * O(1) space lets assume TODO not implemented
          */
         @Override
         public int size(LinkedBinaryTreeNode<E> node) {
@@ -74,7 +74,10 @@ public class AVLMedian {
         }
     }
 
-
+    /**
+     * space O(log(n))
+     * time O(log(n))
+     * */
     public static int getMedianMemory(LinkedBinaryTreeNode<Integer> root) {
         SizeAble<Integer> sizeAble = new MemorySize<>();
 
@@ -87,16 +90,17 @@ public class AVLMedian {
         // anyone case that
         return findNodeWithIndex(root, sizeAble, size / 2).getElement();
     }
+
     public static int getMedianConstant(LinkedBinaryTreeNode<Integer> root) {
         SizeAble<Integer> sizeAble = new SizeConstant<>();
 
-        int size = sizeAble.size(root); // log(n)
+        int size = sizeAble.size(root); // O(1)
 
         if (size == 0) {
             throw new IllegalStateException("empty tree.");
         }
 
-        // anyone case that
+        // anyone cases that
         return findNodeWithIndex(root, sizeAble, size / 2).getElement();
     }
 
@@ -118,7 +122,10 @@ public class AVLMedian {
     }
 
     /**
-     *
+     * this will depend on mainly on the sizable main function
+     * otherwise the loop itself will run log(n) times
+     * <p>
+     * hence the complexity log(n) * complexity(size(x))
      */
     private static <E> LinkedBinaryTreeNode<E> findNodeWithIndex(LinkedBinaryTreeNode<E> root, SizeAble<E> sizeable, int index) {
         LinkedBinaryTreeNode<E> current = root;
@@ -126,16 +133,17 @@ public class AVLMedian {
         while (true) {
             int leftSize = sizeable.size((current.getLeft()));
 
+            // the check
             if (index == leftSize) {
                 return current;
             }
 
             // chose the place to make it as a root and search there
-            if (index > leftSize) {
-                index -= (leftSize + 1);
-                current = current.getRight();
-            } else {
+            if (index <= leftSize) {
                 current = current.getLeft();
+            } else {
+                index -= (leftSize + 1); // add root
+                current = current.getRight();
             }
         }
     }
