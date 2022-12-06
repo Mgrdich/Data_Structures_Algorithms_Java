@@ -3,7 +3,7 @@ import adt.Position;
 
 public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 
-    private LinkedBinaryTreeNode<E> root;
+    protected LinkedBinaryTreeNode<E> root;
     private int size = 0;
 
     protected LinkedBinaryTreeNode<E> createNode(E element, LinkedBinaryTreeNode<E> parent, LinkedBinaryTreeNode<E> left, LinkedBinaryTreeNode<E> right) {
