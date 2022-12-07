@@ -140,7 +140,7 @@ public class AVLMap<K, V> extends AbstractSortedMap<K, V> {
         remove(leaf);
         remove(sibling);
         if (!tree.isRoot(sibling)) {
-            // rebalance(parent(sibling));
+             reBalance(parent(sibling));
         }
         return old;
 
@@ -255,6 +255,67 @@ public class AVLMap<K, V> extends AbstractSortedMap<K, V> {
             list.add(p.getElement());
             subMapRecursive(fromKey, toKey, right(p), list); // right subtree as well
         }
+    }
+
+    private void recomputeHeight(Position<Entry<K, V>> position) {
+        int height = 1 + Math.max(tree.getHeight(left(position)), tree.getHeight(right(position)));
+        tree.setHeight(position, height);
+    }
+
+    private boolean isBalanced(Position<Entry<K, V>> position) {
+        int leftHeight = tree.getHeight(left(position));
+        int rightHeight = tree.getHeight(right(position));
+        return Math.abs(rightHeight - leftHeight) <= 1;
+    }
+
+
+    private Position<Entry<K, V>> tallerChild(Position<Entry<K, V>> position) {
+        Position<Entry<K, V>> leftPosition = left(position);
+        Position<Entry<K, V>> rightPosition = right(position);
+
+        int leftHeight = tree.getHeight(leftPosition);
+        int rightHeight = tree.getHeight(rightPosition);
+
+        if (leftHeight > rightHeight) {
+            return leftPosition;
+        }
+
+        if (rightHeight > leftHeight) {
+            return rightPosition;
+        }
+
+        // preference
+        if (tree.isRoot(position))
+            return leftPosition;
+
+        if (position == left(parent(position))) {
+            return leftPosition;
+        }
+
+        return rightPosition;
+    }
+
+
+    private void reBalance(Position<Entry<K, V>> position) {
+        int oldHeight;
+        int newHeight;
+
+        do {
+            oldHeight = tree.getHeight(position);
+            if(!isBalanced(position)){
+
+                // perform tri-node restructuring, setting p to resulting root
+                // perform tri-node restructuring, setting p to resulting root
+
+                position = tree.restructure(tallerChild(tallerChild(position)));
+                recomputeHeight(left(position));
+                recomputeHeight(right(position));
+            }
+            recomputeHeight(position);
+            newHeight = tree.getHeight(position);
+            position = parent(position);
+
+        } while (oldHeight != newHeight && position != null);
     }
 
     @Override

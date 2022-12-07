@@ -20,6 +20,15 @@ public class AVLTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
         }
     }
 
+    public int getHeight(Position<Entry<K, V>> position) {
+        return ((AVLNode<Entry<K, V>>) position).getHeight();
+    }
+
+    public void setHeight(Position<Entry<K, V>> position, int height) {
+        ((AVLNode<Entry<K, V>>) position).setHeight(height);
+    }
+
+
     protected LinkedBinaryTreeNode<Entry<K, V>> createNode(Entry<K, V> element, LinkedBinaryTreeNode<Entry<K, V>> parent, LinkedBinaryTreeNode<Entry<K, V>> left, LinkedBinaryTreeNode<Entry<K, V>> right) {
         return new AVLNode<>(element, parent, left, right);
     }
