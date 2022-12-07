@@ -138,7 +138,7 @@ public class AVLMap<K, V> extends AbstractSortedMap<K, V> {
 
         Position<Entry<K, V>> sibling = tree.sibling(position);
         remove(leaf);
-        remove(sibling);
+        remove(position);
         if (!tree.isRoot(sibling)) {
              reBalance(parent(sibling));
         }

@@ -371,44 +371,71 @@ public class Test {
 
 //
 
-        BSTMap<Integer, Integer> map = new BSTMap<>();
+//        BSTMap<Integer, Integer> map = new BSTMap<>();
+//
+//        map.put(6, 6);
+//        map.put(9, 9);
+//        map.put(2, 2);
+//        map.put(4, 4);
+//        map.put(1, 1);
+//        map.put(8, 8);
+//        map.put(5, 5);
+//        System.out.println(map);
+//        map.remove(4);
+//        System.out.println(map);
+//
+//
+//
+//        BSTWithNode<Integer,Integer> map2 = new BSTWithNode<>();
+//        map2.insert(6, 6);
+//        map2.insert(9, 9);
+//        map2.insert(2, 2);
+//        map2.insert(4, 4);
+//        map2.insert(1, 1);
+//        map2.insert(8, 8);
+//        map2.insert(5, 5);
+//        System.out.println(map2);
+//        map2.remove(4);
+//        System.out.println(map2);
+//
+//
+//        BSTWithNodeV2<Integer,Integer> map3 = new BSTWithNodeV2<>();
+//        map3.insert(6, 6);
+//        map3.insert(9, 9);
+//        map3.insert(2, 2);
+//        map3.insert(4, 4);
+//        map3.insert(1, 1);
+//        map3.insert(8, 8);
+//        map3.insert(5, 5);
+//        System.out.println(map3);
+//        map3.remove(4);
+//        System.out.println(map3);
 
-        map.put(6, 6);
-        map.put(9, 9);
-        map.put(2, 2);
-        map.put(4, 4);
-        map.put(1, 1);
-        map.put(8, 8);
-        map.put(5, 5);
-        System.out.println(map);
-        map.remove(4);
-        System.out.println(map);
+        AVLSet<Integer> set = new AVLSet<>();
+
+        set.add(1);
+        set.add(2);
+        set.add(3);
+
+        System.out.println(set);
+
+        set.remove(3);
+        System.out.println(set);
+        set.remove(3);
 
 
+        System.out.println("--------");
 
-        BSTWithNode<Integer,Integer> map2 = new BSTWithNode<>();
-        map2.insert(6, 6);
-        map2.insert(9, 9);
-        map2.insert(2, 2);
-        map2.insert(4, 4);
-        map2.insert(1, 1);
-        map2.insert(8, 8);
-        map2.insert(5, 5);
-        System.out.println(map2);
-        map2.remove(4);
-        System.out.println(map2);
+        UnsortedSet<Integer> set1 = new UnsortedSet<>();
 
+        set1.add(1);
+        set1.add(2);
+        set1.add(3);
 
-        BSTWithNodeV2<Integer,Integer> map3 = new BSTWithNodeV2<>();
-        map3.insert(6, 6);
-        map3.insert(9, 9);
-        map3.insert(2, 2);
-        map3.insert(4, 4);
-        map3.insert(1, 1);
-        map3.insert(8, 8);
-        map3.insert(5, 5);
-        System.out.println(map3);
-        map3.remove(4);
-        System.out.println(map3);
+        System.out.println(set1);
+
+        set1.remove(3);
+        System.out.println(set);
+        set1.remove(3);
     }
 }
