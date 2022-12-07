@@ -167,7 +167,8 @@ public class BSTMap<K, V> extends AbstractSortedMap<K, V> {
     public Iterable<Entry<K, V>> entrySet() {
         ArrayList<Entry<K, V>> buffer = new ArrayList<>();
         for (Position<Entry<K, V>> position : tree.inOrder()) {
-            buffer.add(position.getElement());
+            if (isInternal(position))
+                buffer.add(position.getElement());
         }
         return buffer;
     }
