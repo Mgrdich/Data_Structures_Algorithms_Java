@@ -45,9 +45,13 @@ public class AVLTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
     }
 
     public void rotate(Position<Entry<K, V>> child) {
+        // x
         LinkedBinaryTreeNode<Entry<K, V>> childNode = validate(child);
 
+        // y
         LinkedBinaryTreeNode<Entry<K, V>> parentNode = childNode.getParent();
+
+        // z
         LinkedBinaryTreeNode<Entry<K, V>> grandParent = parentNode.getParent();
 
         if (grandParent == null) {
