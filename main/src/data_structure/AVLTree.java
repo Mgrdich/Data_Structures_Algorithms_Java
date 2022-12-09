@@ -78,7 +78,7 @@ public class AVLTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
         Position<Entry<K, V>> parentNode = parent(position);
         Position<Entry<K, V>> grandParent = parent(parentNode);
 
-        if ((position == right(parentNode)) && (parentNode == right(grandParent))) {
+        if ((position == right(parentNode)) == (parentNode == right(grandParent))) {
             rotate(position);
             return parentNode;
         }
