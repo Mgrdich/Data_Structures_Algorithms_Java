@@ -68,8 +68,8 @@ public class SinglyLinkedList<E> {
         while (curr != null) {
             stringBuilder.append(curr.getElement());
             curr = curr.getNext();
-            if(curr!=null){
-                stringBuilder.append(", ");
+            if (curr != null) {
+                stringBuilder.append(" => ");
             }
         }
         stringBuilder.append("]");
