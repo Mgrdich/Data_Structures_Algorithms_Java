@@ -14,27 +14,51 @@ public class HashCodeLogger {
 
         DummyLinearProbHashMap<Boolean> mapL2 = new DummyLinearProbHashMap<>(17, new HashFnV2(31));
 
+        System.out.println("*********************Start**************************");
         for (String item : arr) {
             map.put(item, true);
+        }
+
+        System.out.println("-----------N=11 Separate chain Array-------------");
+        System.out.println(map);
+        System.out.println("-----------N=11 Separate chain Array-------------");
+
+        System.out.println("***********************End************************");
+
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+        System.out.println("*********************Start**************************");
+
+        for (String item : arr) {
             mapL.put(item, true);
+        }
+
+        System.out.println("-----------N=17, a=33 Linear Prob Array-------------");
+        System.out.println(mapL);
+        System.out.println("-----------N=17, a=33 Linear Prob Array-------------");
+
+        System.out.println();
+        System.out.println("***********************End************************");
+
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+        System.out.println("*********************Start**************************");
+        for (String item : arr) {
             mapL2.put(item, true);
         }
 
-        System.out.println("-----------N=11 Separate chain-------------");
-        System.out.println(map);
-        System.out.println("-----------N=11 Separate chain-------------");
-
         System.out.println();
 
-        System.out.println("-----------N=17, a=33-------------");
-        System.out.println(mapL);
-        System.out.println("-----------N=17, a=33-------------");
-
-        System.out.println();
-
-        System.out.println("-----------N=17, a=31-------------");
+        System.out.println("-----------N=17, a=31 Linear Prob Array-------------");
         System.out.println(mapL2);
-        System.out.println("-----------N=17, a=31-------------");
+        System.out.println("-----------N=17, a=31 Linear Prob Array-------------");
+        System.out.println("***********************End************************");
     }
 
     private static int mathModulo(int number, int mod) {
@@ -63,6 +87,7 @@ public class HashCodeLogger {
             int compression = hashFn.compressionFn(hashCode, size);
 
             if (arr[compression] == null) {
+                System.out.println("key: " + key + " | hashCode: " + hashCode + " | compression: " + compression + " | probbed index: " + compression);
                 arr[compression] = entry;
                 return;
             }
@@ -71,6 +96,7 @@ public class HashCodeLogger {
             while (index != compression) {
                 if (arr[index] == null) {
                     arr[index] = entry;
+                    System.out.println("key: " + key + " | hashCode: " + hashCode + " | compression: " + compression + " | probbed index: " + compression);
                     break;
                 }
                 index = (index + 1) % size;
@@ -108,6 +134,7 @@ public class HashCodeLogger {
             Entry<String, V> entry = new SimpleEntry<>(key, value);
             int hashCode = hashFn.hashCode(entry.getKey());
             int compression = hashFn.compressionFn(hashCode, size);
+            System.out.println(key + " | hashCode: " + hashCode + " | compression: " + compression);
             if (arr[compression] == null) {
                 arr[compression] = new SinglyLinkedList<>();
             }
@@ -161,12 +188,12 @@ public class HashCodeLogger {
         @Override
         public int hashCode(String str) {
 
-            int n = str.length() - 1;
-            int hashCode = str.charAt(n);
+            int n = str.length();
 
-            for (int i = n; i <= 0; i++) {
-                int value = str.charAt(i);
-                hashCode += (horn * value);
+            int hashCode = str.charAt(0);
+
+            for (int i = 1; i < n; i++) {
+                hashCode = horn * hashCode + str.charAt(i);
             }
             return hashCode;
         }
