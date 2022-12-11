@@ -96,7 +96,7 @@ public class HashCodeLogger {
             while (index != compression) {
                 if (arr[index] == null) {
                     arr[index] = entry;
-                    System.out.println("key: " + key + " | hashCode: " + hashCode + " | compression: " + compression + " | probbed index: " + compression);
+                    System.out.println("key: " + key + " | hashCode: " + hashCode + " | compression: " + compression + " | probbed index: " + index);
                     break;
                 }
                 index = (index + 1) % size;
