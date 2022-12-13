@@ -411,31 +411,25 @@ public class Test {
 //        map3.remove(4);
 //        System.out.println(map3);
 
-        AVLSet<Integer> set = new AVLSet<>();
+//        N
+//        set.remove(3);
+//        System.out.println(set);
+//        set.remove(3);
+//
+//
+//        System.out.println("--------");
+//
+//        UnsortedSet<Integer> set1 = new UnsortedSet<>();
+//
+//        set1.add(1);
+//        set1.add(2);
+//        set1.add(3);
+//
+//        System.out.println(set1);
+//
+//        set1.remove(3);
+//        System.out.println(set);
+//        set1.remove(3);
 
-        set.add(1);
-        set.add(2);
-        set.add(3);
-
-        System.out.println(set);
-
-        set.remove(3);
-        System.out.println(set);
-        set.remove(3);
-
-
-        System.out.println("--------");
-
-        UnsortedSet<Integer> set1 = new UnsortedSet<>();
-
-        set1.add(1);
-        set1.add(2);
-        set1.add(3);
-
-        System.out.println(set1);
-
-        set1.remove(3);
-        System.out.println(set);
-        set1.remove(3);
     }
 }
