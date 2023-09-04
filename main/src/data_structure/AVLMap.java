@@ -109,7 +109,7 @@ public class AVLMap<K, V> extends AbstractSortedMap<K, V> {
         Entry<K, V> newEntry = new MapEntry<>(key, value);
         if (isExternal(position)) {
             expandExternal(position, newEntry);
-            // rebalance(position);
+            reBalance(position);
             return null;
         }
 

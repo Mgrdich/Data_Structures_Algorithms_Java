@@ -63,12 +63,14 @@ public class AVLTree<K, V> extends LinkedBinaryTree<Entry<K, V>> {
             relink(grandParent, childNode, parentNode == grandParent.getLeft());
         }
 
+        // left child
         if (childNode == parentNode.getLeft()) {
             relink(parentNode, childNode.getRight(), true);
             relink(childNode, parentNode, false);
             return;
         }
 
+        // right child
         relink(parentNode, childNode.getLeft(), true);
         relink(childNode, parentNode, false);
     }
