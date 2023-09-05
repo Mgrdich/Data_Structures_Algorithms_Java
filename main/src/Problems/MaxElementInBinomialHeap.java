@@ -35,11 +35,11 @@ public class MaxElementInBinomialHeap {
         node_11.setRightMostChild(node_12);
 
 
-        System.out.println(getMaximum(node_12));
+        System.out.println(getMaximumKey(node_12));
     }
 
-    public static BinomialHeapNode<Integer> getMaximum(BinomialHeapNode<Integer> node) {
-        return getMaximumRec(node.getRightMostChild(), node);
+    public static Integer getMaximumKey(BinomialHeapNode<Integer> node) {
+        return getMaximumRec(node.getRightMostChild(), node).getKey();
     }
 
     public static BinomialHeapNode<Integer> getMaximumRec(BinomialHeapNode<Integer> node, BinomialHeapNode<Integer> maxNode) {
