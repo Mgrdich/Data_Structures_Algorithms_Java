@@ -43,7 +43,7 @@ public class MaxElementInBinomialHeap {
     }
 
     public static BinomialHeapNode<Integer> getMaximumRec(BinomialHeapNode<Integer> node, BinomialHeapNode<Integer> maxNode) {
-        // Full traversal is reached.
+        // Full traversal is reached for that particular node
         if (node == null) return maxNode;
 
         BinomialHeapNode<Integer> tempMaxNode = node.getKey() > maxNode.getKey() ? node : maxNode;

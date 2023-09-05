@@ -4,7 +4,7 @@ public class BinomialHeapNode<T> {
     private BinomialHeapNode<T> rightMostChild;
     private BinomialHeapNode<T> parent;
     private BinomialHeapNode<T> leftSibling;
-    private T key;
+    public T key;
 
     public BinomialHeapNode(BinomialHeapNode<T> parent, BinomialHeapNode<T> rightMostChild, BinomialHeapNode<T> leftSibling) {
         this.parent = parent;
