@@ -16,6 +16,10 @@ public class BinomialHeapNode<T> {
         this.parent = parent;
     }
 
+    public BinomialHeapNode(T value) {
+        this.key = value;
+    }
+
     public BinomialHeapNode() {}
 
     public T getKey() {
