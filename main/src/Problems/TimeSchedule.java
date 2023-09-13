@@ -88,6 +88,9 @@ public class TimeSchedule {
             }
 
 
+            Comparator<Task> comp = Comparator.comparingInt(sc->sc.deadline);
+            Comparator<Task> finalComp = comp.thenComparing(sc->sc.index);
+            schedule.sort(finalComp);
             this.scheduled = schedule;
             this.missed = missed;
 
