@@ -30,17 +30,13 @@ public class TimeSchedule {
         arr.add(new Task(9, 8, 2));
         arr.add(new Task(10, 4, 1));
 
-//        List<Task> canonical = getCanonicalForm(arr);
-//        for (Task can:canonical) {
-//            System.out.print(can.index+ " ");
-//        }
-//
-//        System.out.println("Penalty=" +  getPenalty(arr));
-
-        List<Integer> num = optimalSchedule4(arr);
-        for (int can:num) {
-            System.out.print(can+ " ");
+        List<Task> canonical = getCanonicalForm(arr);
+        for (Task can : canonical) {
+            System.out.print(can.index + " ");
         }
+
+        System.out.println("Penalty=" + getPenalty(arr));
+
 
         System.out.println();
         System.out.println("----------------------");
@@ -54,17 +50,13 @@ public class TimeSchedule {
         arr1.add(new Task(6, 4, 20));
         arr1.add(new Task(7, 6, 10));
 
-//        List<Task> canonical1 = getCanonicalForm(arr1);
-//        for (Task can:canonical1) {
-//            System.out.print(can.index+ " ");
-//        }
-//
-//        System.out.println("Penalty=" +  getPenalty(arr1));
+        List<Task> canonical1 = getCanonicalForm(arr1);
+        for (Task can : canonical1) {
+            System.out.print(can.index + " ");
+        }
 
-          List<Integer> num2 = optimalSchedule4(arr1);
-          for (int can:num2) {
-            System.out.print(can+ " ");
-          }
+        System.out.println("Penalty=" + getPenalty(arr1));
+
         System.out.println();
         System.out.println("----------------------");
 
@@ -79,24 +71,19 @@ public class TimeSchedule {
         arr2.add(new Task(7, 4, 4));
         arr2.add(new Task(8, 5, 1));
 
-//        List<Task> canonical1 = getCanonicalForm(arr1);
-//        for (Task can:canonical1) {
-//            System.out.print(can.index+ " ");
-//        }
-//
-//        System.out.println("Penalty=" +  getPenalty(arr1));
-
-        List<Integer> num3 = optimalSchedule4(arr2);
-        for (int can:num3) {
-            System.out.print(can+ " ");
+        List<Task> canonical2 = getCanonicalForm(arr2);
+        for (Task can : canonical2) {
+            System.out.print(can.index + " ");
         }
+
+        System.out.println("Penalty=" + getPenalty(arr2));
     }
 
     public static int getPenalty(List<Task> tasks) {
         List<List<Task>> arr = optimalSchedule(tasks);
         List<Task> missedTasks = arr.get(1);
         int penalty = 0;
-        for (Task missed: missedTasks) {
+        for (Task missed : missedTasks) {
             penalty += missed.weight;
         }
         return penalty;
@@ -111,139 +98,10 @@ public class TimeSchedule {
         return all;
     }
 
-    /**
-     * it returns List consisting of two elements one is the accepted one and the other is
-     * */
-    private static List<List<Task>> optimalSchedule(List<Task> orgTasks) {
-        List<Task> tasks = new ArrayList<>(orgTasks); // create a clone
+    public static List<List<Task>> optimalSchedule(List<Task> t) {
+        List<Task> tasks = new ArrayList<>(t);
         List<Task> schedule = new ArrayList<>();
-        List<Task> missedTasks = new ArrayList<>();
-
-        // Create a list of tasks to maintain the original order
-        List<Task> originalOrderTasks = new ArrayList<>(tasks);
-
-        // Sort tasks by their deadlines in ascending order if equal check the weight so that the bigger the penalty will get in the front
-        Comparator<Task> comp = Comparator.comparingInt(task -> task.deadline);
-        Comparator<Task> realOne = comp.thenComparing(task -> -1 * task.weight);
-
-//        Comparator<Task> comp = Comparator.comparingInt(task -> -1 * task.weight);
-//        Comparator<Task> realOne = comp.thenComparing(task -> task.deadline);
-        tasks.sort(realOne);
-
-        int currentTime = 0;
-        int currentIndex = 0;
-
-        for (Task task : tasks) {
-            // Check if the task can be scheduled without missing the deadline
-            if (currentTime < task.deadline) {
-                schedule.add(task);
-                currentTime++;
-            } else {
-                // If the task would miss the deadline, mark it with -1
-                missedTasks.add(task);
-            }
-
-            // Update the current index in the original order
-            while (currentIndex < originalOrderTasks.size() &&
-                    originalOrderTasks.get(currentIndex).index != task.index) {
-                currentIndex++;
-            }
-        }
-
-        // Add placeholders for unscheduled tasks in the original order
-        for (int i = currentIndex + 1; i < originalOrderTasks.size(); i++) {
-            missedTasks.add(originalOrderTasks.get(i));
-        }
-
-        List<List<Task>> finalValue = new ArrayList<>();
-        finalValue.add(schedule);
-        finalValue.add(missedTasks);
-        return finalValue;
-    }
-
-    public static List<Integer> optimalSchedule1(List<Task> t) {
-        List<Task> tasks = new ArrayList<>(t);
-
-        int n = tasks.size();
-
-        // Sort tasks by their deadlines in ascending order
-        tasks.sort(Comparator.comparingInt(task -> task.deadline));
-
-        // Initialize dynamic programming table dp
-        int[] dp = new int[n + 1];
-        int[] prev = new int[n + 1];
-
-        for (int i = 1; i <= n; i++) {
-            dp[i] = Integer.MAX_VALUE;
-            for (int j = 0; j < i; j++) {
-                int cost = tasks.get(i - 1).weight;
-                if (j > 0) {
-                    cost += dp[j];
-                }
-
-                if (cost < dp[i] && i <= tasks.get(j).deadline) {
-                    dp[i] = cost;
-                    prev[i] = j;
-                }
-            }
-        }
-
-        // Reconstruct the optimal schedule
-        List<Integer> schedule = new ArrayList<>();
-        int currentTask = n;
-        while (currentTask > 0) {
-            schedule.add(tasks.get(currentTask - 1).index);
-            currentTask = prev[currentTask];
-        }
-        Collections.reverse(schedule);
-
-        return schedule;
-    }
-
-    public static List<Integer> optimalSchedule3(List<Task> t) {
-        List<Task> tasks = new ArrayList<>(t);
-        int n = tasks.size();
-
-        // Sort tasks by their deadlines in ascending order
-        tasks.sort(Comparator.comparingInt(task -> task.deadline));
-
-        // Initialize dynamic programming table dp
-        int[][] dp = new int[n + 1][n + 1];
-
-        for (int i = 1; i <= n; i++) {
-            for (int j = 0; j <= n; j++) {
-                dp[i][j] = dp[i - 1][j];
-
-                if (j > 0 && j <= tasks.get(i - 1).deadline) {
-                    dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - 1] + tasks.get(i - 1).weight);
-                }
-            }
-        }
-
-        // Reconstruct the optimal schedule
-        List<Integer> schedule = new ArrayList<>();
-        int currentTask = n;
-        int currentDeadline = n;
-
-        while (currentTask > 0 && currentDeadline > 0) {
-            if (dp[currentTask][currentDeadline] != dp[currentTask - 1][currentDeadline]) {
-                schedule.add(tasks.get(currentTask - 1).index);
-                currentTask--;
-                currentDeadline--;
-            } else {
-                currentTask--;
-            }
-        }
-        Collections.reverse(schedule);
-
-        return schedule;
-    }
-
-
-
-    public static List<Integer> optimalSchedule4(List<Task> t) {
-        List<Task> tasks = new ArrayList<>(t);
-        List<Integer> schedule = new ArrayList<>();
+        List<Task> missed = new ArrayList<>();
 
         // Sort tasks by penalty in descending order
         tasks.sort(Comparator.comparingInt(task -> -task.weight));
@@ -268,10 +126,24 @@ public class TimeSchedule {
             }
         }
 
+
         for (int slot : slots) {
-            schedule.add(slot);
+            if (slot - 1 >= 0) {
+                schedule.add(t.get(slot - 1));
+            }
         }
 
-        return schedule;
+        // missed construction
+        for (Task orgTask:t) {
+            if(!schedule.contains(orgTask)){
+                missed.add(orgTask);
+            }
+        }
+
+
+        List<List<Task>> returnValue = new ArrayList<>();
+        returnValue.add(schedule);
+        returnValue.add(missed);
+        return returnValue;
     }
 }
