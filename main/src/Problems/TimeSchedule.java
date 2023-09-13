@@ -30,19 +30,19 @@ public class TimeSchedule {
         }
 
         public List<Task> getCanonicalForm() {
-            return canonicalForm;
+            return this.canonicalForm;
         }
 
         public List<Task> getMissed() {
-            return missed;
+            return this.missed;
         }
 
         public List<Task> getScheduled() {
-            return scheduled;
+            return this.scheduled;
         }
 
         public List<Task> getTasks() {
-            return tasks;
+            return this.tasks;
         }
 
         private void init() {
