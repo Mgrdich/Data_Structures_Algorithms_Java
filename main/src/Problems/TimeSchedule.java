@@ -3,7 +3,6 @@ package Problems;
 import java.util.*;
 
 public class TimeSchedule {
-
     static class Task {
         public final int index;
         public final int weight;
@@ -14,8 +13,110 @@ public class TimeSchedule {
             this.weight = weight;
             this.deadline = deadline;
         }
+
+        @Override
+        public String toString() {
+            return String.valueOf(this.index);
+        }
+
     }
 
+    static class OptimalSchedule {
+        private final List<Task> tasks;
+        private List<Task> scheduled;
+        private List<Task> canonicalForm;
+        private List<Task> missed;
+        private int penalty;
+
+
+        OptimalSchedule(List<Task> tasks) {
+            this.tasks = tasks;
+            init();
+        }
+
+        public int getPenalty() {
+            return this.penalty;
+        }
+
+        public List<Task> getCanonicalForm() {
+            return canonicalForm;
+        }
+
+        public List<Task> getMissed() {
+            return missed;
+        }
+
+        public List<Task> getScheduled() {
+            return scheduled;
+        }
+
+        public List<Task> getTasks() {
+            return tasks;
+        }
+
+        private void init() {
+            List<Task> tasks = new ArrayList<>(this.tasks);
+            List<Task> schedule = new ArrayList<>();
+            List<Task> missed = new ArrayList<>();
+
+            // Sort tasks by penalty in descending order
+            tasks.sort(Comparator.comparingInt(task -> -task.weight));
+
+            int maxDeadline = 0;
+
+            for (Task task : tasks) {
+                maxDeadline = Math.max(maxDeadline, task.deadline);
+            }
+
+            int[] slots = new int[maxDeadline];
+            for (int i = 0; i < maxDeadline; i++) {
+                slots[i] = -1;
+            }
+
+            for (Task task : tasks) {
+                for (int i = task.deadline - 1; i >= 0; i--) {
+                    if (slots[i] == -1) {
+                        slots[i] = task.index;
+                        break;
+                    }
+                }
+            }
+
+
+            for (int slot : slots) {
+                if (slot - 1 >= 0) {
+                    schedule.add(this.tasks.get(slot - 1));
+                }
+            }
+
+            // missed construction
+            for (Task orgTask : this.tasks) {
+                if (!schedule.contains(orgTask)) {
+                    missed.add(orgTask);
+                }
+            }
+
+
+            this.scheduled = schedule;
+            this.missed = missed;
+
+            this.penalty = 0;
+            for (Task missedT : this.missed) {
+                penalty += missedT.weight;
+            }
+
+            this.canonicalForm = new ArrayList<>(this.scheduled);
+            this.canonicalForm.addAll(this.missed);
+        }
+
+        public void displayResults() {
+            System.out.println("Canonical=" + this.getCanonicalForm());
+            System.out.println("Scheduled=" + this.getScheduled());
+            System.out.println("Missed=" + this.getMissed());
+            System.out.println("Penalty=" + this.getPenalty());
+        }
+
+    }
 
     public static void main(String[] args) {
         ArrayList<Task> arr = new ArrayList<>();
@@ -30,13 +131,8 @@ public class TimeSchedule {
         arr.add(new Task(9, 8, 2));
         arr.add(new Task(10, 4, 1));
 
-        List<Task> canonical = getCanonicalForm(arr);
-        for (Task can : canonical) {
-            System.out.print(can.index + " ");
-        }
-
-        System.out.println("Penalty=" + getPenalty(arr));
-
+        OptimalSchedule optim = new OptimalSchedule(arr);
+        optim.displayResults();
 
         System.out.println();
         System.out.println("----------------------");
@@ -50,12 +146,8 @@ public class TimeSchedule {
         arr1.add(new Task(6, 4, 20));
         arr1.add(new Task(7, 6, 10));
 
-        List<Task> canonical1 = getCanonicalForm(arr1);
-        for (Task can : canonical1) {
-            System.out.print(can.index + " ");
-        }
-
-        System.out.println("Penalty=" + getPenalty(arr1));
+        OptimalSchedule optim1 = new OptimalSchedule(arr1);
+        optim1.displayResults();
 
         System.out.println();
         System.out.println("----------------------");
@@ -71,79 +163,8 @@ public class TimeSchedule {
         arr2.add(new Task(7, 4, 4));
         arr2.add(new Task(8, 5, 1));
 
-        List<Task> canonical2 = getCanonicalForm(arr2);
-        for (Task can : canonical2) {
-            System.out.print(can.index + " ");
-        }
+        OptimalSchedule optim2 = new OptimalSchedule(arr2);
+        optim2.displayResults();
+   }
 
-        System.out.println("Penalty=" + getPenalty(arr2));
-    }
-
-    public static int getPenalty(List<Task> tasks) {
-        List<List<Task>> arr = optimalSchedule(tasks);
-        List<Task> missedTasks = arr.get(1);
-        int penalty = 0;
-        for (Task missed : missedTasks) {
-            penalty += missed.weight;
-        }
-        return penalty;
-    }
-
-    public static List<Task> getCanonicalForm(List<Task> tasks) {
-        List<List<Task>> arr = optimalSchedule(tasks);
-
-        List<Task> all = new ArrayList<>(arr.get(0));
-        all.addAll(arr.get(1));
-
-        return all;
-    }
-
-    public static List<List<Task>> optimalSchedule(List<Task> t) {
-        List<Task> tasks = new ArrayList<>(t);
-        List<Task> schedule = new ArrayList<>();
-        List<Task> missed = new ArrayList<>();
-
-        // Sort tasks by penalty in descending order
-        tasks.sort(Comparator.comparingInt(task -> -task.weight));
-
-        int maxDeadline = 0;
-
-        for (Task task : tasks) {
-            maxDeadline = Math.max(maxDeadline, task.deadline);
-        }
-
-        int[] slots = new int[maxDeadline];
-        for (int i = 0; i < maxDeadline; i++) {
-            slots[i] = -1;
-        }
-
-        for (Task task : tasks) {
-            for (int i = task.deadline - 1; i >= 0; i--) {
-                if (slots[i] == -1) {
-                    slots[i] = task.index;
-                    break;
-                }
-            }
-        }
-
-
-        for (int slot : slots) {
-            if (slot - 1 >= 0) {
-                schedule.add(t.get(slot - 1));
-            }
-        }
-
-        // missed construction
-        for (Task orgTask:t) {
-            if(!schedule.contains(orgTask)){
-                missed.add(orgTask);
-            }
-        }
-
-
-        List<List<Task>> returnValue = new ArrayList<>();
-        returnValue.add(schedule);
-        returnValue.add(missed);
-        return returnValue;
-    }
 }
