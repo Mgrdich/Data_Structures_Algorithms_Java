@@ -37,11 +37,12 @@ public class TimeSchedule {
 //
 //        System.out.println("Penalty=" +  getPenalty(arr));
 
-        List<Integer> num = optimalSchedule1(arr);
+        List<Integer> num = optimalSchedule4(arr);
         for (int can:num) {
             System.out.print(can+ " ");
         }
 
+        System.out.println();
         System.out.println("----------------------");
 
         ArrayList<Task> arr1 = new ArrayList<>();
@@ -60,7 +61,7 @@ public class TimeSchedule {
 //
 //        System.out.println("Penalty=" +  getPenalty(arr1));
 
-          List<Integer> num2 = optimalSchedule1(arr1);
+          List<Integer> num2 = optimalSchedule4(arr1);
           for (int can:num2) {
             System.out.print(can+ " ");
           }
@@ -171,6 +172,81 @@ public class TimeSchedule {
             currentTask = prev[currentTask];
         }
         Collections.reverse(schedule);
+
+        return schedule;
+    }
+
+    public static List<Integer> optimalSchedule3(List<Task> t) {
+        List<Task> tasks = new ArrayList<>(t);
+        int n = tasks.size();
+
+        // Sort tasks by their deadlines in ascending order
+        tasks.sort(Comparator.comparingInt(task -> task.deadline));
+
+        // Initialize dynamic programming table dp
+        int[][] dp = new int[n + 1][n + 1];
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= n; j++) {
+                dp[i][j] = dp[i - 1][j];
+
+                if (j > 0 && j <= tasks.get(i - 1).deadline) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - 1] + tasks.get(i - 1).weight);
+                }
+            }
+        }
+
+        // Reconstruct the optimal schedule
+        List<Integer> schedule = new ArrayList<>();
+        int currentTask = n;
+        int currentDeadline = n;
+
+        while (currentTask > 0 && currentDeadline > 0) {
+            if (dp[currentTask][currentDeadline] != dp[currentTask - 1][currentDeadline]) {
+                schedule.add(tasks.get(currentTask - 1).index);
+                currentTask--;
+                currentDeadline--;
+            } else {
+                currentTask--;
+            }
+        }
+        Collections.reverse(schedule);
+
+        return schedule;
+    }
+
+
+
+    public static List<Integer> optimalSchedule4(List<Task> t) {
+        List<Task> tasks = new ArrayList<>(t);
+        List<Integer> schedule = new ArrayList<>();
+
+        // Sort tasks by penalty in descending order
+        tasks.sort(Comparator.comparingInt(task -> -task.weight));
+
+        int maxDeadline = 0;
+
+        for (Task task : tasks) {
+            maxDeadline = Math.max(maxDeadline, task.deadline);
+        }
+
+        int[] slots = new int[maxDeadline];
+        for (int i = 0; i < maxDeadline; i++) {
+            slots[i] = -1;
+        }
+
+        for (Task task : tasks) {
+            for (int i = task.deadline - 1; i >= 0; i--) {
+                if (slots[i] == -1) {
+                    slots[i] = task.index;
+                    break;
+                }
+            }
+        }
+
+        for (int slot : slots) {
+            schedule.add(slot);
+        }
 
         return schedule;
     }
