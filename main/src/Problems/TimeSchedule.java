@@ -65,7 +65,31 @@ public class TimeSchedule {
           for (int can:num2) {
             System.out.print(can+ " ");
           }
+        System.out.println();
+        System.out.println("----------------------");
 
+
+        ArrayList<Task> arr2 = new ArrayList<>();
+        arr2.add(new Task(1, 2, 15));
+        arr2.add(new Task(2, 3, 12));
+        arr2.add(new Task(3, 3, 10));
+        arr2.add(new Task(4, 1, 8));
+        arr2.add(new Task(5, 5, 7));
+        arr2.add(new Task(6, 2, 5));
+        arr2.add(new Task(7, 4, 4));
+        arr2.add(new Task(8, 5, 1));
+
+//        List<Task> canonical1 = getCanonicalForm(arr1);
+//        for (Task can:canonical1) {
+//            System.out.print(can.index+ " ");
+//        }
+//
+//        System.out.println("Penalty=" +  getPenalty(arr1));
+
+        List<Integer> num3 = optimalSchedule4(arr2);
+        for (int can:num3) {
+            System.out.print(can+ " ");
+        }
     }
 
     public static int getPenalty(List<Task> tasks) {
