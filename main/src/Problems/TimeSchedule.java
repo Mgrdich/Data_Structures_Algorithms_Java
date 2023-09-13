@@ -3,16 +3,7 @@ package Problems;
 import java.util.*;
 
 public class TimeSchedule {
-    static class Task {
-        public final int index;
-        public final int weight;
-        public final int deadline;
-
-        Task(int index, int deadline, int weight) {
-            this.index = index;
-            this.weight = weight;
-            this.deadline = deadline;
-        }
+    record Task(int index, int deadline, int weight) {
 
         @Override
         public String toString() {
@@ -165,6 +156,6 @@ public class TimeSchedule {
 
         OptimalSchedule optim2 = new OptimalSchedule(arr2);
         optim2.displayResults();
-   }
+    }
 
 }
