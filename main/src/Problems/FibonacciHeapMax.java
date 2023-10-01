@@ -38,7 +38,7 @@ public class FibonacciHeapMax {
         // 3 tree
         FibonacciHeapNode<Integer> node3 = new FibonacciHeapNode<>(3);
         setSibling(node7, node3);
-        setSibling(node23, node3); // cycle
+        setSibling(node3, node23); // cycle
 
         FibonacciHeapNode<Integer> node18 = new FibonacciHeapNode<>(18);
         setParentChild(node3, node18);
@@ -69,13 +69,29 @@ public class FibonacciHeapMax {
     }
 
     public static <T extends Comparable<T>> FibonacciHeapNode<T> findMax(FibonacciHeapNode<T> node) {
-        return findMax(node, node, null);
+        return findRootMax(node, node, null);
+    }
+
+    private static <T extends Comparable<T>> FibonacciHeapNode<T> findRootMax(FibonacciHeapNode<T> initialNode, FibonacciHeapNode<T> currentNode, FibonacciHeapNode<T> maxNode) {
+        if (currentNode == null) return maxNode;
+        System.out.println(currentNode.getKey());
+        if (initialNode == currentNode.getRight() && maxNode != null) return maxNode;
+
+        FibonacciHeapNode<T> tempMaxNode = maxNode == null ? currentNode : currentNode.getKey().compareTo(maxNode.getKey()) > 0 ? currentNode : maxNode;
+
+        FibonacciHeapNode<T> max1 = findMaxAtNode(initialNode, currentNode.getChild(), tempMaxNode);
+        FibonacciHeapNode<T> max2 = findRootMax(initialNode, currentNode.getRight(), tempMaxNode);
+
+        return max1.getKey().compareTo(max2.getKey()) > 0 ? max1 : max2;
+    }
+
+    private static <T extends Comparable<T>> FibonacciHeapNode<T> findMaxAtNode(FibonacciHeapNode<T> initialNode, FibonacciHeapNode<T> currentNode, FibonacciHeapNode<T> maxNode) {
+        return findMax(initialNode, currentNode, maxNode);
     }
 
 
     private static <T extends Comparable<T>> FibonacciHeapNode<T> findMax(FibonacciHeapNode<T> initialNode, FibonacciHeapNode<T> currentNode, FibonacciHeapNode<T> maxNode) {
         if (currentNode == null) return maxNode;
-        System.out.println(currentNode.getKey());
 
         if (initialNode == currentNode.getRight() && maxNode != null) return maxNode;
 
