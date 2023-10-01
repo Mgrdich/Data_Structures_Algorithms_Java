@@ -33,44 +33,36 @@ public class FibonacciHeapMax {
         // First Root
         FibonacciHeapNode<Integer> node23 = new FibonacciHeapNode<>(23);
         FibonacciHeapNode<Integer> node7 = new FibonacciHeapNode<>(7);
-        node23.setRight(node7);
-        node7.setLeft(node23);
+        setSibling(node23, node7);
 
         // 3 tree
         FibonacciHeapNode<Integer> node3 = new FibonacciHeapNode<>(3);
+        setSibling(node7, node3);
+        setSibling(node23, node3); // cycle
+
         FibonacciHeapNode<Integer> node18 = new FibonacciHeapNode<>(18);
-        node3.setChild(node18);
-        node3.setLeft(node7);
-
-
-        node3.setRight(node23);//TODO delete
-        node23.setRight(node3);//TODO delete
+        setParentChild(node3, node18);
 
         // node 18 child
         FibonacciHeapNode<Integer> node39 = new FibonacciHeapNode<>(39);
-        node18.setChild(node39);
+        setParentChild(node18, node39);
         // single child
-        node39.setLeft(node39);
-        node39.setRight(node39);
+        setSingleChild(node39);
 
         FibonacciHeapNode<Integer> node52 = new FibonacciHeapNode<>(52);
-        node18.setRight(node52);
-        node52.setLeft(node18);
+        setSibling(node18, node52);
 
         FibonacciHeapNode<Integer> node38 = new FibonacciHeapNode<>(38);
-        node52.setRight(node38);
-        node38.setLeft(node52);
+        setSibling(node52, node38);
 
-        // linking children together
-        node38.setRight(node18);
-        node18.setLeft(node38);
+        setSibling(node38, node18); // cycle
+        node52.setParent(node3);
+        node38.setParent(node3);
 
-        // node 38 child
         FibonacciHeapNode<Integer> node41 = new FibonacciHeapNode<>(41);
-        node38.setChild(node41);
+        setParentChild(node38, node41);
         // single child
-        node41.setLeft(node41);
-        node41.setRight(node41);
+        setSingleChild(node41);
 
         System.out.println(findMax(node3).getKey());
 
@@ -83,8 +75,9 @@ public class FibonacciHeapMax {
 
     private static <T extends Comparable<T>> FibonacciHeapNode<T> findMax(FibonacciHeapNode<T> initialNode, FibonacciHeapNode<T> currentNode, FibonacciHeapNode<T> maxNode) {
         if (currentNode == null) return maxNode;
+        System.out.println(currentNode.getKey());
 
-        if (initialNode == currentNode && maxNode != null) return maxNode;
+        if (initialNode == currentNode.getRight() && maxNode != null) return maxNode;
 
 
         FibonacciHeapNode<T> tempMaxNode = maxNode == null ? currentNode : currentNode.getKey().compareTo(maxNode.getKey()) > 0 ? currentNode : maxNode;
@@ -93,10 +86,27 @@ public class FibonacciHeapMax {
         FibonacciHeapNode<T> maxTemp2 = currentNode;
 
         // not single and not the last element
-        if (currentNode.getRight() != currentNode && currentNode.getRight().getLeft() != currentNode) {
+        boolean condition = currentNode.getParent() == null || currentNode.getParent().getChild() != currentNode.getRight();
+        if (currentNode.getRight() != currentNode && condition) {
             maxTemp2 = findMax(initialNode, currentNode.getRight(), tempMaxNode);
         }
 
         return maxTemp1.getKey().compareTo(maxTemp2.getKey()) > 0 ? maxTemp1 : maxTemp2;
     }
+
+    private static <T extends Comparable<T>> void setSibling(FibonacciHeapNode<T> left, FibonacciHeapNode<T> right) {
+        left.setRight(right);
+        right.setLeft(left);
+    }
+
+    private static <T extends Comparable<T>> void setParentChild(FibonacciHeapNode<T> parent, FibonacciHeapNode<T> child) {
+        parent.setChild(child);
+        child.setParent(parent);
+    }
+
+    private static <T extends Comparable<T>> void setSingleChild(FibonacciHeapNode<T> node) {
+        node.setLeft(node);
+        node.setRight(node);
+    }
+
 }
