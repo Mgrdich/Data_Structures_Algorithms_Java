@@ -1,11 +1,16 @@
 package data_structure;
 
 public class FibonacciHeapNode<T> {
-    private int degree;
+    private int degree = 0;
     private FibonacciHeapNode<T> right;
     private FibonacciHeapNode<T> left;
     private FibonacciHeapNode<T> parent;
+    private FibonacciHeapNode<T> child;
     private T key;
+
+    public FibonacciHeapNode(T key) {
+        this.key = key;
+    }
 
     public int getDegree() {
         return this.degree;
@@ -37,6 +42,14 @@ public class FibonacciHeapNode<T> {
 
     public void setRight(FibonacciHeapNode<T> right) {
         this.right = right;
+    }
+
+    public FibonacciHeapNode<T> getChild() {
+        return this.child;
+    }
+
+    public void setChild(FibonacciHeapNode<T> child) {
+        this.child = child;
     }
 
     public T getKey() {
