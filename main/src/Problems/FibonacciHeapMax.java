@@ -86,7 +86,7 @@ public class FibonacciHeapMax {
     /**
      * this is the Hacky way with the Set to keep the visited items
      * */
-    public static <T extends Comparable<T>> FibonacciHeapNode<T> findMaxV2(FibonacciHeapNode<T> currentNode, FibonacciHeapNode<T> maxNode, HashSet<FibonacciHeapNode<T>> visitedNodes) {
+    private static <T extends Comparable<T>> FibonacciHeapNode<T> findMaxV2(FibonacciHeapNode<T> currentNode, FibonacciHeapNode<T> maxNode, HashSet<FibonacciHeapNode<T>> visitedNodes) {
         if (currentNode == null) return maxNode;
 
         if (visitedNodes.contains(currentNode)) return maxNode;
