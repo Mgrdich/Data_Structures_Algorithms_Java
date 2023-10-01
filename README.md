@@ -1,1 +1,1 @@
-# Algorithms Problems and Data Structures in JAVA
+# Algorithms Problems and Data Structures in Java
