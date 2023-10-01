@@ -1,7 +1,5 @@
 package util;
 
-import adt.List;
-import adt.Position;
 import adt.Queue;
 import data_structure.ArrayList;
 import data_structure.LinkedBinaryTreeNode;
