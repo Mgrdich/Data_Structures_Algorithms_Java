@@ -6,14 +6,14 @@ import java.util.List;
 class TSPSolver {
     private final int[][] distanceMatrix;
     private final int citiesCount;
-    private List<Integer> bestPath;
-    private int bestCost;
+    private List<Integer> optimalPath;
+    private int optimalCost;
 
     public TSPSolver(int[][] distanceMatrix) {
         this.distanceMatrix = distanceMatrix;
         this.citiesCount = distanceMatrix.length;
-        this.bestPath = new ArrayList<>();
-        this.bestCost = Integer.MAX_VALUE;
+        this.optimalPath = new ArrayList<>();
+        this.optimalCost = Integer.MAX_VALUE;
     }
 
     public void solve() {
@@ -22,20 +22,20 @@ class TSPSolver {
             remainingCities.add(i);
         }
 
-        List<Integer> currentPath = new ArrayList<>();
-        currentPath.add(0);  // Start from the first city
-        findOptimalPath(0, remainingCities, 0, currentPath);
+        List<Integer> path = new ArrayList<>();
+        path.add(0);  // Start from the first city
+        findOptimalPath(0, remainingCities, 0, path);
 
-        System.out.println("Best Path: " + bestPath);
-        System.out.println("Best Cost: " + bestCost);
+        System.out.println("The Best Path: " + optimalPath);
+        System.out.println("The Best Cost: " + optimalCost);
     }
 
-    private void findOptimalPath(int currentCity, List<Integer> remainingCities, int currentCost, List<Integer> currentPath) {
+    private void findOptimalPath(int currentCity, List<Integer> remainingCities, int currentCost, List<Integer> path) {
         if (remainingCities.isEmpty()) {
             int totalCost = currentCost + distanceMatrix[currentCity][0];
-            if (totalCost < bestCost) {
-                bestCost = totalCost;
-                bestPath = new ArrayList<>(currentPath);
+            if (totalCost < optimalCost) {
+                optimalCost = totalCost;
+                optimalPath = new ArrayList<>(path);
             }
             return;
         }
@@ -47,7 +47,7 @@ class TSPSolver {
             List<Integer> newRemainingCities = new ArrayList<>(remainingCities);
             newRemainingCities.remove(i);
 
-            List<Integer> newPath = new ArrayList<>(currentPath);
+            List<Integer> newPath = new ArrayList<>(path);
             newPath.add(nextCity);
 
             findOptimalPath(nextCity, newRemainingCities, newCost, newPath);
